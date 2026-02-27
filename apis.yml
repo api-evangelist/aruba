@@ -1,0 +1,68 @@
+name: Aruba
+description: APIs for Aruba's cloud networking and security solutions
+image: https://www.arubanetworks.com/assets/img/logo.png
+url: https://www.arubanetworks.com
+created: '2024'
+modified: '2024'
+tags:
+- networking
+- cloud
+- security
+- wireless
+- infrastructure
+apis:
+- name: Aruba Central API
+  description: RESTful API for managing Aruba Central cloud networking platform
+  image: https://www.arubanetworks.com/assets/img/aruba-central-logo.png
+  humanUrl: https://developer.arubanetworks.com/aruba-central
+  baseUrl: https://apigw-prod2.central.arubanetworks.com
+  tags:
+  - cloud management
+  - network automation
+  - monitoring
+  properties:
+  - type: Documentation
+    url: https://developer.arubanetworks.com/aruba-central/docs
+  - type: OpenAPI
+    url: https://developer.arubanetworks.com/aruba-central/reference
+  - type: Authentication
+    url: https://developer.arubanetworks.com/aruba-central/docs/api-oauth-access-token
+- name: Aruba ClearPass API
+  description: REST API for ClearPass Policy Manager network access control
+  image: https://www.arubanetworks.com/assets/img/clearpass-logo.png
+  humanUrl: https://developer.arubanetworks.com/clearpass
+  baseUrl: https://clearpass.example.com/api
+  tags:
+  - authentication
+  - authorization
+  - policy management
+  - network access control
+  properties:
+  - type: Documentation
+    url: https://developer.arubanetworks.com/clearpass/docs
+  - type: API Reference
+    url: https://developer.arubanetworks.com/clearpass/reference
+- name: Aruba AirWave API
+  description: API for AirWave network management platform
+  humanUrl: https://www.arubanetworks.com/products/network-management-operations/airwave/
+  baseUrl: https://airwave.example.com/api
+  tags:
+  - network management
+  - monitoring
+  - reporting
+  properties:
+  - type: Documentation
+    url: https://support.hpe.com/techhub/eginfolib/airwave/
+maintainers:
+- name: Aruba Networks
+  email: support@arubanetworks.com
+  url: https://www.arubanetworks.com
+common:
+- type: Developer Portal
+  url: https://developer.arubanetworks.com
+- type: Support
+  url: https://www.arubanetworks.com/support-services/
+- type: Terms of Service
+  url: https://www.arubanetworks.com/company/legal/
+- type: Privacy Policy
+  url: https://www.arubanetworks.com/company/legal/privacy-policy/

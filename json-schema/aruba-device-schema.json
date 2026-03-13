@@ -1,0 +1,329 @@
+{
+  "$id": "https://developer.arubanetworks.com/schemas/aruba-device-schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aruba Central Device",
+  "description": "Schema for a device managed by HPE Aruba Networking Central, covering access points, switches, gateways, and SD-WAN appliances in the device inventory.",
+  "type": "object",
+  "required": [
+    "serial",
+    "macaddr",
+    "device_type"
+  ],
+  "properties": {
+    "serial": {
+      "type": "string",
+      "description": "Unique serial number identifying the device in the Aruba Central inventory.",
+      "examples": [
+        "CNBRJM0ABC"
+      ]
+    },
+    "macaddr": {
+      "type": "string",
+      "description": "MAC address of the device in colon-separated hexadecimal format.",
+      "pattern": "^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$",
+      "examples": [
+        "aa:bb:cc:dd:ee:ff"
+      ]
+    },
+    "device_type": {
+      "type": "string",
+      "description": "Classification of the device type within the Aruba Central platform.",
+      "enum": [
+        "IAP",
+        "HP",
+        "CONTROLLER",
+        "GATEWAY",
+        "SWITCH",
+        "VGW"
+      ]
+    },
+    "model": {
+      "type": "string",
+      "description": "Hardware model name or number of the device.",
+      "examples": [
+        "AP-515",
+        "AP-635",
+        "Aruba 6300M",
+        "Aruba 9004"
+      ]
+    },
+    "firmware_version": {
+      "type": "string",
+      "description": "Current firmware version running on the device.",
+      "examples": [
+        "10.4.0.0_85559",
+        "10.12.0001"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "description": "Current operational status of the device.",
+      "enum": [
+        "Up",
+        "Down"
+      ]
+    },
+    "ip_address": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "IPv4 address assigned to the device."
+    },
+    "name": {
+      "type": "string",
+      "description": "User-configured name or hostname of the device.",
+      "examples": [
+        "AP-lobby-01",
+        "switch-floor2"
+      ]
+    },
+    "group_name": {
+      "type": "string",
+      "description": "Name of the Aruba Central configuration group the device belongs to."
+    },
+    "site": {
+      "type": "string",
+      "description": "Name of the physical site the device is assigned to."
+    },
+    "labels": {
+      "type": "array",
+      "description": "Labels assigned to the device for custom categorization and filtering.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "aruba_part_no": {
+      "type": "string",
+      "description": "Aruba hardware part number for the device."
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Aruba Central customer ID that owns the device."
+    },
+    "customer_name": {
+      "type": "string",
+      "description": "Name of the customer organization that owns the device."
+    },
+    "ap_deployment_mode": {
+      "type": "string",
+      "description": "Deployment mode for access point devices. IAP indicates Instant AP mode, AOS10 indicates the AOS 10 architecture.",
+      "enum": [
+        "IAP",
+        "AOS10"
+      ]
+    },
+    "swarm_id": {
+      "type": "string",
+      "description": "Identifier of the Swarm or AP cluster the device belongs to (access points only)."
+    },
+    "swarm_name": {
+      "type": "string",
+      "description": "Name of the Swarm or AP cluster."
+    },
+    "cluster_id": {
+      "type": "string",
+      "description": "Cluster identifier for the device."
+    },
+    "mesh_role": {
+      "type": "string",
+      "description": "Mesh networking role of the access point.",
+      "enum": [
+        "Portal",
+        "Point",
+        "None"
+      ]
+    },
+    "client_count": {
+      "type": "integer",
+      "description": "Number of clients currently connected to the device.",
+      "minimum": 0
+    },
+    "uptime": {
+      "type": "integer",
+      "description": "Time since last reboot in seconds.",
+      "minimum": 0
+    },
+    "cpu_utilization": {
+      "type": "integer",
+      "description": "Current CPU utilization as a percentage.",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "mem_total": {
+      "type": "integer",
+      "description": "Total device memory in bytes.",
+      "minimum": 0
+    },
+    "mem_free": {
+      "type": "integer",
+      "description": "Available free memory in bytes.",
+      "minimum": 0
+    },
+    "radios": {
+      "type": "array",
+      "description": "Radio interfaces on the device (access points only).",
+      "items": {
+        "$ref": "#/$defs/Radio"
+      }
+    },
+    "uplink": {
+      "$ref": "#/$defs/Uplink",
+      "description": "Physical uplink connection details."
+    },
+    "last_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the last configuration change on the device."
+    }
+  },
+  "$defs": {
+    "Radio": {
+      "type": "object",
+      "description": "A radio interface on an Aruba access point, representing a physical wireless transmitter/receiver.",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "description": "Radio index number (typically 0 for 2.4 GHz, 1 for 5 GHz, 2 for 6 GHz).",
+          "minimum": 0
+        },
+        "macaddr": {
+          "type": "string",
+          "description": "MAC address of the radio interface.",
+          "pattern": "^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$"
+        },
+        "band": {
+          "type": "number",
+          "description": "Operating frequency band in GHz.",
+          "enum": [
+            2.4,
+            5,
+            6
+          ]
+        },
+        "channel": {
+          "type": "string",
+          "description": "Operating channel number or channel string (e.g., '36' or '36E')."
+        },
+        "power": {
+          "type": "integer",
+          "description": "Configured transmit power in dBm."
+        },
+        "tx_power": {
+          "type": "integer",
+          "description": "Effective transmit power in dBm after ARM adjustments."
+        },
+        "utilization": {
+          "type": "integer",
+          "description": "Channel utilization percentage.",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "noise_floor": {
+          "type": "integer",
+          "description": "Measured noise floor in dBm."
+        },
+        "status": {
+          "type": "string",
+          "description": "Operational status of the radio.",
+          "enum": [
+            "Up",
+            "Down"
+          ]
+        }
+      },
+      "required": [
+        "index",
+        "band"
+      ]
+    },
+    "Uplink": {
+      "type": "object",
+      "description": "Physical uplink connection details for the device.",
+      "properties": {
+        "ethernet": {
+          "type": "object",
+          "description": "Ethernet uplink properties.",
+          "properties": {
+            "port": {
+              "type": "string",
+              "description": "Ethernet port identifier."
+            },
+            "speed": {
+              "type": "string",
+              "description": "Negotiated link speed (e.g., '1000Mbps')."
+            },
+            "duplex": {
+              "type": "string",
+              "description": "Duplex mode of the connection.",
+              "enum": [
+                "Full",
+                "Half"
+              ]
+            },
+            "poe_power": {
+              "type": "number",
+              "description": "Power over Ethernet draw in watts.",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "serial": "CNBRJM0ABC",
+      "macaddr": "aa:bb:cc:dd:ee:ff",
+      "device_type": "IAP",
+      "model": "AP-515",
+      "firmware_version": "10.4.0.0_85559",
+      "status": "Up",
+      "ip_address": "10.1.10.50",
+      "name": "AP-lobby-01",
+      "group_name": "default",
+      "site": "Headquarters",
+      "labels": [
+        "floor-1",
+        "lobby"
+      ],
+      "ap_deployment_mode": "AOS10",
+      "client_count": 42,
+      "uptime": 864000,
+      "cpu_utilization": 15,
+      "mem_total": 1073741824,
+      "mem_free": 536870912,
+      "radios": [
+        {
+          "index": 0,
+          "macaddr": "aa:bb:cc:dd:ee:f0",
+          "band": 2.4,
+          "channel": "6",
+          "power": 18,
+          "tx_power": 18,
+          "utilization": 35,
+          "noise_floor": -95,
+          "status": "Up"
+        },
+        {
+          "index": 1,
+          "macaddr": "aa:bb:cc:dd:ee:f1",
+          "band": 5,
+          "channel": "36",
+          "power": 20,
+          "tx_power": 20,
+          "utilization": 22,
+          "noise_floor": -92,
+          "status": "Up"
+        }
+      ],
+      "uplink": {
+        "ethernet": {
+          "port": "eth0",
+          "speed": "1000Mbps",
+          "duplex": "Full",
+          "poe_power": 15.4
+        }
+      },
+      "last_modified": "2026-02-28T14:30:00Z"
+    }
+  ]
+}

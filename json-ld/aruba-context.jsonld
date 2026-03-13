@@ -1,0 +1,313 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "aruba": "https://developer.arubanetworks.com/schemas/",
+    "network": "https://developer.arubanetworks.com/schemas/network#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Device": {
+      "@id": "aruba:Device",
+      "@context": {
+        "serial": {
+          "@id": "aruba:serial",
+          "@type": "xsd:string"
+        },
+        "macaddr": {
+          "@id": "aruba:macaddr",
+          "@type": "xsd:string"
+        },
+        "device_type": {
+          "@id": "aruba:deviceType",
+          "@type": "xsd:string"
+        },
+        "model": {
+          "@id": "aruba:model",
+          "@type": "xsd:string"
+        },
+        "firmware_version": {
+          "@id": "aruba:firmwareVersion",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "aruba:operationalStatus",
+          "@type": "xsd:string"
+        },
+        "ip_address": {
+          "@id": "aruba:ipAddress",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "group_name": {
+          "@id": "aruba:groupName",
+          "@type": "xsd:string"
+        },
+        "site": {
+          "@id": "aruba:site",
+          "@type": "xsd:string"
+        },
+        "labels": {
+          "@id": "aruba:labels",
+          "@container": "@set"
+        },
+        "customer_id": {
+          "@id": "aruba:customerId",
+          "@type": "xsd:string"
+        },
+        "customer_name": {
+          "@id": "aruba:customerName",
+          "@type": "xsd:string"
+        },
+        "client_count": {
+          "@id": "aruba:clientCount",
+          "@type": "xsd:integer"
+        },
+        "uptime": {
+          "@id": "aruba:uptimeSeconds",
+          "@type": "xsd:integer"
+        },
+        "cpu_utilization": {
+          "@id": "aruba:cpuUtilization",
+          "@type": "xsd:integer"
+        },
+        "mem_total": {
+          "@id": "aruba:memoryTotal",
+          "@type": "xsd:long"
+        },
+        "mem_free": {
+          "@id": "aruba:memoryFree",
+          "@type": "xsd:long"
+        },
+        "last_modified": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "AccessPoint": {
+      "@id": "aruba:AccessPoint",
+      "@context": {
+        "serial": {
+          "@id": "aruba:serial",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "macaddr": {
+          "@id": "aruba:macaddr",
+          "@type": "xsd:string"
+        },
+        "model": {
+          "@id": "aruba:model",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "aruba:operationalStatus",
+          "@type": "xsd:string"
+        },
+        "ap_deployment_mode": {
+          "@id": "aruba:deploymentMode",
+          "@type": "xsd:string"
+        },
+        "swarm_id": {
+          "@id": "aruba:swarmId",
+          "@type": "xsd:string"
+        },
+        "swarm_name": {
+          "@id": "aruba:swarmName",
+          "@type": "xsd:string"
+        },
+        "mesh_role": {
+          "@id": "aruba:meshRole",
+          "@type": "xsd:string"
+        },
+        "radios": {
+          "@id": "aruba:hasRadio",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Radio": {
+      "@id": "aruba:Radio",
+      "@context": {
+        "index": {
+          "@id": "aruba:radioIndex",
+          "@type": "xsd:integer"
+        },
+        "band": {
+          "@id": "aruba:frequencyBand",
+          "@type": "xsd:decimal"
+        },
+        "channel": {
+          "@id": "aruba:channel",
+          "@type": "xsd:string"
+        },
+        "power": {
+          "@id": "aruba:transmitPower",
+          "@type": "xsd:integer"
+        },
+        "utilization": {
+          "@id": "aruba:channelUtilization",
+          "@type": "xsd:integer"
+        },
+        "noise_floor": {
+          "@id": "aruba:noiseFloor",
+          "@type": "xsd:integer"
+        },
+        "status": {
+          "@id": "aruba:operationalStatus",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Group": {
+      "@id": "aruba:ConfigurationGroup",
+      "@context": {
+        "group": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "group_properties": {
+          "@id": "aruba:groupProperties",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Site": {
+      "@id": "aruba:Site",
+      "@context": {
+        "site_id": {
+          "@id": "schema:identifier",
+          "@type": "xsd:integer"
+        },
+        "site_name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "address": {
+          "@id": "schema:streetAddress",
+          "@type": "xsd:string"
+        },
+        "city": {
+          "@id": "schema:addressLocality",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "schema:addressRegion",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "schema:addressCountry",
+          "@type": "xsd:string"
+        },
+        "zipcode": {
+          "@id": "schema:postalCode",
+          "@type": "xsd:string"
+        },
+        "longitude": {
+          "@id": "schema:longitude",
+          "@type": "xsd:double"
+        },
+        "latitude": {
+          "@id": "schema:latitude",
+          "@type": "xsd:double"
+        },
+        "tags": {
+          "@id": "aruba:tags",
+          "@container": "@set"
+        },
+        "associated_device_count": {
+          "@id": "aruba:associatedDeviceCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "Client": {
+      "@id": "aruba:NetworkClient",
+      "@context": {
+        "macaddr": {
+          "@id": "aruba:macaddr",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "ip_address": {
+          "@id": "aruba:ipAddress",
+          "@type": "xsd:string"
+        },
+        "os_type": {
+          "@id": "aruba:operatingSystem",
+          "@type": "xsd:string"
+        },
+        "connection": {
+          "@id": "aruba:connectionType",
+          "@type": "xsd:string"
+        },
+        "network": {
+          "@id": "aruba:networkName",
+          "@type": "xsd:string"
+        },
+        "signal_strength": {
+          "@id": "aruba:signalStrength",
+          "@type": "xsd:integer"
+        },
+        "associated_device": {
+          "@id": "aruba:associatedDevice",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Gateway": {
+      "@id": "aruba:Gateway",
+      "@context": {
+        "serial": {
+          "@id": "aruba:serial",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "model": {
+          "@id": "aruba:model",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "aruba:operationalStatus",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Network": {
+      "@id": "aruba:WirelessNetwork",
+      "@context": {
+        "essid": {
+          "@id": "aruba:essid",
+          "@type": "xsd:string"
+        },
+        "type": {
+          "@id": "aruba:networkType",
+          "@type": "xsd:string"
+        },
+        "client_count": {
+          "@id": "aruba:clientCount",
+          "@type": "xsd:integer"
+        }
+      }
+    }
+  }
+}

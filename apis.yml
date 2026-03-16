@@ -1,12 +1,15 @@
+aid: aruba
 name: Aruba
 description: >-
   APIs for HPE Aruba Networking cloud networking, security, and infrastructure
   solutions including Central, AOS-CX, ClearPass, EdgeConnect SD-WAN, Fabric
   Composer, and User Experience Insight.
 image: https://www.arubanetworks.com/assets/img/logo.png
-url: https://www.arubanetworks.com
-created: '2024'
-modified: '2026-03-03'
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/aruba/refs/heads/main/apis.yml
+created: '2024-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 tags:
 - networking
 - cloud

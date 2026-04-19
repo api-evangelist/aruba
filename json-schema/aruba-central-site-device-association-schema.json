@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SiteDeviceAssociation",
+  "type": "object",
+  "properties": {
+    "device_id": {
+      "type": "array",
+      "description": "List of device serial numbers to associate."
+    },
+    "device_type": {
+      "type": "string",
+      "description": "Type of devices being associated."
+    }
+  }
+}

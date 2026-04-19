@@ -1,0 +1,17 @@
+{
+  "macaddr": "example_value",
+  "name": "Example Title",
+  "ip_address": "example_value",
+  "os_type": "example_value",
+  "connection": "example_value",
+  "network": "example_value",
+  "band": 42.5,
+  "channel": "example_value",
+  "signal_strength": 10,
+  "signal_db": 10,
+  "speed": 10,
+  "associated_device": "example_value",
+  "group_name": "example_value",
+  "site": "example_value",
+  "usage": "example_value"
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GroupCreate",
+  "type": "object",
+  "properties": {
+    "group": {
+      "type": "string",
+      "description": "Name for the new group."
+    },
+    "group_attributes": {
+      "type": "object",
+      "description": "Configuration attributes for the group."
+    }
+  }
+}

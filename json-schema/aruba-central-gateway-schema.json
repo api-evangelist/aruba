@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gateway",
+  "type": "object",
+  "description": "A gateway device managed by Aruba Central providing routing, VPN, and SD-WAN functionality.",
+  "properties": {
+    "serial": {
+      "type": "string",
+      "description": "Serial number of the gateway."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the gateway."
+    },
+    "macaddr": {
+      "type": "string",
+      "description": "MAC address of the gateway."
+    },
+    "model": {
+      "type": "string",
+      "description": "Hardware model."
+    },
+    "status": {
+      "type": "string",
+      "description": "Operational status."
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "IP address of the gateway."
+    },
+    "firmware_version": {
+      "type": "string",
+      "description": "Firmware version."
+    },
+    "group_name": {
+      "type": "string",
+      "description": "Configuration group."
+    },
+    "site": {
+      "type": "string",
+      "description": "Site assignment."
+    },
+    "uptime": {
+      "type": "integer",
+      "description": "Uptime in seconds."
+    },
+    "client_count": {
+      "type": "integer",
+      "description": "Number of connected clients."
+    }
+  }
+}

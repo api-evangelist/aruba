@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Site",
+  "type": "object",
+  "description": "Physical site or location used to geographically organize network devices within Aruba Central.",
+  "properties": {
+    "site_id": {
+      "type": "integer",
+      "description": "Unique identifier for the site."
+    },
+    "site_name": {
+      "type": "string",
+      "description": "Name of the site."
+    },
+    "address": {
+      "type": "string",
+      "description": "Street address of the site."
+    },
+    "city": {
+      "type": "string",
+      "description": "City where the site is located."
+    },
+    "state": {
+      "type": "string",
+      "description": "State or province where the site is located."
+    },
+    "country": {
+      "type": "string",
+      "description": "Country where the site is located."
+    },
+    "zipcode": {
+      "type": "string",
+      "description": "Postal code for the site location."
+    },
+    "longitude": {
+      "type": "number",
+      "description": "Geographic longitude coordinate."
+    },
+    "latitude": {
+      "type": "number",
+      "description": "Geographic latitude coordinate."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags applied to the site."
+    },
+    "associated_device_count": {
+      "type": "integer",
+      "description": "Number of devices associated with the site."
+    }
+  }
+}

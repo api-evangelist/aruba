@@ -1,0 +1,23 @@
+{
+  "serial": "example_value",
+  "name": "Example Title",
+  "macaddr": "example_value",
+  "model": "example_value",
+  "status": "example_value",
+  "ip_address": "example_value",
+  "firmware_version": "example_value",
+  "group_name": "example_value",
+  "site": "example_value",
+  "labels": [],
+  "swarm_id": "500123",
+  "swarm_name": "example_value",
+  "cluster_id": "500123",
+  "ap_deployment_mode": "example_value",
+  "mesh_role": "example_value",
+  "client_count": 10,
+  "uptime": 10,
+  "cpu_utilization": 10,
+  "mem_total": 10,
+  "mem_free": 10,
+  "radios": []
+}

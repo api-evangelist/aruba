@@ -1,0 +1,10 @@
+{
+  "site_name": "example_value",
+  "address": "example_value",
+  "city": "example_value",
+  "state": "example_value",
+  "country": "example_value",
+  "zipcode": "example_value",
+  "longitude": 42.5,
+  "latitude": 42.5
+}

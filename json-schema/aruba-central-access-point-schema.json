@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AccessPoint",
+  "type": "object",
+  "description": "Represents an Aruba wireless access point with monitoring data including radio information, client counts, and operational status.",
+  "properties": {
+    "serial": {
+      "type": "string",
+      "description": "Serial number of the access point."
+    },
+    "name": {
+      "type": "string",
+      "description": "Configured name of the access point."
+    },
+    "macaddr": {
+      "type": "string",
+      "description": "MAC address of the access point."
+    },
+    "model": {
+      "type": "string",
+      "description": "Hardware model."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current operational status."
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "IP address of the access point."
+    },
+    "firmware_version": {
+      "type": "string",
+      "description": "Current firmware version."
+    },
+    "group_name": {
+      "type": "string",
+      "description": "Configuration group assignment."
+    },
+    "site": {
+      "type": "string",
+      "description": "Site assignment."
+    },
+    "labels": {
+      "type": "array",
+      "description": "Labels assigned to the access point."
+    },
+    "swarm_id": {
+      "type": "string",
+      "description": "Swarm/cluster identifier for the AP."
+    },
+    "swarm_name": {
+      "type": "string",
+      "description": "Name of the Swarm/cluster."
+    },
+    "cluster_id": {
+      "type": "string",
+      "description": "Cluster identifier."
+    },
+    "ap_deployment_mode": {
+      "type": "string",
+      "description": "Deployment mode of the access point."
+    },
+    "mesh_role": {
+      "type": "string",
+      "description": "Mesh role of the access point."
+    },
+    "client_count": {
+      "type": "integer",
+      "description": "Number of clients currently connected."
+    },
+    "uptime": {
+      "type": "integer",
+      "description": "Uptime in seconds since last reboot."
+    },
+    "cpu_utilization": {
+      "type": "integer",
+      "description": "Current CPU utilization percentage."
+    },
+    "mem_total": {
+      "type": "integer",
+      "description": "Total memory in bytes."
+    },
+    "mem_free": {
+      "type": "integer",
+      "description": "Free memory in bytes."
+    },
+    "radios": {
+      "type": "array",
+      "description": "Radio interface information."
+    }
+  }
+}

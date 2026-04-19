@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ErrorResponse",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Human-readable error message."
+    },
+    "error_code": {
+      "type": "string",
+      "description": "Machine-readable error code."
+    },
+    "service_name": {
+      "type": "string",
+      "description": "The API service that generated the error."
+    }
+  }
+}

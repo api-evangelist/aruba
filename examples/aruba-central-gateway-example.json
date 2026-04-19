@@ -1,0 +1,13 @@
+{
+  "serial": "example_value",
+  "name": "Example Title",
+  "macaddr": "example_value",
+  "model": "example_value",
+  "status": "example_value",
+  "ip_address": "example_value",
+  "firmware_version": "example_value",
+  "group_name": "example_value",
+  "site": "example_value",
+  "uptime": 10,
+  "client_count": 10
+}

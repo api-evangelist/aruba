@@ -1,0 +1,11 @@
+{
+  "index": 10,
+  "macaddr": "example_value",
+  "band": 42.5,
+  "channel": "example_value",
+  "power": 10,
+  "tx_power": 10,
+  "utilization": 10,
+  "noise_floor": 10,
+  "status": "example_value"
+}

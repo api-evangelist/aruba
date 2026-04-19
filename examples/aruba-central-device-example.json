@@ -1,0 +1,15 @@
+{
+  "serial": "example_value",
+  "macaddr": "example_value",
+  "device_type": "example_value",
+  "model": "example_value",
+  "firmware_version": "example_value",
+  "status": "example_value",
+  "group_name": "example_value",
+  "site": "example_value",
+  "ip_address": "example_value",
+  "labels": [],
+  "aruba_part_no": "example_value",
+  "customer_id": "500123",
+  "customer_name": "example_value"
+}

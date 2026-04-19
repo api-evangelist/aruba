@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AccessPointListResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of access points matching the query."
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of access points returned."
+    },
+    "aps": {
+      "type": "array"
+    }
+  }
+}

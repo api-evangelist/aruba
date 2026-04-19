@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Site",
+  "type": "object",
+  "properties": {
+    "site_id": {
+      "type": "integer"
+    },
+    "site_name": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string"
+    },
+    "longitude": {
+      "type": "number"
+    },
+    "latitude": {
+      "type": "number"
+    },
+    "tags": {
+      "type": "array"
+    },
+    "associated_device_count": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Client",
+  "type": "object",
+  "description": "A client device connected to the network.",
+  "properties": {
+    "macaddr": {
+      "type": "string",
+      "description": "MAC address of the client."
+    },
+    "name": {
+      "type": "string",
+      "description": "Hostname or display name of the client."
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "IP address assigned to the client."
+    },
+    "os_type": {
+      "type": "string",
+      "description": "Operating system type detected."
+    },
+    "connection": {
+      "type": "string",
+      "description": "Connection type."
+    },
+    "network": {
+      "type": "string",
+      "description": "SSID or network name the client is connected to."
+    },
+    "band": {
+      "type": "number",
+      "description": "Radio band of the wireless connection."
+    },
+    "channel": {
+      "type": "string",
+      "description": "Channel number of the wireless connection."
+    },
+    "signal_strength": {
+      "type": "integer",
+      "description": "Signal strength in dBm."
+    },
+    "signal_db": {
+      "type": "integer",
+      "description": "Signal-to-noise ratio in dB."
+    },
+    "speed": {
+      "type": "integer",
+      "description": "Connection speed in Mbps."
+    },
+    "associated_device": {
+      "type": "string",
+      "description": "Serial number of the device the client is connected to."
+    },
+    "group_name": {
+      "type": "string",
+      "description": "Group name of the associated device."
+    },
+    "site": {
+      "type": "string",
+      "description": "Site name of the associated device."
+    },
+    "usage": {
+      "type": "object",
+      "description": "Data usage statistics."
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Radio",
+  "type": "object",
+  "description": "Radio interface on an access point.",
+  "properties": {
+    "index": {
+      "type": "integer",
+      "description": "Radio index (0 or 1)."
+    },
+    "macaddr": {
+      "type": "string",
+      "description": "MAC address of the radio interface."
+    },
+    "band": {
+      "type": "number",
+      "description": "Operating frequency band in GHz."
+    },
+    "channel": {
+      "type": "string",
+      "description": "Operating channel number."
+    },
+    "power": {
+      "type": "integer",
+      "description": "Transmit power in dBm."
+    },
+    "tx_power": {
+      "type": "integer",
+      "description": "Effective transmit power in dBm."
+    },
+    "utilization": {
+      "type": "integer",
+      "description": "Channel utilization percentage."
+    },
+    "noise_floor": {
+      "type": "integer",
+      "description": "Noise floor in dBm."
+    },
+    "status": {
+      "type": "string",
+      "description": "Radio operational status."
+    }
+  }
+}

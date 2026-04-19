@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Network",
+  "type": "object",
+  "properties": {
+    "essid": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "client_count": {
+      "type": "integer"
+    },
+    "group_name": {
+      "type": "string"
+    },
+    "site": {
+      "type": "string"
+    }
+  }
+}

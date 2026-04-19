@@ -1,0 +1,12 @@
+name: aruba API Vocabulary
+provider: aruba
+created: '2026-04-18'
+modified: '2026-04-18'
+operations: 19
+schemas: 24
+tags:
+- Access Points
+- Devices
+- Groups
+- Monitoring
+- Sites

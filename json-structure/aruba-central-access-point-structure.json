@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "AccessPoint",
+  "type": "object",
+  "properties": {
+    "serial": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "macaddr": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "ip_address": {
+      "type": "string"
+    },
+    "firmware_version": {
+      "type": "string"
+    },
+    "group_name": {
+      "type": "string"
+    },
+    "site": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "array"
+    },
+    "swarm_id": {
+      "type": "string"
+    },
+    "swarm_name": {
+      "type": "string"
+    },
+    "cluster_id": {
+      "type": "string"
+    },
+    "ap_deployment_mode": {
+      "type": "string"
+    },
+    "mesh_role": {
+      "type": "string"
+    },
+    "client_count": {
+      "type": "integer"
+    },
+    "uptime": {
+      "type": "integer"
+    },
+    "cpu_utilization": {
+      "type": "integer"
+    },
+    "mem_total": {
+      "type": "integer"
+    },
+    "mem_free": {
+      "type": "integer"
+    },
+    "radios": {
+      "type": "array"
+    }
+  }
+}

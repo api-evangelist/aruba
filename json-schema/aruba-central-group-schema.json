@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Group",
+  "type": "object",
+  "description": "Configuration group for organizing devices and applying shared configuration templates, firmware policies, and settings.",
+  "properties": {
+    "group": {
+      "type": "string",
+      "description": "Name of the group."
+    },
+    "group_properties": {
+      "type": "object",
+      "description": "Group-level configuration properties."
+    }
+  }
+}

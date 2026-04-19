@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Device",
+  "type": "object",
+  "description": "Represents a device in the Aruba Central inventory including access points, switches, gateways, and SD-WAN appliances.",
+  "properties": {
+    "serial": {
+      "type": "string",
+      "description": "Unique serial number of the device."
+    },
+    "macaddr": {
+      "type": "string",
+      "description": "MAC address of the device."
+    },
+    "device_type": {
+      "type": "string",
+      "description": "Type classification of the device."
+    },
+    "model": {
+      "type": "string",
+      "description": "Hardware model name."
+    },
+    "firmware_version": {
+      "type": "string",
+      "description": "Current firmware version running on the device."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current operational status."
+    },
+    "group_name": {
+      "type": "string",
+      "description": "Name of the configuration group the device belongs to."
+    },
+    "site": {
+      "type": "string",
+      "description": "Name of the site the device is assigned to."
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "IP address of the device."
+    },
+    "labels": {
+      "type": "array",
+      "description": "Labels assigned to the device."
+    },
+    "aruba_part_no": {
+      "type": "string",
+      "description": "Aruba part number for the device hardware."
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Customer ID associated with the device."
+    },
+    "customer_name": {
+      "type": "string",
+      "description": "Customer name associated with the device."
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SiteCreate",
+  "type": "object",
+  "properties": {
+    "site_name": {
+      "type": "string",
+      "description": "Name for the new site."
+    },
+    "address": {
+      "type": "string",
+      "description": "Street address."
+    },
+    "city": {
+      "type": "string",
+      "description": "City name."
+    },
+    "state": {
+      "type": "string",
+      "description": "State or province."
+    },
+    "country": {
+      "type": "string",
+      "description": "Country name."
+    },
+    "zipcode": {
+      "type": "string",
+      "description": "Postal code."
+    },
+    "longitude": {
+      "type": "number",
+      "description": "Geographic longitude."
+    },
+    "latitude": {
+      "type": "number",
+      "description": "Geographic latitude."
+    }
+  }
+}

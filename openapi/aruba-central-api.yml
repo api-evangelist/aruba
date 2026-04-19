@@ -23,91 +23,91 @@ externalDocs:
   url: https://developer.arubanetworks.com/central/docs
 
 servers:
-  - url: https://apigw-prod2.central.arubanetworks.com
-    description: US-2 Production API Gateway
-  - url: https://app1-apigw.central.arubanetworks.com
-    description: US-1 Production API Gateway
-  - url: https://apigw-useast1.central.arubanetworks.com
-    description: US-East-1 Production API Gateway
-  - url: https://apigw-prod2.central.arubanetworks.com
-    description: EU-1 Production API Gateway
-  - url: https://apigw-apac1.central.arubanetworks.com
-    description: APAC-1 Production API Gateway
-  - url: https://apigw-canada1.central.arubanetworks.com
-    description: Canada-1 Production API Gateway
+- url: https://apigw-prod2.central.arubanetworks.com
+  description: US-2 Production API Gateway
+- url: https://app1-apigw.central.arubanetworks.com
+  description: US-1 Production API Gateway
+- url: https://apigw-useast1.central.arubanetworks.com
+  description: US-East-1 Production API Gateway
+- url: https://apigw-prod2.central.arubanetworks.com
+  description: EU-1 Production API Gateway
+- url: https://apigw-apac1.central.arubanetworks.com
+  description: APAC-1 Production API Gateway
+- url: https://apigw-canada1.central.arubanetworks.com
+  description: Canada-1 Production API Gateway
 
 security:
-  - bearerAuth: []
+- bearerAuth: []
 
 tags:
-  - name: Devices
-    description: >-
-      Device inventory management including listing, searching, and managing
-      devices across the Aruba Central platform.
-  - name: Groups
-    description: >-
-      Configuration group management for organizing devices, applying templates,
-      and managing group-level settings.
-  - name: Sites
-    description: >-
-      Site and location management for organizing network infrastructure by
-      physical location.
-  - name: Access Points
-    description: >-
-      Access point monitoring and management including status, statistics,
-      RF information, and client connectivity.
-  - name: Monitoring
-    description: >-
-      Network-wide monitoring for clients, networks, gateways, and overall
-      network health metrics.
+- name: Devices
+  description: >-
+    Device inventory management including listing, searching, and managing
+    devices across the Aruba Central platform.
+- name: Groups
+  description: >-
+    Configuration group management for organizing devices, applying templates,
+    and managing group-level settings.
+- name: Sites
+  description: >-
+    Site and location management for organizing network infrastructure by
+    physical location.
+- name: Access Points
+  description: >-
+    Access point monitoring and management including status, statistics,
+    RF information, and client connectivity.
+- name: Monitoring
+  description: >-
+    Network-wide monitoring for clients, networks, gateways, and overall
+    network health metrics.
 
 paths:
   /platform/device_inventory/v1/devices:
     get:
       operationId: getDevices
-      summary: List all devices
+      summary: List All Devices
       description: >-
         Retrieves a list of all devices in the Aruba Central device inventory
         including access points, switches, gateways, and SD-WAN appliances.
         Supports filtering by device type, status, and other attributes.
       tags:
-        - Devices
+      - Devices
       parameters:
-        - $ref: '#/components/parameters/offsetParam'
-        - $ref: '#/components/parameters/limitParam'
-        - name: sku_type
-          in: query
-          description: >-
-            Filter by device type (IAP for access points, HP for switches,
-            CONTROLLER for gateways).
-          required: false
-          schema:
-            type: string
-            enum:
-              - IAP
-              - HP
-              - CONTROLLER
-              - GATEWAY
-              - SWITCH
-              - VGW
-        - name: macaddr
-          in: query
-          description: Filter by device MAC address.
-          required: false
-          schema:
-            type: string
-        - name: serial
-          in: query
-          description: Filter by device serial number.
-          required: false
-          schema:
-            type: string
-        - name: model
-          in: query
-          description: Filter by device model name.
-          required: false
-          schema:
-            type: string
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: sku_type
+        in: query
+        description: >-
+          Filter by device type (IAP for access points, HP for switches,
+          CONTROLLER for gateways).
+        required: false
+        schema:
+          type: string
+          enum:
+          - IAP
+          - HP
+          - CONTROLLER
+          - GATEWAY
+          - SWITCH
+          - VGW
+      - name: macaddr
+        in: query
+        description: Filter by device MAC address.
+        required: false
+        schema:
+          type: string
+      - name: serial
+        in: query
+        description: Filter by device serial number.
+        required: false
+        schema:
+          type: string
+      - name: model
+        in: query
+        description: Filter by device model name.
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: Successful retrieval of device list.
@@ -122,23 +122,26 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /platform/device_inventory/v1/devices/{serial}:
     get:
       operationId: getDeviceBySerial
-      summary: Get device by serial number
+      summary: Get Device by Serial Number
       description: >-
         Retrieves detailed information about a specific device identified by
         its serial number, including model, firmware, group assignment, site,
         and connectivity status.
       tags:
-        - Devices
+      - Devices
       parameters:
-        - name: serial
-          in: path
-          description: The serial number of the device.
-          required: true
-          schema:
-            type: string
+      - name: serial
+        in: path
+        description: The serial number of the device.
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Successful retrieval of device details.
@@ -153,21 +156,24 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteDevice
-      summary: Remove device from inventory
+      summary: Remove Device From Inventory
       description: >-
         Removes a device from the Aruba Central inventory by serial number.
         The device must be in an unassigned state before deletion.
       tags:
-        - Devices
+      - Devices
       parameters:
-        - name: serial
-          in: path
-          description: The serial number of the device to remove.
-          required: true
-          schema:
-            type: string
+      - name: serial
+        in: path
+        description: The serial number of the device to remove.
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Device successfully removed.
@@ -178,19 +184,22 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /configuration/v2/groups:
     get:
       operationId: getGroups
-      summary: List all groups
+      summary: List All Groups
       description: >-
         Retrieves all configuration groups defined in Aruba Central. Groups
         serve as the primary organizational unit for applying configuration
         templates and firmware policies to devices.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - $ref: '#/components/parameters/offsetParam'
-        - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
       responses:
         '200':
           description: Successful retrieval of groups list.
@@ -203,15 +212,18 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createGroup
-      summary: Create a new group
+      summary: Create a New Group
       description: >-
         Creates a new configuration group in Aruba Central. Groups define
         the configuration profile and firmware compliance policy for member
         devices.
       tags:
-        - Groups
+      - Groups
       requestBody:
         required: true
         content:
@@ -232,23 +244,26 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /configuration/v2/groups/{group_name}:
     get:
       operationId: getGroupByName
-      summary: Get group details
+      summary: Get Group Details
       description: >-
         Retrieves detailed information about a specific configuration group
         including its properties, allowed device types, template configuration
         mode, and architecture settings.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - name: group_name
-          in: path
-          description: The name of the group.
-          required: true
-          schema:
-            type: string
+      - name: group_name
+        in: path
+        description: The name of the group.
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Successful retrieval of group details.
@@ -263,22 +278,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateGroup
-      summary: Update group properties
+      summary: Update Group Properties
       description: >-
         Updates properties of an existing configuration group. Supports partial
         updates to group settings, allowed device types, and firmware compliance
         policies.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - name: group_name
-          in: path
-          description: The name of the group to update.
-          required: true
-          schema:
-            type: string
+      - name: group_name
+        in: path
+        description: The name of the group to update.
+        required: true
+        schema:
+          type: string
       requestBody:
         required: true
         content:
@@ -297,21 +315,24 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteGroup
-      summary: Delete a group
+      summary: Delete a Group
       description: >-
         Deletes a configuration group from Aruba Central. The group must
         have no devices assigned before it can be deleted.
       tags:
-        - Groups
+      - Groups
       parameters:
-        - name: group_name
-          in: path
-          description: The name of the group to delete.
-          required: true
-          schema:
-            type: string
+      - name: group_name
+        in: path
+        description: The name of the group to delete.
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Group deleted successfully.
@@ -322,26 +343,29 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /central/v2/sites:
     get:
       operationId: getSites
-      summary: List all sites
+      summary: List All Sites
       description: >-
         Retrieves all sites defined in Aruba Central. Sites represent physical
         locations and are used to organize devices geographically for
         location-based monitoring and reporting.
       tags:
-        - Sites
+      - Sites
       parameters:
-        - $ref: '#/components/parameters/offsetParam'
-        - $ref: '#/components/parameters/limitParam'
-        - name: calculate_total
-          in: query
-          description: Whether to calculate and return the total number of sites.
-          required: false
-          schema:
-            type: boolean
-            default: true
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: calculate_total
+        in: query
+        description: Whether to calculate and return the total number of sites.
+        required: false
+        schema:
+          type: boolean
+          default: true
       responses:
         '200':
           description: Successful retrieval of sites list.
@@ -354,14 +378,17 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createSite
-      summary: Create a new site
+      summary: Create a New Site
       description: >-
         Creates a new site in Aruba Central with location details including
         address, city, state, country, and optional geographic coordinates.
       tags:
-        - Sites
+      - Sites
       requestBody:
         required: true
         content:
@@ -382,23 +409,26 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /central/v2/sites/{site_id}:
     get:
       operationId: getSiteById
-      summary: Get site details
+      summary: Get Site Details
       description: >-
         Retrieves detailed information about a specific site including its
         address, geographic coordinates, associated devices, and tags.
       tags:
-        - Sites
+      - Sites
       parameters:
-        - name: site_id
-          in: path
-          description: The unique identifier of the site.
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: site_id
+        in: path
+        description: The unique identifier of the site.
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         '200':
           description: Successful retrieval of site details.
@@ -413,22 +443,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateSite
-      summary: Update site details
+      summary: Update Site Details
       description: >-
         Updates an existing site's properties including name, address,
         geographic coordinates, and associated tags.
       tags:
-        - Sites
+      - Sites
       parameters:
-        - name: site_id
-          in: path
-          description: The unique identifier of the site to update.
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: site_id
+        in: path
+        description: The unique identifier of the site to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
       requestBody:
         required: true
         content:
@@ -447,20 +480,23 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteSite
-      summary: Delete a site
+      summary: Delete a Site
       description: Deletes a site from Aruba Central by its unique identifier.
       tags:
-        - Sites
+      - Sites
       parameters:
-        - name: site_id
-          in: path
-          description: The unique identifier of the site to delete.
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: site_id
+        in: path
+        description: The unique identifier of the site to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         '200':
           description: Site deleted successfully.
@@ -471,24 +507,27 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /central/v2/sites/{site_id}/associate:
     post:
       operationId: associateDevicesToSite
-      summary: Associate devices to a site
+      summary: Associate Devices to a Site
       description: >-
         Associates one or more devices to a site by providing their serial
         numbers. Devices must exist in the inventory before association.
       tags:
-        - Sites
-        - Devices
+      - Sites
+      - Devices
       parameters:
-        - name: site_id
-          in: path
-          description: The unique identifier of the site.
-          required: true
-          schema:
-            type: integer
-            format: int64
+      - name: site_id
+        in: path
+        description: The unique identifier of the site.
+        required: true
+        schema:
+          type: integer
+          format: int64
       requestBody:
         required: true
         content:
@@ -507,74 +546,77 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /monitoring/v2/aps:
     get:
       operationId: getAccessPoints
-      summary: List all access points
+      summary: List All Access Points
       description: >-
         Retrieves monitoring data for all access points managed by Aruba Central
         including status, client count, radio information, uptime, and
         performance metrics.
       tags:
-        - Access Points
-        - Monitoring
+      - Access Points
+      - Monitoring
       parameters:
-        - $ref: '#/components/parameters/offsetParam'
-        - $ref: '#/components/parameters/limitParam'
-        - name: group
-          in: query
-          description: Filter by group name.
-          required: false
-          schema:
-            type: string
-        - name: site
-          in: query
-          description: Filter by site name.
-          required: false
-          schema:
-            type: string
-        - name: status
-          in: query
-          description: Filter by access point status.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Up
-              - Down
-        - name: label
-          in: query
-          description: Filter by label name.
-          required: false
-          schema:
-            type: string
-        - name: model
-          in: query
-          description: Filter by AP model.
-          required: false
-          schema:
-            type: string
-        - name: fields
-          in: query
-          description: >-
-            Comma-separated list of fields to return. Use to request only
-            specific attributes in the response.
-          required: false
-          schema:
-            type: string
-        - name: calculate_total
-          in: query
-          description: Whether to calculate and return the total number of APs.
-          required: false
-          schema:
-            type: boolean
-            default: true
-        - name: swarm_id
-          in: query
-          description: Filter by Swarm/cluster identifier.
-          required: false
-          schema:
-            type: string
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: group
+        in: query
+        description: Filter by group name.
+        required: false
+        schema:
+          type: string
+      - name: site
+        in: query
+        description: Filter by site name.
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter by access point status.
+        required: false
+        schema:
+          type: string
+          enum:
+          - Up
+          - Down
+      - name: label
+        in: query
+        description: Filter by label name.
+        required: false
+        schema:
+          type: string
+      - name: model
+        in: query
+        description: Filter by AP model.
+        required: false
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: >-
+          Comma-separated list of fields to return. Use to request only
+          specific attributes in the response.
+        required: false
+        schema:
+          type: string
+      - name: calculate_total
+        in: query
+        description: Whether to calculate and return the total number of APs.
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: swarm_id
+        in: query
+        description: Filter by Swarm/cluster identifier.
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: Successful retrieval of access point list.
@@ -589,24 +631,27 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /monitoring/v2/aps/{serial}:
     get:
       operationId: getAccessPointBySerial
-      summary: Get access point details
+      summary: Get Access Point Details
       description: >-
         Retrieves detailed monitoring data for a specific access point
         including radio configuration, client statistics, uplink information,
         mesh status, and performance counters.
       tags:
-        - Access Points
-        - Monitoring
+      - Access Points
+      - Monitoring
       parameters:
-        - name: serial
-          in: path
-          description: The serial number of the access point.
-          required: true
-          schema:
-            type: string
+      - name: serial
+        in: path
+        description: The serial number of the access point.
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Successful retrieval of access point details.
@@ -621,56 +666,59 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /monitoring/v2/clients:
     get:
       operationId: getClients
-      summary: List all connected clients
+      summary: List All Connected Clients
       description: >-
         Retrieves a list of all clients currently connected to the network
         including their connection type, associated device, signal strength,
         and network usage.
       tags:
-        - Monitoring
+      - Monitoring
       parameters:
-        - $ref: '#/components/parameters/offsetParam'
-        - $ref: '#/components/parameters/limitParam'
-        - name: group
-          in: query
-          description: Filter by group name.
-          required: false
-          schema:
-            type: string
-        - name: site
-          in: query
-          description: Filter by site name.
-          required: false
-          schema:
-            type: string
-        - name: network
-          in: query
-          description: Filter by SSID or network name.
-          required: false
-          schema:
-            type: string
-        - name: client_status
-          in: query
-          description: Filter by client connection status.
-          required: false
-          schema:
-            type: string
-            enum:
-              - CONNECTED
-              - FAILED_TO_CONNECT
-        - name: band
-          in: query
-          description: Filter by radio band.
-          required: false
-          schema:
-            type: string
-            enum:
-              - 2.4
-              - '5'
-              - '6'
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: group
+        in: query
+        description: Filter by group name.
+        required: false
+        schema:
+          type: string
+      - name: site
+        in: query
+        description: Filter by site name.
+        required: false
+        schema:
+          type: string
+      - name: network
+        in: query
+        description: Filter by SSID or network name.
+        required: false
+        schema:
+          type: string
+      - name: client_status
+        in: query
+        description: Filter by client connection status.
+        required: false
+        schema:
+          type: string
+          enum:
+          - CONNECTED
+          - FAILED_TO_CONNECT
+      - name: band
+        in: query
+        description: Filter by radio band.
+        required: false
+        schema:
+          type: string
+          enum:
+          - 2.4
+          - '5'
+          - '6'
       responses:
         '200':
           description: Successful retrieval of client list.
@@ -685,31 +733,34 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /monitoring/v2/networks:
     get:
       operationId: getNetworks
-      summary: List all networks
+      summary: List All Networks
       description: >-
         Retrieves monitoring data for all networks (SSIDs and wired networks)
         managed by Aruba Central including client count, usage statistics,
         and health metrics.
       tags:
-        - Monitoring
+      - Monitoring
       parameters:
-        - $ref: '#/components/parameters/offsetParam'
-        - $ref: '#/components/parameters/limitParam'
-        - name: group
-          in: query
-          description: Filter by group name.
-          required: false
-          schema:
-            type: string
-        - name: site
-          in: query
-          description: Filter by site name.
-          required: false
-          schema:
-            type: string
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: group
+        in: query
+        description: Filter by group name.
+        required: false
+        schema:
+          type: string
+      - name: site
+        in: query
+        description: Filter by site name.
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: Successful retrieval of network list.
@@ -722,30 +773,33 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /monitoring/v2/gateways:
     get:
       operationId: getGateways
-      summary: List all gateways
+      summary: List All Gateways
       description: >-
         Retrieves monitoring data for all gateways managed by Aruba Central
         including uplink status, tunnel information, and performance metrics.
       tags:
-        - Monitoring
+      - Monitoring
       parameters:
-        - $ref: '#/components/parameters/offsetParam'
-        - $ref: '#/components/parameters/limitParam'
-        - name: group
-          in: query
-          description: Filter by group name.
-          required: false
-          schema:
-            type: string
-        - name: site
-          in: query
-          description: Filter by site name.
-          required: false
-          schema:
-            type: string
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: group
+        in: query
+        description: Filter by group name.
+        required: false
+        schema:
+          type: string
+      - name: site
+        in: query
+        description: Filter by site name.
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: Successful retrieval of gateway list.
@@ -758,6 +812,9 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -842,13 +899,16 @@ components:
         description:
           type: string
           description: Human-readable error message.
+          example: A sample description.
         error_code:
           type: string
           description: Machine-readable error code.
+          example: example_value
         service_name:
           type: string
           description: The API service that generated the error.
 
+          example: example_value
     Device:
       type: object
       description: >-
@@ -859,77 +919,89 @@ components:
           type: string
           description: Unique serial number of the device.
           examples:
-            - CNBRJM0ABC
+          - CNBRJM0ABC
         macaddr:
           type: string
           description: MAC address of the device.
           examples:
-            - 'aa:bb:cc:dd:ee:ff'
+          - 'aa:bb:cc:dd:ee:ff'
         device_type:
           type: string
           description: Type classification of the device.
           enum:
-            - IAP
-            - HP
-            - CONTROLLER
-            - GATEWAY
-            - SWITCH
-            - VGW
+          - IAP
+          - HP
+          - CONTROLLER
+          - GATEWAY
+          - SWITCH
+          - VGW
+          example: IAP
         model:
           type: string
           description: Hardware model name.
           examples:
-            - AP-515
+          - AP-515
         firmware_version:
           type: string
           description: Current firmware version running on the device.
           examples:
-            - 10.4.0.0_85559
+          - 10.4.0.0_85559
         status:
           type: string
           description: Current operational status.
           enum:
-            - Up
-            - Down
+          - Up
+          - Down
+          example: Up
         group_name:
           type: string
           description: Name of the configuration group the device belongs to.
+          example: example_value
         site:
           type: string
           description: Name of the site the device is assigned to.
+          example: example_value
         ip_address:
           type: string
           format: ipv4
           description: IP address of the device.
+          example: example_value
         labels:
           type: array
           description: Labels assigned to the device.
           items:
             type: string
+          example: []
         aruba_part_no:
           type: string
           description: Aruba part number for the device hardware.
+          example: example_value
         customer_id:
           type: string
           description: Customer ID associated with the device.
+          example: '500123'
         customer_name:
           type: string
           description: Customer name associated with the device.
 
+          example: example_value
     DeviceListResponse:
       type: object
       properties:
         total:
           type: integer
           description: Total number of devices matching the query.
+          example: 10
         count:
           type: integer
           description: Number of devices returned in this response.
+          example: 10
         devices:
           type: array
           items:
             $ref: '#/components/schemas/Device'
 
+          example: []
     Group:
       type: object
       description: >-
@@ -940,17 +1012,19 @@ components:
           type: string
           description: Name of the group.
           examples:
-            - default
+          - default
         group_properties:
           type: object
           description: Group-level configuration properties.
 
+          example: example_value
     GroupDetail:
       type: object
       properties:
         group:
           type: string
           description: Name of the group.
+          example: example_value
         group_properties:
           type: object
           properties:
@@ -960,15 +1034,15 @@ components:
               items:
                 type: string
                 enum:
-                  - AccessPoints
-                  - Switches
-                  - Gateways
+                - AccessPoints
+                - Switches
+                - Gateways
             Architecture:
               type: string
               description: Network architecture mode.
               enum:
-                - Instant
-                - AOS10
+              - Instant
+              - AOS10
             MonitorOnlySwitch:
               type: boolean
               description: Whether switches in this group are monitor-only.
@@ -978,18 +1052,20 @@ components:
               items:
                 type: string
                 enum:
-                  - AOS_S
-                  - AOS_CX
+                - AOS_S
+                - AOS_CX
 
+          example: example_value
     GroupCreate:
       type: object
       required:
-        - group
-        - group_attributes
+      - group
+      - group_attributes
       properties:
         group:
           type: string
           description: Name for the new group.
+          example: example_value
         group_attributes:
           type: object
           description: Configuration attributes for the group.
@@ -1005,6 +1081,7 @@ components:
                 Wireless:
                   type: boolean
 
+          example: example_value
     GroupUpdate:
       type: object
       properties:
@@ -1012,20 +1089,24 @@ components:
           type: object
           description: Configuration attributes to update.
 
+          example: example_value
     GroupListResponse:
       type: object
       properties:
         total:
           type: integer
           description: Total number of groups.
+          example: 10
         count:
           type: integer
           description: Number of groups returned.
+          example: 10
         data:
           type: array
           items:
             $ref: '#/components/schemas/GroupDetail'
 
+          example: []
     Site:
       type: object
       description: >-
@@ -1036,149 +1117,180 @@ components:
           type: integer
           format: int64
           description: Unique identifier for the site.
+          example: '500123'
         site_name:
           type: string
           description: Name of the site.
           examples:
-            - Headquarters
+          - Headquarters
         address:
           type: string
           description: Street address of the site.
+          example: example_value
         city:
           type: string
           description: City where the site is located.
+          example: example_value
         state:
           type: string
           description: State or province where the site is located.
+          example: example_value
         country:
           type: string
           description: Country where the site is located.
+          example: example_value
         zipcode:
           type: string
           description: Postal code for the site location.
+          example: example_value
         longitude:
           type: number
           format: double
           description: Geographic longitude coordinate.
+          example: 42.5
         latitude:
           type: number
           format: double
           description: Geographic latitude coordinate.
+          example: 42.5
         tags:
           type: array
           description: Tags applied to the site.
           items:
             type: string
+          example: []
         associated_device_count:
           type: integer
           description: Number of devices associated with the site.
 
+          example: 10
     SiteDetail:
       allOf:
-        - $ref: '#/components/schemas/Site'
-        - type: object
-          properties:
-            associated_devices:
-              type: array
-              description: Devices associated with this site.
-              items:
-                type: object
-                properties:
-                  serial:
-                    type: string
-                  device_type:
-                    type: string
-                  macaddr:
-                    type: string
+      - $ref: '#/components/schemas/Site'
+      - type: object
+        properties:
+          associated_devices:
+            type: array
+            description: Devices associated with this site.
+            items:
+              type: object
+              properties:
+                serial:
+                  type: string
+                device_type:
+                  type: string
+                macaddr:
+                  type: string
 
     SiteCreate:
       type: object
       required:
-        - site_name
+      - site_name
       properties:
         site_name:
           type: string
           description: Name for the new site.
+          example: example_value
         address:
           type: string
           description: Street address.
+          example: example_value
         city:
           type: string
           description: City name.
+          example: example_value
         state:
           type: string
           description: State or province.
+          example: example_value
         country:
           type: string
           description: Country name.
+          example: example_value
         zipcode:
           type: string
           description: Postal code.
+          example: example_value
         longitude:
           type: number
           format: double
           description: Geographic longitude.
+          example: 42.5
         latitude:
           type: number
           format: double
           description: Geographic latitude.
 
+          example: 42.5
     SiteUpdate:
       type: object
       properties:
         site_name:
           type: string
+          example: example_value
         address:
           type: string
+          example: example_value
         city:
           type: string
+          example: example_value
         state:
           type: string
+          example: example_value
         country:
           type: string
+          example: example_value
         zipcode:
           type: string
+          example: example_value
         longitude:
           type: number
           format: double
+          example: 42.5
         latitude:
           type: number
           format: double
 
+          example: 42.5
     SiteListResponse:
       type: object
       properties:
         total:
           type: integer
           description: Total number of sites.
+          example: 10
         count:
           type: integer
           description: Number of sites returned.
+          example: 10
         sites:
           type: array
           items:
             $ref: '#/components/schemas/Site'
 
+          example: []
     SiteDeviceAssociation:
       type: object
       required:
-        - device_id
-        - device_type
+      - device_id
+      - device_type
       properties:
         device_id:
           type: array
           description: List of device serial numbers to associate.
           items:
             type: string
+          example: '500123'
         device_type:
           type: string
           description: Type of devices being associated.
           enum:
-            - IAP
-            - SWITCH
-            - CONTROLLER
-            - GATEWAY
+          - IAP
+          - SWITCH
+          - CONTROLLER
+          - GATEWAY
 
+          example: IAP
     AccessPoint:
       type: object
       description: >-
@@ -1188,117 +1300,136 @@ components:
         serial:
           type: string
           description: Serial number of the access point.
+          example: example_value
         name:
           type: string
           description: Configured name of the access point.
           examples:
-            - AP-lobby-01
+          - AP-lobby-01
         macaddr:
           type: string
           description: MAC address of the access point.
+          example: example_value
         model:
           type: string
           description: Hardware model.
           examples:
-            - AP-515
-            - AP-635
+          - AP-515
+          - AP-635
         status:
           type: string
           description: Current operational status.
           enum:
-            - Up
-            - Down
+          - Up
+          - Down
+          example: Up
         ip_address:
           type: string
           format: ipv4
           description: IP address of the access point.
+          example: example_value
         firmware_version:
           type: string
           description: Current firmware version.
+          example: example_value
         group_name:
           type: string
           description: Configuration group assignment.
+          example: example_value
         site:
           type: string
           description: Site assignment.
+          example: example_value
         labels:
           type: array
           description: Labels assigned to the access point.
           items:
             type: string
+          example: []
         swarm_id:
           type: string
           description: Swarm/cluster identifier for the AP.
+          example: '500123'
         swarm_name:
           type: string
           description: Name of the Swarm/cluster.
+          example: example_value
         cluster_id:
           type: string
           description: Cluster identifier.
+          example: '500123'
         ap_deployment_mode:
           type: string
           description: Deployment mode of the access point.
           enum:
-            - IAP
-            - AOS10
+          - IAP
+          - AOS10
+          example: IAP
         mesh_role:
           type: string
           description: Mesh role of the access point.
           enum:
-            - Portal
-            - Point
-            - None
+          - Portal
+          - Point
+          - None
+          example: Portal
         client_count:
           type: integer
           description: Number of clients currently connected.
+          example: 10
         uptime:
           type: integer
           format: int64
           description: Uptime in seconds since last reboot.
+          example: 10
         cpu_utilization:
           type: integer
           description: Current CPU utilization percentage.
           minimum: 0
           maximum: 100
+          example: 10
         mem_total:
           type: integer
           format: int64
           description: Total memory in bytes.
+          example: 10
         mem_free:
           type: integer
           format: int64
           description: Free memory in bytes.
+          example: 10
         radios:
           type: array
           description: Radio interface information.
           items:
             $ref: '#/components/schemas/Radio'
 
+          example: []
     AccessPointDetail:
       allOf:
-        - $ref: '#/components/schemas/AccessPoint'
-        - type: object
-          properties:
-            uplink:
-              type: object
-              description: Uplink connection details.
-              properties:
-                ethernet:
-                  type: object
-                  properties:
-                    port:
-                      type: string
-                    speed:
-                      type: string
-                    duplex:
-                      type: string
-                    poe_power:
-                      type: number
-                      description: PoE power draw in watts.
-            last_modified:
-              type: string
-              format: date-time
-              description: Timestamp of last configuration change.
+      - $ref: '#/components/schemas/AccessPoint'
+      - type: object
+        properties:
+          uplink:
+            type: object
+            description: Uplink connection details.
+            properties:
+              ethernet:
+                type: object
+                properties:
+                  port:
+                    type: string
+                  speed:
+                    type: string
+                  duplex:
+                    type: string
+                  poe_power:
+                    type: number
+                    description: PoE power draw in watts.
+          last_modified:
+            type: string
+            format: date-time
+            description: Timestamp of last configuration change.
 
     Radio:
       type: object
@@ -1307,54 +1438,66 @@ components:
         index:
           type: integer
           description: Radio index (0 or 1).
+          example: 10
         macaddr:
           type: string
           description: MAC address of the radio interface.
+          example: example_value
         band:
           type: number
           description: Operating frequency band in GHz.
           enum:
-            - 2.4
-            - 5
-            - 6
+          - 2.4
+          - 5
+          - 6
+          example: 2.4
         channel:
           type: string
           description: Operating channel number.
+          example: example_value
         power:
           type: integer
           description: Transmit power in dBm.
+          example: 10
         tx_power:
           type: integer
           description: Effective transmit power in dBm.
+          example: 10
         utilization:
           type: integer
           description: Channel utilization percentage.
           minimum: 0
           maximum: 100
+          example: 10
         noise_floor:
           type: integer
           description: Noise floor in dBm.
+          example: 10
         status:
           type: string
           description: Radio operational status.
           enum:
-            - Up
-            - Down
+          - Up
+          - Down
 
+          example: Up
     AccessPointListResponse:
       type: object
       properties:
         total:
           type: integer
           description: Total number of access points matching the query.
+          example: 10
         count:
           type: integer
           description: Number of access points returned.
+          example: 10
         aps:
           type: array
           items:
             $ref: '#/components/schemas/AccessPoint'
 
+          example: []
     Client:
       type: object
       description: A client device connected to the network.
@@ -1362,49 +1505,63 @@ components:
         macaddr:
           type: string
           description: MAC address of the client.
+          example: example_value
         name:
           type: string
           description: Hostname or display name of the client.
+          example: Example Title
         ip_address:
           type: string
           format: ipv4
           description: IP address assigned to the client.
+          example: example_value
         os_type:
           type: string
           description: Operating system type detected.
+          example: example_value
         connection:
           type: string
           description: Connection type.
           enum:
-            - Wireless
-            - Wired
+          - Wireless
+          - Wired
+          example: Wireless
         network:
           type: string
           description: SSID or network name the client is connected to.
+          example: example_value
         band:
           type: number
           description: Radio band of the wireless connection.
+          example: 42.5
         channel:
           type: string
           description: Channel number of the wireless connection.
+          example: example_value
         signal_strength:
           type: integer
           description: Signal strength in dBm.
+          example: 10
         signal_db:
           type: integer
           description: Signal-to-noise ratio in dB.
+          example: 10
         speed:
           type: integer
           description: Connection speed in Mbps.
+          example: 10
         associated_device:
           type: string
           description: Serial number of the device the client is connected to.
+          example: example_value
         group_name:
           type: string
           description: Group name of the associated device.
+          example: example_value
         site:
           type: string
           description: Site name of the associated device.
+          example: example_value
         usage:
           type: object
           description: Data usage statistics.
@@ -1418,20 +1575,24 @@ components:
               format: int64
               description: Total bytes received from the client.
 
+          example: example_value
     ClientListResponse:
       type: object
       properties:
         total:
           type: integer
           description: Total number of clients matching the query.
+          example: 10
         count:
           type: integer
           description: Number of clients returned.
+          example: 10
         clients:
           type: array
           items:
             $ref: '#/components/schemas/Client'
 
+          example: []
     Network:
       type: object
       description: A wireless SSID or wired network managed by Central.
@@ -1439,37 +1600,45 @@ components:
         essid:
           type: string
           description: Extended Service Set Identifier (network name).
+          example: '500123'
         type:
           type: string
           description: Network type.
           enum:
-            - Employee
-            - Guest
-            - Wired
+          - Employee
+          - Guest
+          - Wired
+          example: Employee
         client_count:
           type: integer
           description: Number of connected clients.
+          example: 10
         group_name:
           type: string
           description: Configuration group the network belongs to.
+          example: example_value
         site:
           type: string
           description: Site assignment.
 
+          example: example_value
     NetworkListResponse:
       type: object
       properties:
         total:
           type: integer
           description: Total number of networks.
+          example: 10
         count:
           type: integer
           description: Number of networks returned.
+          example: 10
         networks:
           type: array
           items:
             $ref: '#/components/schemas/Network'
 
+          example: []
     Gateway:
       type: object
       description: >-
@@ -1479,52 +1648,66 @@ components:
         serial:
           type: string
           description: Serial number of the gateway.
+          example: example_value
         name:
           type: string
           description: Name of the gateway.
+          example: Example Title
         macaddr:
           type: string
           description: MAC address of the gateway.
+          example: example_value
         model:
           type: string
           description: Hardware model.
+          example: example_value
         status:
           type: string
           description: Operational status.
           enum:
-            - Up
-            - Down
+          - Up
+          - Down
+          example: Up
         ip_address:
           type: string
           format: ipv4
           description: IP address of the gateway.
+          example: example_value
         firmware_version:
           type: string
           description: Firmware version.
+          example: example_value
         group_name:
           type: string
           description: Configuration group.
+          example: example_value
         site:
           type: string
           description: Site assignment.
+          example: example_value
         uptime:
           type: integer
           format: int64
           description: Uptime in seconds.
+          example: 10
         client_count:
           type: integer
           description: Number of connected clients.
 
+          example: 10
     GatewayListResponse:
       type: object
       properties:
         total:
           type: integer
           description: Total number of gateways.
+          example: 10
         count:
           type: integer
           description: Number of gateways returned.
+          example: 10
         gateways:
           type: array
           items:
             $ref: '#/components/schemas/Gateway'
+          example: []

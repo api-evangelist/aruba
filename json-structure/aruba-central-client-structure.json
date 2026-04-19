@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Client",
+  "type": "object",
+  "properties": {
+    "macaddr": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "ip_address": {
+      "type": "string"
+    },
+    "os_type": {
+      "type": "string"
+    },
+    "connection": {
+      "type": "string"
+    },
+    "network": {
+      "type": "string"
+    },
+    "band": {
+      "type": "number"
+    },
+    "channel": {
+      "type": "string"
+    },
+    "signal_strength": {
+      "type": "integer"
+    },
+    "signal_db": {
+      "type": "integer"
+    },
+    "speed": {
+      "type": "integer"
+    },
+    "associated_device": {
+      "type": "string"
+    },
+    "group_name": {
+      "type": "string"
+    },
+    "site": {
+      "type": "string"
+    },
+    "usage": {
+      "type": "object"
+    }
+  }
+}

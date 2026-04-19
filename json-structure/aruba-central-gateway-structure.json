@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Gateway",
+  "type": "object",
+  "properties": {
+    "serial": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "macaddr": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "ip_address": {
+      "type": "string"
+    },
+    "firmware_version": {
+      "type": "string"
+    },
+    "group_name": {
+      "type": "string"
+    },
+    "site": {
+      "type": "string"
+    },
+    "uptime": {
+      "type": "integer"
+    },
+    "client_count": {
+      "type": "integer"
+    }
+  }
+}

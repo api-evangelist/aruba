@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GroupDetail",
+  "type": "object",
+  "properties": {
+    "group": {
+      "type": "string",
+      "description": "Name of the group."
+    },
+    "group_properties": {
+      "type": "object"
+    }
+  }
+}

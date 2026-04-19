@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Device",
+  "type": "object",
+  "properties": {
+    "serial": {
+      "type": "string"
+    },
+    "macaddr": {
+      "type": "string"
+    },
+    "device_type": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "firmware_version": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "group_name": {
+      "type": "string"
+    },
+    "site": {
+      "type": "string"
+    },
+    "ip_address": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "array"
+    },
+    "aruba_part_no": {
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "customer_name": {
+      "type": "string"
+    }
+  }
+}

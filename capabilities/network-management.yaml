@@ -1,306 +1,604 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Aruba Network Management"
-  description: "Unified network management workflow combining Aruba Central API for device inventory, configuration groups, sites, access points, clients, and gateway monitoring. Used by network administrators to manage campus and branch infrastructure."
+  label: Aruba Network Management
+  description: Unified network management workflow combining Aruba Central API for device inventory, configuration groups,
+    sites, access points, clients, and gateway monitoring. Used by network administrators to manage campus and branch infrastructure.
   tags:
-    - Aruba
-    - Network Management
-    - Cloud Management
-    - Monitoring
-  created: "2026-04-18"
-  modified: "2026-04-18"
-
+  - Aruba
+  - Network Management
+  - Cloud Management
+  - Monitoring
+  created: '2026-04-18'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      ARUBA_CENTRAL_TOKEN: ARUBA_CENTRAL_TOKEN
-
+- namespace: env
+  keys:
+    ARUBA_CENTRAL_TOKEN: ARUBA_CENTRAL_TOKEN
 capability:
   consumes:
-    - import: aruba-central
-      location: ./shared/central.yaml
-
+  - type: http
+    namespace: aruba-central
+    baseUri: https://apigw-prod2.central.arubanetworks.com
+    description: Aruba Central cloud networking management API
+    authentication:
+      type: bearer
+      token: '{{ARUBA_CENTRAL_TOKEN}}'
+    resources:
+    - name: devices
+      path: /platform/device_inventory/v1
+      description: Device inventory management
+      operations:
+      - name: get-devices
+        method: GET
+        description: List all devices in the Aruba Central device inventory
+        inputParameters:
+        - name: sku_type
+          in: query
+          type: string
+          required: false
+          description: Filter by device type (IAP, HP, CONTROLLER, GATEWAY, SWITCH, VGW)
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum number of items to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-device-by-serial
+        method: GET
+        description: Get device details by serial number
+        inputParameters:
+        - name: serial
+          in: path
+          type: string
+          required: true
+          description: The serial number of the device
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-device
+        method: DELETE
+        description: Delete a device from the inventory
+        inputParameters:
+        - name: serial
+          in: path
+          type: string
+          required: true
+          description: The serial number of the device
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: groups
+      path: /configuration/v2
+      description: Configuration group management
+      operations:
+      - name: get-groups
+        method: GET
+        description: List all configuration groups
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum number of items to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-group
+        method: POST
+        description: Create a new configuration group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            group: '{{tools.group}}'
+      - name: get-group-by-name
+        method: GET
+        description: Get group details by name
+        inputParameters:
+        - name: group_name
+          in: path
+          type: string
+          required: true
+          description: The name of the group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-group
+        method: PATCH
+        description: Update a configuration group
+        inputParameters:
+        - name: group_name
+          in: path
+          type: string
+          required: true
+          description: The name of the group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-group
+        method: DELETE
+        description: Delete a configuration group
+        inputParameters:
+        - name: group_name
+          in: path
+          type: string
+          required: true
+          description: The name of the group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sites
+      path: /central/v2
+      description: Site and location management
+      operations:
+      - name: get-sites
+        method: GET
+        description: List all sites
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum number of items to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-site
+        method: POST
+        description: Create a new site
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            site_name: '{{tools.site_name}}'
+      - name: get-site-by-id
+        method: GET
+        description: Get site details by ID
+        inputParameters:
+        - name: site_id
+          in: path
+          type: integer
+          required: true
+          description: The site ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-site
+        method: PATCH
+        description: Update a site
+        inputParameters:
+        - name: site_id
+          in: path
+          type: integer
+          required: true
+          description: The site ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-site
+        method: DELETE
+        description: Delete a site
+        inputParameters:
+        - name: site_id
+          in: path
+          type: integer
+          required: true
+          description: The site ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: associate-devices-to-site
+        method: POST
+        description: Associate devices to a site
+        inputParameters:
+        - name: site_id
+          in: path
+          type: integer
+          required: true
+          description: The site ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: monitoring
+      path: /monitoring/v2
+      description: Network monitoring and access points
+      operations:
+      - name: get-access-points
+        method: GET
+        description: List all access points with status and statistics
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum number of items to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-access-point-by-serial
+        method: GET
+        description: Get access point details by serial number
+        inputParameters:
+        - name: serial
+          in: path
+          type: string
+          required: true
+          description: The serial number of the access point
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-clients
+        method: GET
+        description: List all connected clients
+        inputParameters:
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum number of items to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-networks
+        method: GET
+        description: List all networks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-gateways
+        method: GET
+        description: List all gateways
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: aruba-network-mgmt-api
-      description: "Unified REST API for Aruba network management operations."
-      resources:
-        - path: /v1/devices
-          name: devices
-          description: "Device inventory management"
-          operations:
-            - method: GET
-              name: list-devices
-              description: "List all devices in the network inventory"
-              call: "aruba-central.get-devices"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/devices/{serial}
-          name: device-detail
-          description: "Device details"
-          operations:
-            - method: GET
-              name: get-device
-              description: "Get device details by serial number"
-              call: "aruba-central.get-device-by-serial"
-              with:
-                serial: "rest.serial"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: remove-device
-              description: "Remove a device from inventory"
-              call: "aruba-central.delete-device"
-              with:
-                serial: "rest.serial"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/groups
-          name: groups
-          description: "Configuration group management"
-          operations:
-            - method: GET
-              name: list-groups
-              description: "List all configuration groups"
-              call: "aruba-central.get-groups"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-group
-              description: "Create a new configuration group"
-              call: "aruba-central.create-group"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/sites
-          name: sites
-          description: "Site management"
-          operations:
-            - method: GET
-              name: list-sites
-              description: "List all sites"
-              call: "aruba-central.get-sites"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-site
-              description: "Create a new site"
-              call: "aruba-central.create-site"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/access-points
-          name: access-points
-          description: "Access point monitoring"
-          operations:
-            - method: GET
-              name: list-access-points
-              description: "List all access points with status"
-              call: "aruba-central.get-access-points"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/clients
-          name: clients
-          description: "Client connectivity"
-          operations:
-            - method: GET
-              name: list-clients
-              description: "List all connected clients"
-              call: "aruba-central.get-clients"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/networks
-          name: networks
-          description: "Network monitoring"
-          operations:
-            - method: GET
-              name: list-networks
-              description: "List all networks"
-              call: "aruba-central.get-networks"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/gateways
-          name: gateways
-          description: "Gateway monitoring"
-          operations:
-            - method: GET
-              name: list-gateways
-              description: "List all gateways"
-              call: "aruba-central.get-gateways"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: aruba-network-mgmt-mcp
-      transport: http
-      description: "MCP server for AI-assisted Aruba network management."
-      tools:
-        - name: list-devices
-          description: "List all devices in the Aruba Central device inventory"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "aruba-central.get-devices"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-device
-          description: "Get device details by serial number"
-          hints:
-            readOnly: true
-          call: "aruba-central.get-device-by-serial"
-          with:
-            serial: "tools.serial"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: remove-device
-          description: "Remove a device from inventory"
-          hints:
-            destructive: true
-          call: "aruba-central.delete-device"
-          with:
-            serial: "tools.serial"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-groups
-          description: "List all configuration groups"
-          hints:
-            readOnly: true
-          call: "aruba-central.get-groups"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-group
-          description: "Create a new configuration group"
-          hints:
-            readOnly: false
-          call: "aruba-central.create-group"
-          with:
-            group: "tools.group"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-group
-          description: "Get group details by name"
-          hints:
-            readOnly: true
-          call: "aruba-central.get-group-by-name"
-          with:
-            group_name: "tools.group_name"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-group
-          description: "Delete a configuration group"
-          hints:
-            destructive: true
-          call: "aruba-central.delete-group"
-          with:
-            group_name: "tools.group_name"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-sites
-          description: "List all sites"
-          hints:
-            readOnly: true
-          call: "aruba-central.get-sites"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-site
-          description: "Create a new site"
-          hints:
-            readOnly: false
-          call: "aruba-central.create-site"
-          with:
-            site_name: "tools.site_name"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-site
-          description: "Get site details by ID"
-          hints:
-            readOnly: true
-          call: "aruba-central.get-site-by-id"
-          with:
-            site_id: "tools.site_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-site
-          description: "Delete a site"
-          hints:
-            destructive: true
-          call: "aruba-central.delete-site"
-          with:
-            site_id: "tools.site_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: associate-devices-to-site
-          description: "Associate devices to a site"
-          hints:
-            readOnly: false
-          call: "aruba-central.associate-devices-to-site"
-          with:
-            site_id: "tools.site_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-access-points
-          description: "List all access points with status and statistics"
-          hints:
-            readOnly: true
-          call: "aruba-central.get-access-points"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-access-point
-          description: "Get access point details by serial number"
-          hints:
-            readOnly: true
-          call: "aruba-central.get-access-point-by-serial"
-          with:
-            serial: "tools.serial"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-clients
-          description: "List all connected clients"
-          hints:
-            readOnly: true
-          call: "aruba-central.get-clients"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-networks
-          description: "List all networks"
-          hints:
-            readOnly: true
-          call: "aruba-central.get-networks"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-gateways
-          description: "List all gateways"
-          hints:
-            readOnly: true
-          call: "aruba-central.get-gateways"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: aruba-network-mgmt-api
+    description: Unified REST API for Aruba network management operations.
+    resources:
+    - path: /v1/devices
+      name: devices
+      description: Device inventory management
+      operations:
+      - method: GET
+        name: list-devices
+        description: List all devices in the network inventory
+        call: aruba-central.get-devices
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/devices/{serial}
+      name: device-detail
+      description: Device details
+      operations:
+      - method: GET
+        name: get-device
+        description: Get device details by serial number
+        call: aruba-central.get-device-by-serial
+        with:
+          serial: rest.serial
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: remove-device
+        description: Remove a device from inventory
+        call: aruba-central.delete-device
+        with:
+          serial: rest.serial
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/groups
+      name: groups
+      description: Configuration group management
+      operations:
+      - method: GET
+        name: list-groups
+        description: List all configuration groups
+        call: aruba-central.get-groups
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-group
+        description: Create a new configuration group
+        call: aruba-central.create-group
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/sites
+      name: sites
+      description: Site management
+      operations:
+      - method: GET
+        name: list-sites
+        description: List all sites
+        call: aruba-central.get-sites
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-site
+        description: Create a new site
+        call: aruba-central.create-site
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/access-points
+      name: access-points
+      description: Access point monitoring
+      operations:
+      - method: GET
+        name: list-access-points
+        description: List all access points with status
+        call: aruba-central.get-access-points
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/clients
+      name: clients
+      description: Client connectivity
+      operations:
+      - method: GET
+        name: list-clients
+        description: List all connected clients
+        call: aruba-central.get-clients
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/networks
+      name: networks
+      description: Network monitoring
+      operations:
+      - method: GET
+        name: list-networks
+        description: List all networks
+        call: aruba-central.get-networks
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/gateways
+      name: gateways
+      description: Gateway monitoring
+      operations:
+      - method: GET
+        name: list-gateways
+        description: List all gateways
+        call: aruba-central.get-gateways
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: aruba-network-mgmt-mcp
+    transport: http
+    description: MCP server for AI-assisted Aruba network management.
+    tools:
+    - name: list-devices
+      description: List all devices in the Aruba Central device inventory
+      hints:
+        readOnly: true
+        openWorld: true
+      call: aruba-central.get-devices
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-device
+      description: Get device details by serial number
+      hints:
+        readOnly: true
+      call: aruba-central.get-device-by-serial
+      with:
+        serial: tools.serial
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-device
+      description: Remove a device from inventory
+      hints:
+        destructive: true
+      call: aruba-central.delete-device
+      with:
+        serial: tools.serial
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-groups
+      description: List all configuration groups
+      hints:
+        readOnly: true
+      call: aruba-central.get-groups
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-group
+      description: Create a new configuration group
+      hints:
+        readOnly: false
+      call: aruba-central.create-group
+      with:
+        group: tools.group
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-group
+      description: Get group details by name
+      hints:
+        readOnly: true
+      call: aruba-central.get-group-by-name
+      with:
+        group_name: tools.group_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-group
+      description: Delete a configuration group
+      hints:
+        destructive: true
+      call: aruba-central.delete-group
+      with:
+        group_name: tools.group_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-sites
+      description: List all sites
+      hints:
+        readOnly: true
+      call: aruba-central.get-sites
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-site
+      description: Create a new site
+      hints:
+        readOnly: false
+      call: aruba-central.create-site
+      with:
+        site_name: tools.site_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-site
+      description: Get site details by ID
+      hints:
+        readOnly: true
+      call: aruba-central.get-site-by-id
+      with:
+        site_id: tools.site_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-site
+      description: Delete a site
+      hints:
+        destructive: true
+      call: aruba-central.delete-site
+      with:
+        site_id: tools.site_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: associate-devices-to-site
+      description: Associate devices to a site
+      hints:
+        readOnly: false
+      call: aruba-central.associate-devices-to-site
+      with:
+        site_id: tools.site_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-access-points
+      description: List all access points with status and statistics
+      hints:
+        readOnly: true
+      call: aruba-central.get-access-points
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-access-point
+      description: Get access point details by serial number
+      hints:
+        readOnly: true
+      call: aruba-central.get-access-point-by-serial
+      with:
+        serial: tools.serial
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-clients
+      description: List all connected clients
+      hints:
+        readOnly: true
+      call: aruba-central.get-clients
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-networks
+      description: List all networks
+      hints:
+        readOnly: true
+      call: aruba-central.get-networks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-gateways
+      description: List all gateways
+      hints:
+        readOnly: true
+      call: aruba-central.get-gateways
+      outputParameters:
+      - type: object
+        mapping: $.

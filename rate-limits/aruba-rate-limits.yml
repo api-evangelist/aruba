@@ -4,119 +4,56 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Aruba
 providerId: aruba
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Cloud
-  - Infrastructure
   - Network Management
   - Networking
   - SD-WAN
   - Security
-  - Switches
   - Wireless
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Aruba API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Aruba (HPE Aruba Networking) APIs (Aruba Central, ClearPass, AOS-CX, EdgeConnect) implement
+  per-cluster, per-account, and per-controller rate-limiting. Aruba Central documents a 1-second / 7-per-IP
+  (token endpoint) limit and per-API quotas, but a single canonical public rate-limit table for the full
+  Aruba API estate is not published; check each product's developer docs.
+sources:
+  - https://developer.arubanetworks.com/
+  - https://developer.arubanetworks.com/aruba-central/docs/api-rate-limits
+notes: No single public canonical rate-limit table covers all Aruba API products; values vary by product
+  (Central, ClearPass, AOS-CX, EdgeConnect, AirWave) and cluster. Treat the entries below as starting
+  pointers — verify against the specific product's developer docs.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Aruba Central API
-      - Aruba ClearPass API
-      - Aruba AOS-CX REST API
-      - Aruba EdgeConnect SD-WAN API
-      - Aruba Fabric Composer API
-      - Aruba User Experience Insight API
-      - Aruba AirWave API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Aruba Central API
-      - Aruba ClearPass API
-      - Aruba AOS-CX REST API
-      - Aruba EdgeConnect SD-WAN API
-      - Aruba Fabric Composer API
-      - Aruba User Experience Insight API
-      - Aruba AirWave API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Aruba Central API
-      - Aruba ClearPass API
-      - Aruba AOS-CX REST API
-      - Aruba EdgeConnect SD-WAN API
-      - Aruba Fabric Composer API
-      - Aruba User Experience Insight API
-      - Aruba AirWave API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Aruba Central API
-      - Aruba ClearPass API
-      - Aruba AOS-CX REST API
-      - Aruba EdgeConnect SD-WAN API
-      - Aruba Fabric Composer API
-      - Aruba User Experience Insight API
-      - Aruba AirWave API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Aruba Central API
-      - Aruba ClearPass API
-      - Aruba AOS-CX REST API
-      - Aruba EdgeConnect SD-WAN API
-      - Aruba Fabric Composer API
-      - Aruba User Experience Insight API
-      - Aruba AirWave API
+  - name: Aruba Central API (per-cluster)
+    scope: account/cluster
+    metric: varies
+    limit: per-product per-cluster quotas; see Aruba Central API rate limit docs
+    notes: Aruba Central documents API rate limits per cluster and per token; consult the developer
+      portal for the specific cluster.
+  - name: ClearPass API
+    scope: appliance
+    metric: varies
+    limit: enforced per ClearPass appliance configuration
+    notes: ClearPass rate-limiting is operator-configured on the appliance, not platform-imposed.
+  - name: AOS-CX REST API (on-switch)
+    scope: switch
+    metric: concurrent_requests
+    limit: see AOS-CX REST API guide for the running firmware version
+    notes: AOS-CX runs the API on the switch itself; concurrency and CPU pressure dominate over fixed
+      per-second quotas.
 policies:
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Honor Retry-After when present; use exponential backoff with jitter on 429.
+  - name: Per-Product Variation
+    description: Each Aruba product (Central, ClearPass, AOS-CX, EdgeConnect, AirWave) enforces limits
+      independently — implement per-product limit tracking rather than a single global budget.
+  - name: Token Endpoint Throttling
+    description: OAuth/token endpoints in Aruba Central are aggressively rate-limited (low single-digit
+      requests per second per IP); cache and reuse tokens within their TTL.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

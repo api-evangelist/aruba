@@ -1,0 +1,322 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Aruba Central API — Monitoring
+  description: 'Aruba Central API — Monitoring. 5 operations. Lead operation: List All Access Points. Self-contained Naftiko
+    capability covering one Aruba business surface.'
+  tags:
+  - Aruba
+  - Monitoring
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ARUBA_API_KEY: ARUBA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: central-monitoring
+    baseUri: https://apigw-prod2.central.arubanetworks.com
+    description: Aruba Central API — Monitoring business capability. Self-contained, no shared references.
+    resources:
+    - name: monitoring-v2-aps
+      path: /monitoring/v2/aps
+      operations:
+      - name: getaccesspoints
+        method: GET
+        description: List All Access Points
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group
+          in: query
+          type: string
+          description: Filter by group name.
+        - name: site
+          in: query
+          type: string
+          description: Filter by site name.
+        - name: status
+          in: query
+          type: string
+          description: Filter by access point status.
+        - name: label
+          in: query
+          type: string
+          description: Filter by label name.
+        - name: model
+          in: query
+          type: string
+          description: Filter by AP model.
+        - name: fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to return. Use to request only specific attributes in the response.
+        - name: calculate_total
+          in: query
+          type: boolean
+          description: Whether to calculate and return the total number of APs.
+        - name: swarm_id
+          in: query
+          type: string
+          description: Filter by Swarm/cluster identifier.
+    - name: monitoring-v2-aps-serial
+      path: /monitoring/v2/aps/{serial}
+      operations:
+      - name: getaccesspointbyserial
+        method: GET
+        description: Get Access Point Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serial
+          in: path
+          type: string
+          description: The serial number of the access point.
+          required: true
+    - name: monitoring-v2-clients
+      path: /monitoring/v2/clients
+      operations:
+      - name: getclients
+        method: GET
+        description: List All Connected Clients
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group
+          in: query
+          type: string
+          description: Filter by group name.
+        - name: site
+          in: query
+          type: string
+          description: Filter by site name.
+        - name: network
+          in: query
+          type: string
+          description: Filter by SSID or network name.
+        - name: client_status
+          in: query
+          type: string
+          description: Filter by client connection status.
+        - name: band
+          in: query
+          type: string
+          description: Filter by radio band.
+    - name: monitoring-v2-gateways
+      path: /monitoring/v2/gateways
+      operations:
+      - name: getgateways
+        method: GET
+        description: List All Gateways
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group
+          in: query
+          type: string
+          description: Filter by group name.
+        - name: site
+          in: query
+          type: string
+          description: Filter by site name.
+    - name: monitoring-v2-networks
+      path: /monitoring/v2/networks
+      operations:
+      - name: getnetworks
+        method: GET
+        description: List All Networks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group
+          in: query
+          type: string
+          description: Filter by group name.
+        - name: site
+          in: query
+          type: string
+          description: Filter by site name.
+    authentication:
+      type: bearer
+      token: '{{env.ARUBA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: central-monitoring-rest
+    port: 8080
+    description: REST adapter for Aruba Central API — Monitoring. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/monitoring/v2/aps
+      name: monitoring-v2-aps
+      description: REST surface for monitoring-v2-aps.
+      operations:
+      - method: GET
+        name: getaccesspoints
+        description: List All Access Points
+        call: central-monitoring.getaccesspoints
+        with:
+          group: rest.group
+          site: rest.site
+          status: rest.status
+          label: rest.label
+          model: rest.model
+          fields: rest.fields
+          calculate_total: rest.calculate_total
+          swarm_id: rest.swarm_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/monitoring/v2/aps/{serial}
+      name: monitoring-v2-aps-serial
+      description: REST surface for monitoring-v2-aps-serial.
+      operations:
+      - method: GET
+        name: getaccesspointbyserial
+        description: Get Access Point Details
+        call: central-monitoring.getaccesspointbyserial
+        with:
+          serial: rest.serial
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/monitoring/v2/clients
+      name: monitoring-v2-clients
+      description: REST surface for monitoring-v2-clients.
+      operations:
+      - method: GET
+        name: getclients
+        description: List All Connected Clients
+        call: central-monitoring.getclients
+        with:
+          group: rest.group
+          site: rest.site
+          network: rest.network
+          client_status: rest.client_status
+          band: rest.band
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/monitoring/v2/gateways
+      name: monitoring-v2-gateways
+      description: REST surface for monitoring-v2-gateways.
+      operations:
+      - method: GET
+        name: getgateways
+        description: List All Gateways
+        call: central-monitoring.getgateways
+        with:
+          group: rest.group
+          site: rest.site
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/monitoring/v2/networks
+      name: monitoring-v2-networks
+      description: REST surface for monitoring-v2-networks.
+      operations:
+      - method: GET
+        name: getnetworks
+        description: List All Networks
+        call: central-monitoring.getnetworks
+        with:
+          group: rest.group
+          site: rest.site
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: central-monitoring-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Aruba Central API — Monitoring. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-access-points
+      description: List All Access Points
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: central-monitoring.getaccesspoints
+      with:
+        group: tools.group
+        site: tools.site
+        status: tools.status
+        label: tools.label
+        model: tools.model
+        fields: tools.fields
+        calculate_total: tools.calculate_total
+        swarm_id: tools.swarm_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-access-point-details
+      description: Get Access Point Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: central-monitoring.getaccesspointbyserial
+      with:
+        serial: tools.serial
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-connected-clients
+      description: List All Connected Clients
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: central-monitoring.getclients
+      with:
+        group: tools.group
+        site: tools.site
+        network: tools.network
+        client_status: tools.client_status
+        band: tools.band
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-gateways
+      description: List All Gateways
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: central-monitoring.getgateways
+      with:
+        group: tools.group
+        site: tools.site
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-networks
+      description: List All Networks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: central-monitoring.getnetworks
+      with:
+        group: tools.group
+        site: tools.site
+      outputParameters:
+      - type: object
+        mapping: $.

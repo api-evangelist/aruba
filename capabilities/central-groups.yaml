@@ -1,0 +1,224 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Aruba Central API — Groups
+  description: 'Aruba Central API — Groups. 5 operations. Lead operation: List All Groups. Self-contained Naftiko capability
+    covering one Aruba business surface.'
+  tags:
+  - Aruba
+  - Groups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ARUBA_API_KEY: ARUBA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: central-groups
+    baseUri: https://apigw-prod2.central.arubanetworks.com
+    description: Aruba Central API — Groups business capability. Self-contained, no shared references.
+    resources:
+    - name: configuration-v2-groups
+      path: /configuration/v2/groups
+      operations:
+      - name: getgroups
+        method: GET
+        description: List All Groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: creategroup
+        method: POST
+        description: Create a New Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: configuration-v2-groups-group_name
+      path: /configuration/v2/groups/{group_name}
+      operations:
+      - name: getgroupbyname
+        method: GET
+        description: Get Group Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group_name
+          in: path
+          type: string
+          description: The name of the group.
+          required: true
+      - name: updategroup
+        method: PATCH
+        description: Update Group Properties
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group_name
+          in: path
+          type: string
+          description: The name of the group to update.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletegroup
+        method: DELETE
+        description: Delete a Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: group_name
+          in: path
+          type: string
+          description: The name of the group to delete.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ARUBA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: central-groups-rest
+    port: 8080
+    description: REST adapter for Aruba Central API — Groups. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/configuration/v2/groups
+      name: configuration-v2-groups
+      description: REST surface for configuration-v2-groups.
+      operations:
+      - method: GET
+        name: getgroups
+        description: List All Groups
+        call: central-groups.getgroups
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: creategroup
+        description: Create a New Group
+        call: central-groups.creategroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/configuration/v2/groups/{group-name}
+      name: configuration-v2-groups-group-name
+      description: REST surface for configuration-v2-groups-group_name.
+      operations:
+      - method: GET
+        name: getgroupbyname
+        description: Get Group Details
+        call: central-groups.getgroupbyname
+        with:
+          group_name: rest.group_name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updategroup
+        description: Update Group Properties
+        call: central-groups.updategroup
+        with:
+          group_name: rest.group_name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletegroup
+        description: Delete a Group
+        call: central-groups.deletegroup
+        with:
+          group_name: rest.group_name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: central-groups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Aruba Central API — Groups. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-groups
+      description: List All Groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: central-groups.getgroups
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-group
+      description: Create a New Group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: central-groups.creategroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-group-details
+      description: Get Group Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: central-groups.getgroupbyname
+      with:
+        group_name: tools.group_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-group-properties
+      description: Update Group Properties
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: central-groups.updategroup
+      with:
+        group_name: tools.group_name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-group
+      description: Delete a Group
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: central-groups.deletegroup
+      with:
+        group_name: tools.group_name
+      outputParameters:
+      - type: object
+        mapping: $.

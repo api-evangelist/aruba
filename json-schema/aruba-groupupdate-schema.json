@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GroupUpdate",
+  "title": "GroupUpdate",
+  "type": "object",
+  "properties": {
+    "group_attributes": {
+      "type": "object",
+      "description": "Configuration attributes to update.",
+      "example": "example_value"
+    }
+  }
+}

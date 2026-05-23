@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SiteUpdate",
+  "title": "SiteUpdate",
+  "type": "object",
+  "properties": {
+    "site_name": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "address": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "city": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "state": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "country": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "zipcode": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "longitude": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    },
+    "latitude": {
+      "type": "number",
+      "format": "double",
+      "example": 42.5
+    }
+  }
+}

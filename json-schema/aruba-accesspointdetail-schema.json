@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccessPointDetail",
+  "title": "AccessPointDetail",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/AccessPoint"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "uplink": {
+          "type": "object",
+          "description": "Uplink connection details.",
+          "properties": {
+            "ethernet": {
+              "type": "object",
+              "properties": {
+                "port": {
+                  "type": "string"
+                },
+                "speed": {
+                  "type": "string"
+                },
+                "duplex": {
+                  "type": "string"
+                },
+                "poe_power": {
+                  "type": "number",
+                  "description": "PoE power draw in watts."
+                }
+              }
+            }
+          }
+        },
+        "last_modified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of last configuration change."
+        }
+      }
+    }
+  ]
+}

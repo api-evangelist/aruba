@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SiteDeviceAssociation",
+  "title": "SiteDeviceAssociation",
+  "type": "object",
+  "required": [
+    "device_id",
+    "device_type"
+  ],
+  "properties": {
+    "device_id": {
+      "type": "array",
+      "description": "List of device serial numbers to associate.",
+      "items": {
+        "type": "string"
+      },
+      "example": "500123"
+    },
+    "device_type": {
+      "type": "string",
+      "description": "Type of devices being associated.",
+      "enum": [
+        "IAP",
+        "SWITCH",
+        "CONTROLLER",
+        "GATEWAY"
+      ],
+      "example": "IAP"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GroupListResponse",
+  "title": "GroupListResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of groups.",
+      "example": 10
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of groups returned.",
+      "example": 10
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/GroupDetail"
+      },
+      "example": []
+    }
+  }
+}

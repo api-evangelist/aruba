@@ -1,0 +1,15 @@
+name: Aruba Domain Vocabulary
+provider: Aruba
+providerId: aruba
+description: Tag-derived vocabulary for the Aruba API surface; sourced from openapi/ tags.
+terms:
+- term: Devices
+  description: Device inventory management including listing, searching, and managing devices across the Aruba Central platform.
+- term: Groups
+  description: Configuration group management for organizing devices, applying templates, and managing group-level settings.
+- term: Sites
+  description: Site and location management for organizing network infrastructure by physical location.
+- term: Access Points
+  description: Access point monitoring and management including status, statistics, RF information, and client connectivity.
+- term: Monitoring
+  description: Network-wide monitoring for clients, networks, gateways, and overall network health metrics.

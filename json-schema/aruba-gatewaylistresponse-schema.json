@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GatewayListResponse",
+  "title": "GatewayListResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of gateways.",
+      "example": 10
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of gateways returned.",
+      "example": 10
+    },
+    "gateways": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Gateway"
+      },
+      "example": []
+    }
+  }
+}

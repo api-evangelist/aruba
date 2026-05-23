@@ -1,0 +1,338 @@
+{
+  "provider": "Aruba",
+  "providerId": "aruba",
+  "kind": "json-structure",
+  "description": "Structural overview of the Aruba API surface; extracted from openapi/.",
+  "schemaCount": 24,
+  "operationCount": 19,
+  "schemas": [
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Device",
+      "type": "object",
+      "propertyCount": 13,
+      "required": []
+    },
+    {
+      "name": "DeviceListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Group",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "GroupDetail",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "GroupCreate",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "group",
+        "group_attributes"
+      ]
+    },
+    {
+      "name": "GroupUpdate",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "GroupListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Site",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "SiteDetail",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "SiteCreate",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "site_name"
+      ]
+    },
+    {
+      "name": "SiteUpdate",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "SiteListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "SiteDeviceAssociation",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "device_id",
+        "device_type"
+      ]
+    },
+    {
+      "name": "AccessPoint",
+      "type": "object",
+      "propertyCount": 21,
+      "required": []
+    },
+    {
+      "name": "AccessPointDetail",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "Radio",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "AccessPointListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Client",
+      "type": "object",
+      "propertyCount": 15,
+      "required": []
+    },
+    {
+      "name": "ClientListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Network",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "NetworkListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Gateway",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "GatewayListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/platform/device_inventory/v1/devices",
+      "operationId": "getDevices",
+      "summary": "List All Devices",
+      "tags": [
+        "Devices"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/platform/device_inventory/v1/devices/{serial}",
+      "operationId": "getDeviceBySerial",
+      "summary": "Get Device by Serial Number",
+      "tags": [
+        "Devices"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/platform/device_inventory/v1/devices/{serial}",
+      "operationId": "deleteDevice",
+      "summary": "Remove Device From Inventory",
+      "tags": [
+        "Devices"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/configuration/v2/groups",
+      "operationId": "getGroups",
+      "summary": "List All Groups",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/configuration/v2/groups",
+      "operationId": "createGroup",
+      "summary": "Create a New Group",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/configuration/v2/groups/{group_name}",
+      "operationId": "getGroupByName",
+      "summary": "Get Group Details",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/configuration/v2/groups/{group_name}",
+      "operationId": "deleteGroup",
+      "summary": "Delete a Group",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/configuration/v2/groups/{group_name}",
+      "operationId": "updateGroup",
+      "summary": "Update Group Properties",
+      "tags": [
+        "Groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/central/v2/sites",
+      "operationId": "getSites",
+      "summary": "List All Sites",
+      "tags": [
+        "Sites"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/central/v2/sites",
+      "operationId": "createSite",
+      "summary": "Create a New Site",
+      "tags": [
+        "Sites"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/central/v2/sites/{site_id}",
+      "operationId": "getSiteById",
+      "summary": "Get Site Details",
+      "tags": [
+        "Sites"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/central/v2/sites/{site_id}",
+      "operationId": "deleteSite",
+      "summary": "Delete a Site",
+      "tags": [
+        "Sites"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/central/v2/sites/{site_id}",
+      "operationId": "updateSite",
+      "summary": "Update Site Details",
+      "tags": [
+        "Sites"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/central/v2/sites/{site_id}/associate",
+      "operationId": "associateDevicesToSite",
+      "summary": "Associate Devices to a Site",
+      "tags": [
+        "Sites",
+        "Devices"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/monitoring/v2/aps",
+      "operationId": "getAccessPoints",
+      "summary": "List All Access Points",
+      "tags": [
+        "Access Points",
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/monitoring/v2/aps/{serial}",
+      "operationId": "getAccessPointBySerial",
+      "summary": "Get Access Point Details",
+      "tags": [
+        "Access Points",
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/monitoring/v2/clients",
+      "operationId": "getClients",
+      "summary": "List All Connected Clients",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/monitoring/v2/networks",
+      "operationId": "getNetworks",
+      "summary": "List All Networks",
+      "tags": [
+        "Monitoring"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/monitoring/v2/gateways",
+      "operationId": "getGateways",
+      "summary": "List All Gateways",
+      "tags": [
+        "Monitoring"
+      ]
+    }
+  ]
+}

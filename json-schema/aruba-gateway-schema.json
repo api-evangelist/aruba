@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Gateway",
+  "title": "Gateway",
+  "type": "object",
+  "description": "A gateway device managed by Aruba Central providing routing, VPN, and SD-WAN functionality.",
+  "properties": {
+    "serial": {
+      "type": "string",
+      "description": "Serial number of the gateway.",
+      "example": "example_value"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the gateway.",
+      "example": "Example Title"
+    },
+    "macaddr": {
+      "type": "string",
+      "description": "MAC address of the gateway.",
+      "example": "example_value"
+    },
+    "model": {
+      "type": "string",
+      "description": "Hardware model.",
+      "example": "example_value"
+    },
+    "status": {
+      "type": "string",
+      "description": "Operational status.",
+      "enum": [
+        "Up",
+        "Down"
+      ],
+      "example": "Up"
+    },
+    "ip_address": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "IP address of the gateway.",
+      "example": "example_value"
+    },
+    "firmware_version": {
+      "type": "string",
+      "description": "Firmware version.",
+      "example": "example_value"
+    },
+    "group_name": {
+      "type": "string",
+      "description": "Configuration group.",
+      "example": "example_value"
+    },
+    "site": {
+      "type": "string",
+      "description": "Site assignment.",
+      "example": "example_value"
+    },
+    "uptime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Uptime in seconds.",
+      "example": 10
+    },
+    "client_count": {
+      "type": "integer",
+      "description": "Number of connected clients.",
+      "example": 10
+    }
+  }
+}

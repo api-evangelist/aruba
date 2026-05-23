@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GroupCreate",
+  "title": "GroupCreate",
+  "type": "object",
+  "required": [
+    "group",
+    "group_attributes"
+  ],
+  "properties": {
+    "group": {
+      "type": "string",
+      "description": "Name for the new group.",
+      "example": "example_value"
+    },
+    "group_attributes": {
+      "type": "object",
+      "description": "Configuration attributes for the group.",
+      "properties": {
+        "group_password": {
+          "type": "string",
+          "description": "Password for the group."
+        },
+        "template_info": {
+          "type": "object",
+          "properties": {
+            "Wired": {
+              "type": "boolean"
+            },
+            "Wireless": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

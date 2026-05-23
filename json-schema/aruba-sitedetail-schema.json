@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SiteDetail",
+  "title": "SiteDetail",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Site"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "associated_devices": {
+          "type": "array",
+          "description": "Devices associated with this site.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "serial": {
+                "type": "string"
+              },
+              "device_type": {
+                "type": "string"
+              },
+              "macaddr": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

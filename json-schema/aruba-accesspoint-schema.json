@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccessPoint",
+  "title": "AccessPoint",
+  "type": "object",
+  "description": "Represents an Aruba wireless access point with monitoring data including radio information, client counts, and operational status.",
+  "properties": {
+    "serial": {
+      "type": "string",
+      "description": "Serial number of the access point.",
+      "example": "example_value"
+    },
+    "name": {
+      "type": "string",
+      "description": "Configured name of the access point.",
+      "examples": [
+        "AP-lobby-01"
+      ]
+    },
+    "macaddr": {
+      "type": "string",
+      "description": "MAC address of the access point.",
+      "example": "example_value"
+    },
+    "model": {
+      "type": "string",
+      "description": "Hardware model.",
+      "examples": [
+        "AP-515",
+        "AP-635"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "description": "Current operational status.",
+      "enum": [
+        "Up",
+        "Down"
+      ],
+      "example": "Up"
+    },
+    "ip_address": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "IP address of the access point.",
+      "example": "example_value"
+    },
+    "firmware_version": {
+      "type": "string",
+      "description": "Current firmware version.",
+      "example": "example_value"
+    },
+    "group_name": {
+      "type": "string",
+      "description": "Configuration group assignment.",
+      "example": "example_value"
+    },
+    "site": {
+      "type": "string",
+      "description": "Site assignment.",
+      "example": "example_value"
+    },
+    "labels": {
+      "type": "array",
+      "description": "Labels assigned to the access point.",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "swarm_id": {
+      "type": "string",
+      "description": "Swarm/cluster identifier for the AP.",
+      "example": "500123"
+    },
+    "swarm_name": {
+      "type": "string",
+      "description": "Name of the Swarm/cluster.",
+      "example": "example_value"
+    },
+    "cluster_id": {
+      "type": "string",
+      "description": "Cluster identifier.",
+      "example": "500123"
+    },
+    "ap_deployment_mode": {
+      "type": "string",
+      "description": "Deployment mode of the access point.",
+      "enum": [
+        "IAP",
+        "AOS10"
+      ],
+      "example": "IAP"
+    },
+    "mesh_role": {
+      "type": "string",
+      "description": "Mesh role of the access point.",
+      "enum": [
+        "Portal",
+        "Point",
+        "None"
+      ],
+      "example": "Portal"
+    },
+    "client_count": {
+      "type": "integer",
+      "description": "Number of clients currently connected.",
+      "example": 10
+    },
+    "uptime": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Uptime in seconds since last reboot.",
+      "example": 10
+    },
+    "cpu_utilization": {
+      "type": "integer",
+      "description": "Current CPU utilization percentage.",
+      "minimum": 0,
+      "maximum": 100,
+      "example": 10
+    },
+    "mem_total": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Total memory in bytes.",
+      "example": 10
+    },
+    "mem_free": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Free memory in bytes.",
+      "example": 10
+    },
+    "radios": {
+      "type": "array",
+      "description": "Radio interface information.",
+      "items": {
+        "$ref": "#/components/schemas/Radio"
+      },
+      "example": []
+    }
+  }
+}

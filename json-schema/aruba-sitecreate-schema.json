@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SiteCreate",
+  "title": "SiteCreate",
+  "type": "object",
+  "required": [
+    "site_name"
+  ],
+  "properties": {
+    "site_name": {
+      "type": "string",
+      "description": "Name for the new site.",
+      "example": "example_value"
+    },
+    "address": {
+      "type": "string",
+      "description": "Street address.",
+      "example": "example_value"
+    },
+    "city": {
+      "type": "string",
+      "description": "City name.",
+      "example": "example_value"
+    },
+    "state": {
+      "type": "string",
+      "description": "State or province.",
+      "example": "example_value"
+    },
+    "country": {
+      "type": "string",
+      "description": "Country name.",
+      "example": "example_value"
+    },
+    "zipcode": {
+      "type": "string",
+      "description": "Postal code.",
+      "example": "example_value"
+    },
+    "longitude": {
+      "type": "number",
+      "format": "double",
+      "description": "Geographic longitude.",
+      "example": 42.5
+    },
+    "latitude": {
+      "type": "number",
+      "format": "double",
+      "description": "Geographic latitude.",
+      "example": 42.5
+    }
+  }
+}

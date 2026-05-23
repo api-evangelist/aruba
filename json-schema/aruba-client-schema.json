@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Client",
+  "title": "Client",
+  "type": "object",
+  "description": "A client device connected to the network.",
+  "properties": {
+    "macaddr": {
+      "type": "string",
+      "description": "MAC address of the client.",
+      "example": "example_value"
+    },
+    "name": {
+      "type": "string",
+      "description": "Hostname or display name of the client.",
+      "example": "Example Title"
+    },
+    "ip_address": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "IP address assigned to the client.",
+      "example": "example_value"
+    },
+    "os_type": {
+      "type": "string",
+      "description": "Operating system type detected.",
+      "example": "example_value"
+    },
+    "connection": {
+      "type": "string",
+      "description": "Connection type.",
+      "enum": [
+        "Wireless",
+        "Wired"
+      ],
+      "example": "Wireless"
+    },
+    "network": {
+      "type": "string",
+      "description": "SSID or network name the client is connected to.",
+      "example": "example_value"
+    },
+    "band": {
+      "type": "number",
+      "description": "Radio band of the wireless connection.",
+      "example": 42.5
+    },
+    "channel": {
+      "type": "string",
+      "description": "Channel number of the wireless connection.",
+      "example": "example_value"
+    },
+    "signal_strength": {
+      "type": "integer",
+      "description": "Signal strength in dBm.",
+      "example": 10
+    },
+    "signal_db": {
+      "type": "integer",
+      "description": "Signal-to-noise ratio in dB.",
+      "example": 10
+    },
+    "speed": {
+      "type": "integer",
+      "description": "Connection speed in Mbps.",
+      "example": 10
+    },
+    "associated_device": {
+      "type": "string",
+      "description": "Serial number of the device the client is connected to.",
+      "example": "example_value"
+    },
+    "group_name": {
+      "type": "string",
+      "description": "Group name of the associated device.",
+      "example": "example_value"
+    },
+    "site": {
+      "type": "string",
+      "description": "Site name of the associated device.",
+      "example": "example_value"
+    },
+    "usage": {
+      "type": "object",
+      "description": "Data usage statistics.",
+      "properties": {
+        "tx_bytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total bytes transmitted to the client."
+        },
+        "rx_bytes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total bytes received from the client."
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

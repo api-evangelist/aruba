@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Radio",
+  "title": "Radio",
+  "type": "object",
+  "description": "Radio interface on an access point.",
+  "properties": {
+    "index": {
+      "type": "integer",
+      "description": "Radio index (0 or 1).",
+      "example": 10
+    },
+    "macaddr": {
+      "type": "string",
+      "description": "MAC address of the radio interface.",
+      "example": "example_value"
+    },
+    "band": {
+      "type": "number",
+      "description": "Operating frequency band in GHz.",
+      "enum": [
+        2.4,
+        5,
+        6
+      ],
+      "example": 2.4
+    },
+    "channel": {
+      "type": "string",
+      "description": "Operating channel number.",
+      "example": "example_value"
+    },
+    "power": {
+      "type": "integer",
+      "description": "Transmit power in dBm.",
+      "example": 10
+    },
+    "tx_power": {
+      "type": "integer",
+      "description": "Effective transmit power in dBm.",
+      "example": 10
+    },
+    "utilization": {
+      "type": "integer",
+      "description": "Channel utilization percentage.",
+      "minimum": 0,
+      "maximum": 100,
+      "example": 10
+    },
+    "noise_floor": {
+      "type": "integer",
+      "description": "Noise floor in dBm.",
+      "example": 10
+    },
+    "status": {
+      "type": "string",
+      "description": "Radio operational status.",
+      "enum": [
+        "Up",
+        "Down"
+      ],
+      "example": "Up"
+    }
+  }
+}

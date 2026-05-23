@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkListResponse",
+  "title": "NetworkListResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of networks.",
+      "example": 10
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of networks returned.",
+      "example": 10
+    },
+    "networks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Network"
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ClientListResponse",
+  "title": "ClientListResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of clients matching the query.",
+      "example": 10
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of clients returned.",
+      "example": 10
+    },
+    "clients": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Client"
+      },
+      "example": []
+    }
+  }
+}

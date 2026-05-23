@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeviceListResponse",
+  "title": "DeviceListResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of devices matching the query.",
+      "example": 10
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of devices returned in this response.",
+      "example": 10
+    },
+    "devices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Device"
+      },
+      "example": []
+    }
+  }
+}

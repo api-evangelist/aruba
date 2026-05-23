@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SiteListResponse",
+  "title": "SiteListResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of sites.",
+      "example": 10
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of sites returned.",
+      "example": 10
+    },
+    "sites": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Site"
+      },
+      "example": []
+    }
+  }
+}

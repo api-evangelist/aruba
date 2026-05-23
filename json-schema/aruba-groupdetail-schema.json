@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GroupDetail",
+  "title": "GroupDetail",
+  "type": "object",
+  "properties": {
+    "group": {
+      "type": "string",
+      "description": "Name of the group.",
+      "example": "example_value"
+    },
+    "group_properties": {
+      "type": "object",
+      "properties": {
+        "AllowedDevTypes": {
+          "type": "array",
+          "description": "Device types allowed in this group.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "AccessPoints",
+              "Switches",
+              "Gateways"
+            ]
+          }
+        },
+        "Architecture": {
+          "type": "string",
+          "description": "Network architecture mode.",
+          "enum": [
+            "Instant",
+            "AOS10"
+          ]
+        },
+        "MonitorOnlySwitch": {
+          "type": "boolean",
+          "description": "Whether switches in this group are monitor-only."
+        },
+        "AllowedSwitchTypes": {
+          "type": "array",
+          "description": "Switch types allowed in this group.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "AOS_S",
+              "AOS_CX"
+            ]
+          }
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

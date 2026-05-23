@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Network",
+  "title": "Network",
+  "type": "object",
+  "description": "A wireless SSID or wired network managed by Central.",
+  "properties": {
+    "essid": {
+      "type": "string",
+      "description": "Extended Service Set Identifier (network name).",
+      "example": "500123"
+    },
+    "type": {
+      "type": "string",
+      "description": "Network type.",
+      "enum": [
+        "Employee",
+        "Guest",
+        "Wired"
+      ],
+      "example": "Employee"
+    },
+    "client_count": {
+      "type": "integer",
+      "description": "Number of connected clients.",
+      "example": 10
+    },
+    "group_name": {
+      "type": "string",
+      "description": "Configuration group the network belongs to.",
+      "example": "example_value"
+    },
+    "site": {
+      "type": "string",
+      "description": "Site assignment.",
+      "example": "example_value"
+    }
+  }
+}

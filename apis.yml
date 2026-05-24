@@ -216,3 +216,5 @@ common:
     description: Log and event forwarding from Aruba infrastructure to Splunk for security analytics and monitoring.
   - name: VMware vSphere
     description: Integration with VMware environments for network-aware virtual infrastructure management.
+- type: LLMsTxt
+  url: https://developer.arubanetworks.com/llms.txt

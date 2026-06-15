@@ -2,6 +2,13 @@
   "repo": "aruba",
   "feeds": [
     {
+      "source": "https://community.hpe.com/t5/networking/bg-p/HPE_Networking",
+      "feed_url": "https://community.hpe.com/hpeb/rss/board?board.id=HPE_Networking",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    },
+    {
       "source": "https://github.com/aruba",
       "feed_url": "https://github.com/aruba",
       "title": "",
@@ -9,6 +16,6 @@
       "method": "none"
     }
   ],
-  "fetched": "2026-06-01T23:35:02Z",
-  "post_count": 0
+  "post_count": 1,
+  "fetched": "2026-06-14T20:42:17Z"
 }

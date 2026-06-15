@@ -1,0 +1,595 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aruba Central API",
+    "version": "2.5.8"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/platform/device_inventory/v1/devices",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "sku_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by device type (IAP for access points, HP for switches, CONTROLLER for gateways)."
+              },
+              {
+                "name": "macaddr",
+                "value": "",
+                "type": "query",
+                "description": "Filter by device MAC address."
+              },
+              {
+                "name": "serial",
+                "value": "",
+                "type": "query",
+                "description": "Filter by device serial number."
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Filter by device model name."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all devices in the Aruba Central device inventory including access points, switches, gateways, and SD-WAN appliances. Supports filtering by device type, status, and other attributes."
+        },
+        {
+          "info": {
+            "name": "Get Device by Serial Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/platform/device_inventory/v1/devices/:serial",
+            "params": [
+              {
+                "name": "serial",
+                "value": "",
+                "type": "path",
+                "description": "The serial number of the device."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific device identified by its serial number, including model, firmware, group assignment, site, and connectivity status."
+        },
+        {
+          "info": {
+            "name": "Remove Device From Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apigw-prod2.central.arubanetworks.com/platform/device_inventory/v1/devices/:serial",
+            "params": [
+              {
+                "name": "serial",
+                "value": "",
+                "type": "path",
+                "description": "The serial number of the device to remove."
+              }
+            ]
+          },
+          "docs": "Removes a device from the Aruba Central inventory by serial number. The device must be in an unassigned state before deletion."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/configuration/v2/groups",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              }
+            ]
+          },
+          "docs": "Retrieves all configuration groups defined in Aruba Central. Groups serve as the primary organizational unit for applying configuration templates and firmware policies to devices."
+        },
+        {
+          "info": {
+            "name": "Create a New Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw-prod2.central.arubanetworks.com/configuration/v2/groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new configuration group in Aruba Central. Groups define the configuration profile and firmware compliance policy for member devices."
+        },
+        {
+          "info": {
+            "name": "Get Group Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/configuration/v2/groups/:group_name",
+            "params": [
+              {
+                "name": "group_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the group."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific configuration group including its properties, allowed device types, template configuration mode, and architecture settings."
+        },
+        {
+          "info": {
+            "name": "Update Group Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://apigw-prod2.central.arubanetworks.com/configuration/v2/groups/:group_name",
+            "params": [
+              {
+                "name": "group_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the group to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of an existing configuration group. Supports partial updates to group settings, allowed device types, and firmware compliance policies."
+        },
+        {
+          "info": {
+            "name": "Delete a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apigw-prod2.central.arubanetworks.com/configuration/v2/groups/:group_name",
+            "params": [
+              {
+                "name": "group_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the group to delete."
+              }
+            ]
+          },
+          "docs": "Deletes a configuration group from Aruba Central. The group must have no devices assigned before it can be deleted."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "calculate_total",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate and return the total number of sites."
+              }
+            ]
+          },
+          "docs": "Retrieves all sites defined in Aruba Central. Sites represent physical locations and are used to organize devices geographically for location-based monitoring and reporting."
+        },
+        {
+          "info": {
+            "name": "Create a New Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new site in Aruba Central with location details including address, city, state, country, and optional geographic coordinates."
+        },
+        {
+          "info": {
+            "name": "Get Site Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the site."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific site including its address, geographic coordinates, associated devices, and tags."
+        },
+        {
+          "info": {
+            "name": "Update Site Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the site to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing site's properties including name, address, geographic coordinates, and associated tags."
+        },
+        {
+          "info": {
+            "name": "Delete a Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the site to delete."
+              }
+            ]
+          },
+          "docs": "Deletes a site from Aruba Central by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Associate Devices to a Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites/:site_id/associate",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates one or more devices to a site by providing their serial numbers. Devices must exist in the inventory before association."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Access Points",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Access Points",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/aps",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter by group name."
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site name."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by access point status."
+              },
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "Filter by label name."
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Filter by AP model."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use to request only specific attributes in the response."
+              },
+              {
+                "name": "calculate_total",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate and return the total number of APs."
+              },
+              {
+                "name": "swarm_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Swarm/cluster identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves monitoring data for all access points managed by Aruba Central including status, client count, radio information, uptime, and performance metrics."
+        },
+        {
+          "info": {
+            "name": "Get Access Point Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/aps/:serial",
+            "params": [
+              {
+                "name": "serial",
+                "value": "",
+                "type": "path",
+                "description": "The serial number of the access point."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed monitoring data for a specific access point including radio configuration, client statistics, uplink information, mesh status, and performance counters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Connected Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/clients",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter by group name."
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site name."
+              },
+              {
+                "name": "network",
+                "value": "",
+                "type": "query",
+                "description": "Filter by SSID or network name."
+              },
+              {
+                "name": "client_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client connection status."
+              },
+              {
+                "name": "band",
+                "value": "",
+                "type": "query",
+                "description": "Filter by radio band."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all clients currently connected to the network including their connection type, associated device, signal strength, and network usage."
+        },
+        {
+          "info": {
+            "name": "List All Networks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/networks",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter by group name."
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site name."
+              }
+            ]
+          },
+          "docs": "Retrieves monitoring data for all networks (SSIDs and wired networks) managed by Aruba Central including client count, usage statistics, and health metrics."
+        },
+        {
+          "info": {
+            "name": "List All Gateways",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/gateways",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter by group name."
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site name."
+              }
+            ]
+          },
+          "docs": "Retrieves monitoring data for all gateways managed by Aruba Central including uplink status, tunnel information, and performance metrics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

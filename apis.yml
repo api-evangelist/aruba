@@ -42,7 +42,7 @@ apis:
         url: https://developer.arubanetworks.com/central/docs/api-oauth-access-token
       - type: GettingStarted
         url: https://developer.arubanetworks.com/central/docs/rest-api-getting-started
-      - type: SDK
+      - type: SDKs
         url: https://github.com/aruba/pycentral
         title: Python SDK
   - name: Aruba ClearPass API
@@ -65,7 +65,7 @@ apis:
         url: https://developer.arubanetworks.com/cppm/reference
       - type: GettingStarted
         url: https://developer.arubanetworks.com/cppm/docs/getting-started-with-the-clearpass-policy-manager-api
-      - type: SDK
+      - type: SDKs
         url: https://github.com/aruba/pyclearpass
         title: Python SDK
   - name: Aruba AOS-CX REST API
@@ -84,7 +84,7 @@ apis:
         url: https://developer.arubanetworks.com/aoscx/docs/introduction
       - type: APIReference
         url: https://developer.arubanetworks.com/aoscx/docs/additional-resources-1
-      - type: SDK
+      - type: SDKs
         url: https://github.com/aruba/pyaoscx
         title: Python SDK
   - name: Aruba EdgeConnect SD-WAN API
@@ -138,7 +138,7 @@ apis:
         url: https://developer.arubanetworks.com/uxi/docs/getting-started-with-onboarding-api
       - type: Authentication
         url: https://developer.arubanetworks.com/uxi/docs/generating-managing-access-token
-      - type: SDK
+      - type: SDKs
         url: https://developer.arubanetworks.com/uxi/docs/installing-python-package
         title: Python SDK
   - name: Aruba AirWave API
@@ -221,5 +221,5 @@ common:
         description: Log and event forwarding from Aruba infrastructure to Splunk for security analytics and monitoring.
       - name: VMware vSphere
         description: Integration with VMware environments for network-aware virtual infrastructure management.
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://developer.arubanetworks.com/llms.txt

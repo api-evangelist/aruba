@@ -157,6 +157,10 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com
 common:
+  - type: DomainSecurity
+    url: security/aruba-domain-security.yml
+  - type: Authentication
+    url: authentication/aruba-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/aruba-a-hewlett-packard-enterprise-company
   - type: DeveloperPortal

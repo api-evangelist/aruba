@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/aruba-central-api.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: OAuth 2.0 bearer token obtained through the Aruba Central API Gateway three-step
+    OAuth flow. Tokens expire after 7200 seconds (2 hours) and can be refreshed using the refresh_token
+    grant type.
+  sources:
+  - openapi/aruba-central-api.yml

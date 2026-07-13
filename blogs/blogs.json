@@ -3,10 +3,7 @@
   "feeds": [
     {
       "source": "https://community.hpe.com/hpeb/rss/board?board.id=HPE_Networking",
-      "feed_url": "https://community.hpe.com/hpeb/rss/board?board.id=HPE_Networking",
-      "title": "",
-      "saved": 3,
-      "method": "feed"
+      "error": "HTTPError"
     },
     {
       "source": "https://github.com/aruba",
@@ -17,5 +14,5 @@
     }
   ],
   "post_count": 11,
-  "fetched": "2026-06-27T12:03:07Z"
+  "fetched": "2026-07-11T11:50:51Z"
 }

@@ -157,6 +157,8 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/aruba-agentic-access.yml
   - type: DomainSecurity
     url: security/aruba-domain-security.yml
   - type: Authentication

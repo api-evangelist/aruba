@@ -1,0 +1,342 @@
+openapi: 3.1.0
+info:
+  title: Aruba Central Access Points Groups API
+  description: RESTful API for managing the HPE Aruba Networking Central cloud platform. Provides unified network management, AI-based analytics, device monitoring, and configuration for wired, wireless, and SD-WAN networks. Aruba Central serves as a single pane of glass for managing access points, switches, gateways, and SD-WAN appliances across distributed enterprise environments.
+  version: 2.5.8
+  contact:
+    name: HPE Aruba Networking Developer Hub
+    url: https://developer.arubanetworks.com/central/
+  license:
+    name: Proprietary
+    url: https://www.arubanetworks.com/company/legal/
+  termsOfService: https://www.arubanetworks.com/company/legal/
+  x-logo:
+    url: https://www.arubanetworks.com/assets/img/aruba-central-logo.png
+servers:
+- url: https://apigw-prod2.central.arubanetworks.com
+  description: US-2 Production API Gateway
+- url: https://app1-apigw.central.arubanetworks.com
+  description: US-1 Production API Gateway
+- url: https://apigw-useast1.central.arubanetworks.com
+  description: US-East-1 Production API Gateway
+- url: https://apigw-prod2.central.arubanetworks.com
+  description: EU-1 Production API Gateway
+- url: https://apigw-apac1.central.arubanetworks.com
+  description: APAC-1 Production API Gateway
+- url: https://apigw-canada1.central.arubanetworks.com
+  description: Canada-1 Production API Gateway
+security:
+- bearerAuth: []
+tags:
+- name: Groups
+  description: Configuration group management for organizing devices, applying templates, and managing group-level settings.
+paths:
+  /configuration/v2/groups:
+    get:
+      operationId: getGroups
+      summary: List All Groups
+      description: Retrieves all configuration groups defined in Aruba Central. Groups serve as the primary organizational unit for applying configuration templates and firmware policies to devices.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        '200':
+          description: Successful retrieval of groups list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createGroup
+      summary: Create a New Group
+      description: Creates a new configuration group in Aruba Central. Groups define the configuration profile and firmware compliance policy for member devices.
+      tags:
+      - Groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupCreate'
+      responses:
+        '200':
+          description: Group created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /configuration/v2/groups/{group_name}:
+    get:
+      operationId: getGroupByName
+      summary: Get Group Details
+      description: Retrieves detailed information about a specific configuration group including its properties, allowed device types, template configuration mode, and architecture settings.
+      tags:
+      - Groups
+      parameters:
+      - name: group_name
+        in: path
+        description: The name of the group.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of group details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDetail'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateGroup
+      summary: Update Group Properties
+      description: Updates properties of an existing configuration group. Supports partial updates to group settings, allowed device types, and firmware compliance policies.
+      tags:
+      - Groups
+      parameters:
+      - name: group_name
+        in: path
+        description: The name of the group to update.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupUpdate'
+      responses:
+        '200':
+          description: Group updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteGroup
+      summary: Delete a Group
+      description: Deletes a configuration group from Aruba Central. The group must have no devices assigned before it can be deleted.
+      tags:
+      - Groups
+      parameters:
+      - name: group_name
+        in: path
+        description: The name of the group to delete.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Group deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per request.
+      required: false
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 1000
+    offsetParam:
+      name: offset
+      in: query
+      description: Pagination offset (starting index for results).
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+  responses:
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed. The access token is missing, expired, or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request. The request body or parameters are malformed or contain invalid values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    GroupCreate:
+      type: object
+      required:
+      - group
+      - group_attributes
+      properties:
+        group:
+          type: string
+          description: Name for the new group.
+          example: example_value
+        group_attributes:
+          type: object
+          description: Configuration attributes for the group.
+          properties:
+            group_password:
+              type: string
+              description: Password for the group.
+            template_info:
+              type: object
+              properties:
+                Wired:
+                  type: boolean
+                Wireless:
+                  type: boolean
+          example: example_value
+    GroupUpdate:
+      type: object
+      properties:
+        group_attributes:
+          type: object
+          description: Configuration attributes to update.
+          example: example_value
+    GroupListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of groups.
+          example: 10
+        count:
+          type: integer
+          description: Number of groups returned.
+          example: 10
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupDetail'
+          example: []
+    GroupDetail:
+      type: object
+      properties:
+        group:
+          type: string
+          description: Name of the group.
+          example: example_value
+        group_properties:
+          type: object
+          properties:
+            AllowedDevTypes:
+              type: array
+              description: Device types allowed in this group.
+              items:
+                type: string
+                enum:
+                - AccessPoints
+                - Switches
+                - Gateways
+            Architecture:
+              type: string
+              description: Network architecture mode.
+              enum:
+              - Instant
+              - AOS10
+            MonitorOnlySwitch:
+              type: boolean
+              description: Whether switches in this group are monitor-only.
+            AllowedSwitchTypes:
+              type: array
+              description: Switch types allowed in this group.
+              items:
+                type: string
+                enum:
+                - AOS_S
+                - AOS_CX
+          example: example_value
+    Group:
+      type: object
+      description: Configuration group for organizing devices and applying shared configuration templates, firmware policies, and settings.
+      properties:
+        group:
+          type: string
+          description: Name of the group.
+          examples:
+          - default
+        group_properties:
+          type: object
+          description: Group-level configuration properties.
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Human-readable error message.
+          example: A sample description.
+        error_code:
+          type: string
+          description: Machine-readable error code.
+          example: example_value
+        service_name:
+          type: string
+          description: The API service that generated the error.
+          example: example_value
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token obtained through the Aruba Central API Gateway three-step OAuth flow. Tokens expire after 7200 seconds (2 hours) and can be refreshed using the refresh_token grant type.
+externalDocs:
+  description: Aruba Central API Documentation
+  url: https://developer.arubanetworks.com/central/docs

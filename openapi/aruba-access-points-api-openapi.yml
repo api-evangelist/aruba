@@ -1,0 +1,418 @@
+openapi: 3.1.0
+info:
+  title: Aruba Central Access Points API
+  description: RESTful API for managing the HPE Aruba Networking Central cloud platform. Provides unified network management, AI-based analytics, device monitoring, and configuration for wired, wireless, and SD-WAN networks. Aruba Central serves as a single pane of glass for managing access points, switches, gateways, and SD-WAN appliances across distributed enterprise environments.
+  version: 2.5.8
+  contact:
+    name: HPE Aruba Networking Developer Hub
+    url: https://developer.arubanetworks.com/central/
+  license:
+    name: Proprietary
+    url: https://www.arubanetworks.com/company/legal/
+  termsOfService: https://www.arubanetworks.com/company/legal/
+  x-logo:
+    url: https://www.arubanetworks.com/assets/img/aruba-central-logo.png
+servers:
+- url: https://apigw-prod2.central.arubanetworks.com
+  description: US-2 Production API Gateway
+- url: https://app1-apigw.central.arubanetworks.com
+  description: US-1 Production API Gateway
+- url: https://apigw-useast1.central.arubanetworks.com
+  description: US-East-1 Production API Gateway
+- url: https://apigw-prod2.central.arubanetworks.com
+  description: EU-1 Production API Gateway
+- url: https://apigw-apac1.central.arubanetworks.com
+  description: APAC-1 Production API Gateway
+- url: https://apigw-canada1.central.arubanetworks.com
+  description: Canada-1 Production API Gateway
+security:
+- bearerAuth: []
+tags:
+- name: Access Points
+  description: Access point monitoring and management including status, statistics, RF information, and client connectivity.
+paths:
+  /monitoring/v2/aps:
+    get:
+      operationId: getAccessPoints
+      summary: List All Access Points
+      description: Retrieves monitoring data for all access points managed by Aruba Central including status, client count, radio information, uptime, and performance metrics.
+      tags:
+      - Access Points
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: group
+        in: query
+        description: Filter by group name.
+        required: false
+        schema:
+          type: string
+      - name: site
+        in: query
+        description: Filter by site name.
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter by access point status.
+        required: false
+        schema:
+          type: string
+          enum:
+          - Up
+          - Down
+      - name: label
+        in: query
+        description: Filter by label name.
+        required: false
+        schema:
+          type: string
+      - name: model
+        in: query
+        description: Filter by AP model.
+        required: false
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Comma-separated list of fields to return. Use to request only specific attributes in the response.
+        required: false
+        schema:
+          type: string
+      - name: calculate_total
+        in: query
+        description: Whether to calculate and return the total number of APs.
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: swarm_id
+        in: query
+        description: Filter by Swarm/cluster identifier.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of access point list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessPointListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /monitoring/v2/aps/{serial}:
+    get:
+      operationId: getAccessPointBySerial
+      summary: Get Access Point Details
+      description: Retrieves detailed monitoring data for a specific access point including radio configuration, client statistics, uplink information, mesh status, and performance counters.
+      tags:
+      - Access Points
+      parameters:
+      - name: serial
+        in: path
+        description: The serial number of the access point.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of access point details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessPointDetail'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    RateLimited:
+      description: Rate limit exceeded. The API Gateway enforces rate limits per client ID. Retry after the interval specified in the Retry-After header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      headers:
+        Retry-After:
+          description: Number of seconds to wait before retrying.
+          schema:
+            type: integer
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed. The access token is missing, expired, or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per request.
+      required: false
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 1000
+    offsetParam:
+      name: offset
+      in: query
+      description: Pagination offset (starting index for results).
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+  schemas:
+    AccessPointListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of access points matching the query.
+          example: 10
+        count:
+          type: integer
+          description: Number of access points returned.
+          example: 10
+        aps:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessPoint'
+          example: []
+    Radio:
+      type: object
+      description: Radio interface on an access point.
+      properties:
+        index:
+          type: integer
+          description: Radio index (0 or 1).
+          example: 10
+        macaddr:
+          type: string
+          description: MAC address of the radio interface.
+          example: example_value
+        band:
+          type: number
+          description: Operating frequency band in GHz.
+          enum:
+          - 2.4
+          - 5
+          - 6
+          example: 2.4
+        channel:
+          type: string
+          description: Operating channel number.
+          example: example_value
+        power:
+          type: integer
+          description: Transmit power in dBm.
+          example: 10
+        tx_power:
+          type: integer
+          description: Effective transmit power in dBm.
+          example: 10
+        utilization:
+          type: integer
+          description: Channel utilization percentage.
+          minimum: 0
+          maximum: 100
+          example: 10
+        noise_floor:
+          type: integer
+          description: Noise floor in dBm.
+          example: 10
+        status:
+          type: string
+          description: Radio operational status.
+          enum:
+          - Up
+          - Down
+          example: Up
+    AccessPointDetail:
+      allOf:
+      - $ref: '#/components/schemas/AccessPoint'
+      - type: object
+        properties:
+          uplink:
+            type: object
+            description: Uplink connection details.
+            properties:
+              ethernet:
+                type: object
+                properties:
+                  port:
+                    type: string
+                  speed:
+                    type: string
+                  duplex:
+                    type: string
+                  poe_power:
+                    type: number
+                    description: PoE power draw in watts.
+          last_modified:
+            type: string
+            format: date-time
+            description: Timestamp of last configuration change.
+    ErrorResponse:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Human-readable error message.
+          example: A sample description.
+        error_code:
+          type: string
+          description: Machine-readable error code.
+          example: example_value
+        service_name:
+          type: string
+          description: The API service that generated the error.
+          example: example_value
+    AccessPoint:
+      type: object
+      description: Represents an Aruba wireless access point with monitoring data including radio information, client counts, and operational status.
+      properties:
+        serial:
+          type: string
+          description: Serial number of the access point.
+          example: example_value
+        name:
+          type: string
+          description: Configured name of the access point.
+          examples:
+          - AP-lobby-01
+        macaddr:
+          type: string
+          description: MAC address of the access point.
+          example: example_value
+        model:
+          type: string
+          description: Hardware model.
+          examples:
+          - AP-515
+          - AP-635
+        status:
+          type: string
+          description: Current operational status.
+          enum:
+          - Up
+          - Down
+          example: Up
+        ip_address:
+          type: string
+          format: ipv4
+          description: IP address of the access point.
+          example: example_value
+        firmware_version:
+          type: string
+          description: Current firmware version.
+          example: example_value
+        group_name:
+          type: string
+          description: Configuration group assignment.
+          example: example_value
+        site:
+          type: string
+          description: Site assignment.
+          example: example_value
+        labels:
+          type: array
+          description: Labels assigned to the access point.
+          items:
+            type: string
+          example: []
+        swarm_id:
+          type: string
+          description: Swarm/cluster identifier for the AP.
+          example: '500123'
+        swarm_name:
+          type: string
+          description: Name of the Swarm/cluster.
+          example: example_value
+        cluster_id:
+          type: string
+          description: Cluster identifier.
+          example: '500123'
+        ap_deployment_mode:
+          type: string
+          description: Deployment mode of the access point.
+          enum:
+          - IAP
+          - AOS10
+          example: IAP
+        mesh_role:
+          type: string
+          description: Mesh role of the access point.
+          enum:
+          - Portal
+          - Point
+          - None
+          example: Portal
+        client_count:
+          type: integer
+          description: Number of clients currently connected.
+          example: 10
+        uptime:
+          type: integer
+          format: int64
+          description: Uptime in seconds since last reboot.
+          example: 10
+        cpu_utilization:
+          type: integer
+          description: Current CPU utilization percentage.
+          minimum: 0
+          maximum: 100
+          example: 10
+        mem_total:
+          type: integer
+          format: int64
+          description: Total memory in bytes.
+          example: 10
+        mem_free:
+          type: integer
+          format: int64
+          description: Free memory in bytes.
+          example: 10
+        radios:
+          type: array
+          description: Radio interface information.
+          items:
+            $ref: '#/components/schemas/Radio'
+          example: []
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token obtained through the Aruba Central API Gateway three-step OAuth flow. Tokens expire after 7200 seconds (2 hours) and can be refreshed using the refresh_token grant type.
+externalDocs:
+  description: Aruba Central API Documentation
+  url: https://developer.arubanetworks.com/central/docs

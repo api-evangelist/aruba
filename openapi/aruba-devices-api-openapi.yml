@@ -1,0 +1,372 @@
+openapi: 3.1.0
+info:
+  title: Aruba Central Access Points Devices API
+  description: RESTful API for managing the HPE Aruba Networking Central cloud platform. Provides unified network management, AI-based analytics, device monitoring, and configuration for wired, wireless, and SD-WAN networks. Aruba Central serves as a single pane of glass for managing access points, switches, gateways, and SD-WAN appliances across distributed enterprise environments.
+  version: 2.5.8
+  contact:
+    name: HPE Aruba Networking Developer Hub
+    url: https://developer.arubanetworks.com/central/
+  license:
+    name: Proprietary
+    url: https://www.arubanetworks.com/company/legal/
+  termsOfService: https://www.arubanetworks.com/company/legal/
+  x-logo:
+    url: https://www.arubanetworks.com/assets/img/aruba-central-logo.png
+servers:
+- url: https://apigw-prod2.central.arubanetworks.com
+  description: US-2 Production API Gateway
+- url: https://app1-apigw.central.arubanetworks.com
+  description: US-1 Production API Gateway
+- url: https://apigw-useast1.central.arubanetworks.com
+  description: US-East-1 Production API Gateway
+- url: https://apigw-prod2.central.arubanetworks.com
+  description: EU-1 Production API Gateway
+- url: https://apigw-apac1.central.arubanetworks.com
+  description: APAC-1 Production API Gateway
+- url: https://apigw-canada1.central.arubanetworks.com
+  description: Canada-1 Production API Gateway
+security:
+- bearerAuth: []
+tags:
+- name: Devices
+  description: Device inventory management including listing, searching, and managing devices across the Aruba Central platform.
+paths:
+  /platform/device_inventory/v1/devices:
+    get:
+      operationId: getDevices
+      summary: List All Devices
+      description: Retrieves a list of all devices in the Aruba Central device inventory including access points, switches, gateways, and SD-WAN appliances. Supports filtering by device type, status, and other attributes.
+      tags:
+      - Devices
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: sku_type
+        in: query
+        description: Filter by device type (IAP for access points, HP for switches, CONTROLLER for gateways).
+        required: false
+        schema:
+          type: string
+          enum:
+          - IAP
+          - HP
+          - CONTROLLER
+          - GATEWAY
+          - SWITCH
+          - VGW
+      - name: macaddr
+        in: query
+        description: Filter by device MAC address.
+        required: false
+        schema:
+          type: string
+      - name: serial
+        in: query
+        description: Filter by device serial number.
+        required: false
+        schema:
+          type: string
+      - name: model
+        in: query
+        description: Filter by device model name.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of device list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /platform/device_inventory/v1/devices/{serial}:
+    get:
+      operationId: getDeviceBySerial
+      summary: Get Device by Serial Number
+      description: Retrieves detailed information about a specific device identified by its serial number, including model, firmware, group assignment, site, and connectivity status.
+      tags:
+      - Devices
+      parameters:
+      - name: serial
+        in: path
+        description: The serial number of the device.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful retrieval of device details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteDevice
+      summary: Remove Device From Inventory
+      description: Removes a device from the Aruba Central inventory by serial number. The device must be in an unassigned state before deletion.
+      tags:
+      - Devices
+      parameters:
+      - name: serial
+        in: path
+        description: The serial number of the device to remove.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Device successfully removed.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /central/v2/sites/{site_id}/associate:
+    post:
+      operationId: associateDevicesToSite
+      summary: Associate Devices to a Site
+      description: Associates one or more devices to a site by providing their serial numbers. Devices must exist in the inventory before association.
+      tags:
+      - Devices
+      parameters:
+      - name: site_id
+        in: path
+        description: The unique identifier of the site.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteDeviceAssociation'
+      responses:
+        '200':
+          description: Devices associated to site successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    RateLimited:
+      description: Rate limit exceeded. The API Gateway enforces rate limits per client ID. Retry after the interval specified in the Retry-After header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      headers:
+        Retry-After:
+          description: Number of seconds to wait before retrying.
+          schema:
+            type: integer
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed. The access token is missing, expired, or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request. The request body or parameters are malformed or contain invalid values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    SiteDeviceAssociation:
+      type: object
+      required:
+      - device_id
+      - device_type
+      properties:
+        device_id:
+          type: array
+          description: List of device serial numbers to associate.
+          items:
+            type: string
+          example: '500123'
+        device_type:
+          type: string
+          description: Type of devices being associated.
+          enum:
+          - IAP
+          - SWITCH
+          - CONTROLLER
+          - GATEWAY
+          example: IAP
+    DeviceListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of devices matching the query.
+          example: 10
+        count:
+          type: integer
+          description: Number of devices returned in this response.
+          example: 10
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
+          example: []
+    Device:
+      type: object
+      description: Represents a device in the Aruba Central inventory including access points, switches, gateways, and SD-WAN appliances.
+      properties:
+        serial:
+          type: string
+          description: Unique serial number of the device.
+          examples:
+          - CNBRJM0ABC
+        macaddr:
+          type: string
+          description: MAC address of the device.
+          examples:
+          - aa:bb:cc:dd:ee:ff
+        device_type:
+          type: string
+          description: Type classification of the device.
+          enum:
+          - IAP
+          - HP
+          - CONTROLLER
+          - GATEWAY
+          - SWITCH
+          - VGW
+          example: IAP
+        model:
+          type: string
+          description: Hardware model name.
+          examples:
+          - AP-515
+        firmware_version:
+          type: string
+          description: Current firmware version running on the device.
+          examples:
+          - 10.4.0.0_85559
+        status:
+          type: string
+          description: Current operational status.
+          enum:
+          - Up
+          - Down
+          example: Up
+        group_name:
+          type: string
+          description: Name of the configuration group the device belongs to.
+          example: example_value
+        site:
+          type: string
+          description: Name of the site the device is assigned to.
+          example: example_value
+        ip_address:
+          type: string
+          format: ipv4
+          description: IP address of the device.
+          example: example_value
+        labels:
+          type: array
+          description: Labels assigned to the device.
+          items:
+            type: string
+          example: []
+        aruba_part_no:
+          type: string
+          description: Aruba part number for the device hardware.
+          example: example_value
+        customer_id:
+          type: string
+          description: Customer ID associated with the device.
+          example: '500123'
+        customer_name:
+          type: string
+          description: Customer name associated with the device.
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Human-readable error message.
+          example: A sample description.
+        error_code:
+          type: string
+          description: Machine-readable error code.
+          example: example_value
+        service_name:
+          type: string
+          description: The API service that generated the error.
+          example: example_value
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per request.
+      required: false
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 1000
+    offsetParam:
+      name: offset
+      in: query
+      description: Pagination offset (starting index for results).
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token obtained through the Aruba Central API Gateway three-step OAuth flow. Tokens expire after 7200 seconds (2 hours) and can be refreshed using the refresh_token grant type.
+externalDocs:
+  description: Aruba Central API Documentation
+  url: https://developer.arubanetworks.com/central/docs

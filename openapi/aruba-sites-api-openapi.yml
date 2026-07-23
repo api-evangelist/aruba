@@ -1,0 +1,465 @@
+openapi: 3.1.0
+info:
+  title: Aruba Central Access Points Sites API
+  description: RESTful API for managing the HPE Aruba Networking Central cloud platform. Provides unified network management, AI-based analytics, device monitoring, and configuration for wired, wireless, and SD-WAN networks. Aruba Central serves as a single pane of glass for managing access points, switches, gateways, and SD-WAN appliances across distributed enterprise environments.
+  version: 2.5.8
+  contact:
+    name: HPE Aruba Networking Developer Hub
+    url: https://developer.arubanetworks.com/central/
+  license:
+    name: Proprietary
+    url: https://www.arubanetworks.com/company/legal/
+  termsOfService: https://www.arubanetworks.com/company/legal/
+  x-logo:
+    url: https://www.arubanetworks.com/assets/img/aruba-central-logo.png
+servers:
+- url: https://apigw-prod2.central.arubanetworks.com
+  description: US-2 Production API Gateway
+- url: https://app1-apigw.central.arubanetworks.com
+  description: US-1 Production API Gateway
+- url: https://apigw-useast1.central.arubanetworks.com
+  description: US-East-1 Production API Gateway
+- url: https://apigw-prod2.central.arubanetworks.com
+  description: EU-1 Production API Gateway
+- url: https://apigw-apac1.central.arubanetworks.com
+  description: APAC-1 Production API Gateway
+- url: https://apigw-canada1.central.arubanetworks.com
+  description: Canada-1 Production API Gateway
+security:
+- bearerAuth: []
+tags:
+- name: Sites
+  description: Site and location management for organizing network infrastructure by physical location.
+paths:
+  /central/v2/sites:
+    get:
+      operationId: getSites
+      summary: List All Sites
+      description: Retrieves all sites defined in Aruba Central. Sites represent physical locations and are used to organize devices geographically for location-based monitoring and reporting.
+      tags:
+      - Sites
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: calculate_total
+        in: query
+        description: Whether to calculate and return the total number of sites.
+        required: false
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: Successful retrieval of sites list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createSite
+      summary: Create a New Site
+      description: Creates a new site in Aruba Central with location details including address, city, state, country, and optional geographic coordinates.
+      tags:
+      - Sites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteCreate'
+      responses:
+        '200':
+          description: Site created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /central/v2/sites/{site_id}:
+    get:
+      operationId: getSiteById
+      summary: Get Site Details
+      description: Retrieves detailed information about a specific site including its address, geographic coordinates, associated devices, and tags.
+      tags:
+      - Sites
+      parameters:
+      - name: site_id
+        in: path
+        description: The unique identifier of the site.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Successful retrieval of site details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteDetail'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateSite
+      summary: Update Site Details
+      description: Updates an existing site's properties including name, address, geographic coordinates, and associated tags.
+      tags:
+      - Sites
+      parameters:
+      - name: site_id
+        in: path
+        description: The unique identifier of the site to update.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteUpdate'
+      responses:
+        '200':
+          description: Site updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteSite
+      summary: Delete a Site
+      description: Deletes a site from Aruba Central by its unique identifier.
+      tags:
+      - Sites
+      parameters:
+      - name: site_id
+        in: path
+        description: The unique identifier of the site to delete.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Site deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /central/v2/sites/{site_id}/associate:
+    post:
+      operationId: associateDevicesToSite
+      summary: Associate Devices to a Site
+      description: Associates one or more devices to a site by providing their serial numbers. Devices must exist in the inventory before association.
+      tags:
+      - Sites
+      parameters:
+      - name: site_id
+        in: path
+        description: The unique identifier of the site.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteDeviceAssociation'
+      responses:
+        '200':
+          description: Devices associated to site successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SiteDeviceAssociation:
+      type: object
+      required:
+      - device_id
+      - device_type
+      properties:
+        device_id:
+          type: array
+          description: List of device serial numbers to associate.
+          items:
+            type: string
+          example: '500123'
+        device_type:
+          type: string
+          description: Type of devices being associated.
+          enum:
+          - IAP
+          - SWITCH
+          - CONTROLLER
+          - GATEWAY
+          example: IAP
+    SiteDetail:
+      allOf:
+      - $ref: '#/components/schemas/Site'
+      - type: object
+        properties:
+          associated_devices:
+            type: array
+            description: Devices associated with this site.
+            items:
+              type: object
+              properties:
+                serial:
+                  type: string
+                device_type:
+                  type: string
+                macaddr:
+                  type: string
+    SiteUpdate:
+      type: object
+      properties:
+        site_name:
+          type: string
+          example: example_value
+        address:
+          type: string
+          example: example_value
+        city:
+          type: string
+          example: example_value
+        state:
+          type: string
+          example: example_value
+        country:
+          type: string
+          example: example_value
+        zipcode:
+          type: string
+          example: example_value
+        longitude:
+          type: number
+          format: double
+          example: 42.5
+        latitude:
+          type: number
+          format: double
+          example: 42.5
+    Site:
+      type: object
+      description: Physical site or location used to geographically organize network devices within Aruba Central.
+      properties:
+        site_id:
+          type: integer
+          format: int64
+          description: Unique identifier for the site.
+          example: '500123'
+        site_name:
+          type: string
+          description: Name of the site.
+          examples:
+          - Headquarters
+        address:
+          type: string
+          description: Street address of the site.
+          example: example_value
+        city:
+          type: string
+          description: City where the site is located.
+          example: example_value
+        state:
+          type: string
+          description: State or province where the site is located.
+          example: example_value
+        country:
+          type: string
+          description: Country where the site is located.
+          example: example_value
+        zipcode:
+          type: string
+          description: Postal code for the site location.
+          example: example_value
+        longitude:
+          type: number
+          format: double
+          description: Geographic longitude coordinate.
+          example: 42.5
+        latitude:
+          type: number
+          format: double
+          description: Geographic latitude coordinate.
+          example: 42.5
+        tags:
+          type: array
+          description: Tags applied to the site.
+          items:
+            type: string
+          example: []
+        associated_device_count:
+          type: integer
+          description: Number of devices associated with the site.
+          example: 10
+    SiteCreate:
+      type: object
+      required:
+      - site_name
+      properties:
+        site_name:
+          type: string
+          description: Name for the new site.
+          example: example_value
+        address:
+          type: string
+          description: Street address.
+          example: example_value
+        city:
+          type: string
+          description: City name.
+          example: example_value
+        state:
+          type: string
+          description: State or province.
+          example: example_value
+        country:
+          type: string
+          description: Country name.
+          example: example_value
+        zipcode:
+          type: string
+          description: Postal code.
+          example: example_value
+        longitude:
+          type: number
+          format: double
+          description: Geographic longitude.
+          example: 42.5
+        latitude:
+          type: number
+          format: double
+          description: Geographic latitude.
+          example: 42.5
+    ErrorResponse:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Human-readable error message.
+          example: A sample description.
+        error_code:
+          type: string
+          description: Machine-readable error code.
+          example: example_value
+        service_name:
+          type: string
+          description: The API service that generated the error.
+          example: example_value
+    SiteListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of sites.
+          example: 10
+        count:
+          type: integer
+          description: Number of sites returned.
+          example: 10
+        sites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Site'
+          example: []
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per request.
+      required: false
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 1000
+    offsetParam:
+      name: offset
+      in: query
+      description: Pagination offset (starting index for results).
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+  responses:
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed. The access token is missing, expired, or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request. The request body or parameters are malformed or contain invalid values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 bearer token obtained through the Aruba Central API Gateway three-step OAuth flow. Tokens expire after 7200 seconds (2 hours) and can be refreshed using the refresh_token grant type.
+externalDocs:
+  description: Aruba Central API Documentation
+  url: https://developer.arubanetworks.com/central/docs

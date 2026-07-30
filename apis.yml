@@ -3,6 +3,19 @@ name: Aruba
 description: >-
   APIs for HPE Aruba Networking cloud networking, security, and infrastructure solutions including Central, AOS-CX,
   ClearPass, EdgeConnect SD-WAN, Fabric Composer, and User Experience Insight.
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://www.arubanetworks.com/assets/img/logo.png
 url: https://raw.githubusercontent.com/api-evangelist/aruba/refs/heads/main/apis.yml
 created: '2024-01-01'
@@ -18,140 +31,211 @@ tags:
   - Switches
   - Wireless
 apis:
-  - name: Aruba Central API
-    description: >-
-      RESTful API for managing Aruba Central cloud networking platform, providing unified network management, AI-based
-      analytics, and IoT device security for wired, wireless, and SD-WAN networks. APIs follow the Swagger 2.0 (OpenAPI
-      2.0) specification.
-    image: https://www.arubanetworks.com/assets/img/aruba-central-logo.png
-    humanURL: https://developer.arubanetworks.com/central/
-    baseURL: https://apigw-prod2.central.arubanetworks.com
-    tags:
-      - Analytics
-      - Cloud Management
-      - Monitoring
-      - Network Automation
-    properties:
-      - type: Documentation
-        url: https://developer.arubanetworks.com/central/docs
-      - type: OpenAPI
-        url: openapi/aruba-central-api.yml
-      - type: OpenAPI
-        url: https://developer.arubanetworks.com/central/reference
-      - type: Authentication
-        url: https://developer.arubanetworks.com/central/docs/api-oauth-access-token
-      - type: GettingStarted
-        url: https://developer.arubanetworks.com/central/docs/rest-api-getting-started
-      - type: SDKs
-        url: https://github.com/aruba/pycentral
-        title: Python SDK
-  - name: Aruba ClearPass API
-    description: >-
-      REST API for ClearPass Policy Manager providing role- and device-based secure network access control for IoT,
-      BYOD, corporate devices, as well as employees, contractors, and guests across any multivendor wired, wireless, and
-      VPN infrastructure.
-    image: https://www.arubanetworks.com/assets/img/clearpass-logo.png
-    humanURL: https://developer.arubanetworks.com/cppm/
-    baseURL: https://clearpass.example.com/api
-    tags:
-      - Authentication
-      - Authorization
-      - Network Access Control
-      - Policy Management
-    properties:
-      - type: Documentation
-        url: https://developer.arubanetworks.com/cppm/docs
-      - type: APIReference
-        url: https://developer.arubanetworks.com/cppm/reference
-      - type: GettingStarted
-        url: https://developer.arubanetworks.com/cppm/docs/getting-started-with-the-clearpass-policy-manager-api
-      - type: SDKs
-        url: https://github.com/aruba/pyclearpass
-        title: Python SDK
-  - name: Aruba AOS-CX REST API
-    description: >-
-      REST API for AOS-CX switches providing full programmability of switches running the AOS-CX operating system.
-      Supports HTTPS POST, GET, PUT, PATCH, and DELETE methods and includes a built-in Swagger UI for API reference and
-      testing.
-    humanURL: https://developer.arubanetworks.com/aoscx/
-    tags:
-      - Infrastructure
-      - Network Automation
-      - Programmability
-      - Switches
-    properties:
-      - type: Documentation
-        url: https://developer.arubanetworks.com/aoscx/docs/introduction
-      - type: APIReference
-        url: https://developer.arubanetworks.com/aoscx/docs/additional-resources-1
-      - type: SDKs
-        url: https://github.com/aruba/pyaoscx
-        title: Python SDK
-  - name: Aruba EdgeConnect SD-WAN API
-    description: >-
-      REST API for HPE Aruba Networking EdgeConnect SD-WAN providing programmatic access to Orchestrator and EdgeConnect
-      appliance management, monitoring, and configuration. APIs are available at both the Orchestrator level and the
-      Appliance level.
-    humanURL: https://developer.arubanetworks.com/edgeconnect/
-    tags:
-      - Edge Networking
-      - Orchestrator
-      - SD-WAN
-      - WAN Optimization
-    properties:
-      - type: Documentation
-        url: https://developer.arubanetworks.com/edgeconnect/docs/intro
-      - type: GettingStarted
-        url: https://developer.arubanetworks.com/edgeconnect/docs/whats-new
-  - name: Aruba Fabric Composer API
-    description: >-
-      REST API for HPE Aruba Networking Fabric Composer, an intelligent software-defined orchestration solution that
-      simplifies and accelerates leaf-spine network provisioning and day-to-day operations across rack-scale compute and
-      storage infrastructure.
-    humanURL: https://developer.arubanetworks.com/afc/
-    tags:
-      - Data Center
-      - Fabric
-      - Leaf-Spine
-      - Orchestration
-    properties:
-      - type: Documentation
-        url: https://developer.arubanetworks.com/afc/docs/about
-      - type: GettingStarted
-        url: https://developer.arubanetworks.com/afc/docs/getting-started-with-the-afc-api
-      - type: APIReference
-        url: https://developer.arubanetworks.com/aruba-fabric-composer/reference/getping
-  - name: Aruba User Experience Insight API
-    description: >-
-      API for HPE Aruba Networking User Experience Insight (UXI) providing programmatic access to onboarding tasks such
-      as creating, modifying, or removing groups and assigning sensors, agents, networks, and service tests to groups.
-    humanURL: https://developer.arubanetworks.com/uxi/
-    tags:
-      - Monitoring
-      - Network Testing
-      - Sensors
-      - User Experience
-    properties:
-      - type: Documentation
-        url: https://developer.arubanetworks.com/uxi/docs/user-experience-insight-overview
-      - type: GettingStarted
-        url: https://developer.arubanetworks.com/uxi/docs/getting-started-with-onboarding-api
-      - type: Authentication
-        url: https://developer.arubanetworks.com/uxi/docs/generating-managing-access-token
-      - type: SDKs
-        url: https://developer.arubanetworks.com/uxi/docs/installing-python-package
-        title: Python SDK
-  - name: Aruba AirWave API
-    description: API for AirWave network management platform.
-    humanURL: https://www.arubanetworks.com/products/network-management-operations/airwave/
-    baseURL: https://airwave.example.com/api
-    tags:
-      - Monitoring
-      - Network Management
-      - Reporting
-    properties:
-      - type: Documentation
-        url: https://support.hpe.com/techhub/eginfolib/airwave/
+- name: Aruba ClearPass API
+  description: >-
+    REST API for ClearPass Policy Manager providing role- and device-based secure network access control
+    for IoT, BYOD, corporate devices, as well as employees, contractors, and guests across any multivendor
+    wired, wireless, and VPN infrastructure.
+  image: https://www.arubanetworks.com/assets/img/clearpass-logo.png
+  humanURL: https://developer.arubanetworks.com/cppm/
+  baseURL: https://clearpass.example.com/api
+  tags:
+  - Authentication
+  - Authorization
+  - Network Access Control
+  - Policy Management
+  properties:
+  - type: Documentation
+    url: https://developer.arubanetworks.com/cppm/docs
+  - type: APIReference
+    url: https://developer.arubanetworks.com/cppm/reference
+  - type: GettingStarted
+    url: >-
+      https://developer.arubanetworks.com/cppm/docs/getting-started-with-the-clearpass-policy-manager-api
+  - type: SDKs
+    url: https://github.com/aruba/pyclearpass
+    title: Python SDK
+- name: Aruba AOS-CX REST API
+  description: >-
+    REST API for AOS-CX switches providing full programmability of switches running the AOS-CX operating
+    system. Supports HTTPS POST, GET, PUT, PATCH, and DELETE methods and includes a built-in Swagger UI
+    for API reference and testing.
+  humanURL: https://developer.arubanetworks.com/aoscx/
+  tags:
+  - Infrastructure
+  - Network Automation
+  - Programmability
+  - Switches
+  properties:
+  - type: Documentation
+    url: https://developer.arubanetworks.com/aoscx/docs/introduction
+  - type: APIReference
+    url: https://developer.arubanetworks.com/aoscx/docs/additional-resources-1
+  - type: SDKs
+    url: https://github.com/aruba/pyaoscx
+    title: Python SDK
+- name: Aruba EdgeConnect SD-WAN API
+  description: >-
+    REST API for HPE Aruba Networking EdgeConnect SD-WAN providing programmatic access to Orchestrator
+    and EdgeConnect appliance management, monitoring, and configuration. APIs are available at both the
+    Orchestrator level and the Appliance level.
+  humanURL: https://developer.arubanetworks.com/edgeconnect/
+  tags:
+  - Edge Networking
+  - Orchestrator
+  - SD-WAN
+  - WAN Optimization
+  properties:
+  - type: Documentation
+    url: https://developer.arubanetworks.com/edgeconnect/docs/intro
+  - type: GettingStarted
+    url: https://developer.arubanetworks.com/edgeconnect/docs/whats-new
+- name: Aruba Fabric Composer API
+  description: >-
+    REST API for HPE Aruba Networking Fabric Composer, an intelligent software-defined orchestration solution
+    that simplifies and accelerates leaf-spine network provisioning and day-to-day operations across rack-scale
+    compute and storage infrastructure.
+  humanURL: https://developer.arubanetworks.com/afc/
+  tags:
+  - Data Center
+  - Fabric
+  - Leaf-Spine
+  - Orchestration
+  properties:
+  - type: Documentation
+    url: https://developer.arubanetworks.com/afc/docs/about
+  - type: GettingStarted
+    url: https://developer.arubanetworks.com/afc/docs/getting-started-with-the-afc-api
+  - type: APIReference
+    url: https://developer.arubanetworks.com/aruba-fabric-composer/reference/getping
+- name: Aruba User Experience Insight API
+  description: >-
+    API for HPE Aruba Networking User Experience Insight (UXI) providing programmatic access to onboarding
+    tasks such as creating, modifying, or removing groups and assigning sensors, agents, networks, and
+    service tests to groups.
+  humanURL: https://developer.arubanetworks.com/uxi/
+  tags:
+  - Monitoring
+  - Network Testing
+  - Sensors
+  - User Experience
+  properties:
+  - type: Documentation
+    url: https://developer.arubanetworks.com/uxi/docs/user-experience-insight-overview
+  - type: GettingStarted
+    url: https://developer.arubanetworks.com/uxi/docs/getting-started-with-onboarding-api
+  - type: Authentication
+    url: https://developer.arubanetworks.com/uxi/docs/generating-managing-access-token
+  - type: SDKs
+    url: https://developer.arubanetworks.com/uxi/docs/installing-python-package
+    title: Python SDK
+- name: Aruba AirWave API
+  description: API for AirWave network management platform.
+  humanURL: https://www.arubanetworks.com/products/network-management-operations/airwave/
+  baseURL: https://airwave.example.com/api
+  tags:
+  - Monitoring
+  - Network Management
+  - Reporting
+  properties:
+  - type: Documentation
+    url: https://support.hpe.com/techhub/eginfolib/airwave/
+- aid: aruba:aruba-access-points-api
+  name: Aruba Access Points API
+  description: >-
+    Access point monitoring and management including status, statistics, RF information, and client connectivity.
+  humanURL: https://developer.arubanetworks.com/central/
+  baseURL: https://apigw-prod2.central.arubanetworks.com
+  tags:
+  - Access Points
+  properties:
+  - type: OpenAPI
+    url: openapi/aruba-access-points-api-openapi.yml
+  - type: Documentation
+    url: https://developer.arubanetworks.com/central/docs
+  - type: Authentication
+    url: https://developer.arubanetworks.com/central/docs/api-oauth-access-token
+  - type: GettingStarted
+    url: https://developer.arubanetworks.com/central/docs/rest-api-getting-started
+  - type: SDKs
+    url: https://github.com/aruba/pycentral
+- aid: aruba:aruba-devices-api
+  name: Aruba Devices API
+  description: >-
+    Device inventory management including listing, searching, and managing devices across the Aruba Central
+    platform.
+  humanURL: https://developer.arubanetworks.com/central/
+  baseURL: https://apigw-prod2.central.arubanetworks.com
+  tags:
+  - Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/aruba-devices-api-openapi.yml
+  - type: Documentation
+    url: https://developer.arubanetworks.com/central/docs
+  - type: Authentication
+    url: https://developer.arubanetworks.com/central/docs/api-oauth-access-token
+  - type: GettingStarted
+    url: https://developer.arubanetworks.com/central/docs/rest-api-getting-started
+  - type: SDKs
+    url: https://github.com/aruba/pycentral
+- aid: aruba:aruba-groups-api
+  name: Aruba Groups API
+  description: >-
+    Configuration group management for organizing devices, applying templates, and managing group-level
+    settings.
+  humanURL: https://developer.arubanetworks.com/central/
+  baseURL: https://apigw-prod2.central.arubanetworks.com
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/aruba-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developer.arubanetworks.com/central/docs
+  - type: Authentication
+    url: https://developer.arubanetworks.com/central/docs/api-oauth-access-token
+  - type: GettingStarted
+    url: https://developer.arubanetworks.com/central/docs/rest-api-getting-started
+  - type: SDKs
+    url: https://github.com/aruba/pycentral
+- aid: aruba:aruba-monitoring-api
+  name: Aruba Monitoring API
+  description: >-
+    Network-wide monitoring for clients, networks, gateways, and overall network health metrics.
+  humanURL: https://developer.arubanetworks.com/central/
+  baseURL: https://apigw-prod2.central.arubanetworks.com
+  tags:
+  - Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/aruba-monitoring-api-openapi.yml
+  - type: Documentation
+    url: https://developer.arubanetworks.com/central/docs
+  - type: Authentication
+    url: https://developer.arubanetworks.com/central/docs/api-oauth-access-token
+  - type: GettingStarted
+    url: https://developer.arubanetworks.com/central/docs/rest-api-getting-started
+  - type: SDKs
+    url: https://github.com/aruba/pycentral
+- aid: aruba:aruba-sites-api
+  name: Aruba Sites API
+  description: Site and location management for organizing network infrastructure by physical location.
+  humanURL: https://developer.arubanetworks.com/central/
+  baseURL: https://apigw-prod2.central.arubanetworks.com
+  tags:
+  - Sites
+  properties:
+  - type: OpenAPI
+    url: openapi/aruba-sites-api-openapi.yml
+  - type: Documentation
+    url: https://developer.arubanetworks.com/central/docs
+  - type: Authentication
+    url: https://developer.arubanetworks.com/central/docs/api-oauth-access-token
+  - type: GettingStarted
+    url: https://developer.arubanetworks.com/central/docs/rest-api-getting-started
+  - type: SDKs
+    url: https://github.com/aruba/pycentral
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

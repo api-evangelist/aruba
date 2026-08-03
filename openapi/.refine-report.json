@@ -1,0 +1,22 @@
+{
+  "provider": "aruba",
+  "sources": [
+    "aruba-access-points-api-openapi.yml",
+    "aruba-devices-api-openapi.yml",
+    "aruba-groups-api-openapi.yml",
+    "aruba-monitoring-api-openapi.yml",
+    "aruba-sites-api-openapi.yml"
+  ],
+  "outputs": [
+    "aruba-access-points-api-openapi.yml",
+    "aruba-devices-api-openapi.yml",
+    "aruba-groups-api-openapi.yml",
+    "aruba-monitoring-api-openapi.yml",
+    "aruba-sites-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

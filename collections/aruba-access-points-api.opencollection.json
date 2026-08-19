@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aruba Central Access Points API",
+    "version": "2.5.8"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access Points",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Access Points",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/aps",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter by group name."
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site name."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by access point status."
+              },
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "Filter by label name."
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Filter by AP model."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use to request only specific attributes in the response."
+              },
+              {
+                "name": "calculate_total",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate and return the total number of APs."
+              },
+              {
+                "name": "swarm_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Swarm/cluster identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves monitoring data for all access points managed by Aruba Central including status, client count, radio information, uptime, and performance metrics."
+        },
+        {
+          "info": {
+            "name": "Get Access Point Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/aps/:serial",
+            "params": [
+              {
+                "name": "serial",
+                "value": "",
+                "type": "path",
+                "description": "The serial number of the access point."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed monitoring data for a specific access point including radio configuration, client statistics, uplink information, mesh status, and performance counters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

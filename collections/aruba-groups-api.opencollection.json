@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aruba Central Access Points Groups API",
+    "version": "2.5.8"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/configuration/v2/groups",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              }
+            ]
+          },
+          "docs": "Retrieves all configuration groups defined in Aruba Central. Groups serve as the primary organizational unit for applying configuration templates and firmware policies to devices."
+        },
+        {
+          "info": {
+            "name": "Create a New Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw-prod2.central.arubanetworks.com/configuration/v2/groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new configuration group in Aruba Central. Groups define the configuration profile and firmware compliance policy for member devices."
+        },
+        {
+          "info": {
+            "name": "Get Group Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/configuration/v2/groups/:group_name",
+            "params": [
+              {
+                "name": "group_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the group."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific configuration group including its properties, allowed device types, template configuration mode, and architecture settings."
+        },
+        {
+          "info": {
+            "name": "Update Group Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://apigw-prod2.central.arubanetworks.com/configuration/v2/groups/:group_name",
+            "params": [
+              {
+                "name": "group_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the group to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of an existing configuration group. Supports partial updates to group settings, allowed device types, and firmware compliance policies."
+        },
+        {
+          "info": {
+            "name": "Delete a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apigw-prod2.central.arubanetworks.com/configuration/v2/groups/:group_name",
+            "params": [
+              {
+                "name": "group_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the group to delete."
+              }
+            ]
+          },
+          "docs": "Deletes a configuration group from Aruba Central. The group must have no devices assigned before it can be deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

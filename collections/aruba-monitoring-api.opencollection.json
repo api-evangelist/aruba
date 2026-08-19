@@ -1,0 +1,245 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aruba Central Access Points Monitoring API",
+    "version": "2.5.8"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Access Points",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/aps",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter by group name."
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site name."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by access point status."
+              },
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "Filter by label name."
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Filter by AP model."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return. Use to request only specific attributes in the response."
+              },
+              {
+                "name": "calculate_total",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate and return the total number of APs."
+              },
+              {
+                "name": "swarm_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Swarm/cluster identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves monitoring data for all access points managed by Aruba Central including status, client count, radio information, uptime, and performance metrics."
+        },
+        {
+          "info": {
+            "name": "Get Access Point Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/aps/:serial",
+            "params": [
+              {
+                "name": "serial",
+                "value": "",
+                "type": "path",
+                "description": "The serial number of the access point."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed monitoring data for a specific access point including radio configuration, client statistics, uplink information, mesh status, and performance counters."
+        },
+        {
+          "info": {
+            "name": "List All Connected Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/clients",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter by group name."
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site name."
+              },
+              {
+                "name": "network",
+                "value": "",
+                "type": "query",
+                "description": "Filter by SSID or network name."
+              },
+              {
+                "name": "client_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client connection status."
+              },
+              {
+                "name": "band",
+                "value": "",
+                "type": "query",
+                "description": "Filter by radio band."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all clients currently connected to the network including their connection type, associated device, signal strength, and network usage."
+        },
+        {
+          "info": {
+            "name": "List All Networks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/networks",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter by group name."
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site name."
+              }
+            ]
+          },
+          "docs": "Retrieves monitoring data for all networks (SSIDs and wired networks) managed by Aruba Central including client count, usage statistics, and health metrics."
+        },
+        {
+          "info": {
+            "name": "List All Gateways",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/monitoring/v2/gateways",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter by group name."
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site name."
+              }
+            ]
+          },
+          "docs": "Retrieves monitoring data for all gateways managed by Aruba Central including uplink status, tunnel information, and performance metrics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

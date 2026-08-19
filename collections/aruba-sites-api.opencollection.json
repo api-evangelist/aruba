@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aruba Central Access Points Sites API",
+    "version": "2.5.8"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "calculate_total",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate and return the total number of sites."
+              }
+            ]
+          },
+          "docs": "Retrieves all sites defined in Aruba Central. Sites represent physical locations and are used to organize devices geographically for location-based monitoring and reporting."
+        },
+        {
+          "info": {
+            "name": "Create a New Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new site in Aruba Central with location details including address, city, state, country, and optional geographic coordinates."
+        },
+        {
+          "info": {
+            "name": "Get Site Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the site."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific site including its address, geographic coordinates, associated devices, and tags."
+        },
+        {
+          "info": {
+            "name": "Update Site Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the site to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing site's properties including name, address, geographic coordinates, and associated tags."
+        },
+        {
+          "info": {
+            "name": "Delete a Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the site to delete."
+              }
+            ]
+          },
+          "docs": "Deletes a site from Aruba Central by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Associate Devices to a Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites/:site_id/associate",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates one or more devices to a site by providing their serial numbers. Devices must exist in the inventory before association."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aruba Central Access Points Devices API",
+    "version": "2.5.8"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/platform/device_inventory/v1/devices",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index for results)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return per request."
+              },
+              {
+                "name": "sku_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by device type (IAP for access points, HP for switches, CONTROLLER for gateways)."
+              },
+              {
+                "name": "macaddr",
+                "value": "",
+                "type": "query",
+                "description": "Filter by device MAC address."
+              },
+              {
+                "name": "serial",
+                "value": "",
+                "type": "query",
+                "description": "Filter by device serial number."
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Filter by device model name."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all devices in the Aruba Central device inventory including access points, switches, gateways, and SD-WAN appliances. Supports filtering by device type, status, and other attributes."
+        },
+        {
+          "info": {
+            "name": "Get Device by Serial Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://apigw-prod2.central.arubanetworks.com/platform/device_inventory/v1/devices/:serial",
+            "params": [
+              {
+                "name": "serial",
+                "value": "",
+                "type": "path",
+                "description": "The serial number of the device."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific device identified by its serial number, including model, firmware, group assignment, site, and connectivity status."
+        },
+        {
+          "info": {
+            "name": "Remove Device From Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://apigw-prod2.central.arubanetworks.com/platform/device_inventory/v1/devices/:serial",
+            "params": [
+              {
+                "name": "serial",
+                "value": "",
+                "type": "path",
+                "description": "The serial number of the device to remove."
+              }
+            ]
+          },
+          "docs": "Removes a device from the Aruba Central inventory by serial number. The device must be in an unassigned state before deletion."
+        },
+        {
+          "info": {
+            "name": "Associate Devices to a Site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://apigw-prod2.central.arubanetworks.com/central/v2/sites/:site_id/associate",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates one or more devices to a site by providing their serial numbers. Devices must exist in the inventory before association."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

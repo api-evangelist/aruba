@@ -97,6 +97,11 @@ apis:
     compute and storage infrastructure.
   humanURL: https://developer.arubanetworks.com/afc/
   tags:
+  - Data-Center
+  - Fabric
+  - Leaf-Spine
+  - Orchestration
+  tags_raw:
   - Data Center
   - Fabric
   - Leaf-Spine
@@ -187,6 +192,8 @@ apis:
   humanURL: https://developer.arubanetworks.com/central/
   baseURL: https://apigw-prod2.central.arubanetworks.com
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI

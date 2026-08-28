@@ -3,6 +3,18 @@ name: Aruba
 description: >-
   APIs for HPE Aruba Networking cloud networking, security, and infrastructure solutions including Central, AOS-CX,
   ClearPass, EdgeConnect SD-WAN, Fabric Composer, and User Experience Insight.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve

@@ -260,6 +260,9 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com
 common:
+  - type: CapabilityMap
+    url: capabilities/aruba-capability-edges.yml
+    name: Aruba Business Capability Map
   - type: AgenticAccess
     url: agentic-access/aruba-agentic-access.yml
   - type: DomainSecurity

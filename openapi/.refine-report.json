@@ -1,11 +1,7 @@
 {
   "provider": "aruba",
   "sources": [
-    "aruba-access-points-api-openapi.yml",
-    "aruba-devices-api-openapi.yml",
-    "aruba-groups-api-openapi.yml",
-    "aruba-monitoring-api-openapi.yml",
-    "aruba-sites-api-openapi.yml"
+    "_original/aruba-central-api.yml"
   ],
   "outputs": [
     "aruba-access-points-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "aruba-central-api.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "aruba-access-points-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aruba-devices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aruba-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aruba-monitoring-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aruba-sites-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

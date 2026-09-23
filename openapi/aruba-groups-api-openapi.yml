@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Aruba Central Access Points Groups API
+  title: Aruba Central Groups API
   description: RESTful API for managing the HPE Aruba Networking Central cloud platform. Provides unified network management, AI-based analytics, device monitoring, and configuration for wired, wireless, and SD-WAN networks. Aruba Central serves as a single pane of glass for managing access points, switches, gateways, and SD-WAN appliances across distributed enterprise environments.
   version: 2.5.8
   contact:
@@ -172,76 +172,19 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return per request.
-      required: false
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 1000
-    offsetParam:
-      name: offset
-      in: query
-      description: Pagination offset (starting index for results).
-      required: false
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-  responses:
-    Forbidden:
-      description: Authorization failed. The authenticated user does not have permission to perform this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication failed. The access token is missing, expired, or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request. The request body or parameters are malformed or contain invalid values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    GroupCreate:
+    Group:
       type: object
-      required:
-      - group
-      - group_attributes
+      description: Configuration group for organizing devices and applying shared configuration templates, firmware policies, and settings.
       properties:
         group:
           type: string
-          description: Name for the new group.
-          example: example_value
-        group_attributes:
+          description: Name of the group.
+          examples:
+          - default
+        group_properties:
           type: object
-          description: Configuration attributes for the group.
-          properties:
-            group_password:
-              type: string
-              description: Password for the group.
-            template_info:
-              type: object
-              properties:
-                Wired:
-                  type: boolean
-                Wireless:
-                  type: boolean
+          description: Group-level configuration properties.
           example: example_value
     GroupUpdate:
       type: object
@@ -303,18 +246,30 @@ components:
                 - AOS_S
                 - AOS_CX
           example: example_value
-    Group:
+    GroupCreate:
       type: object
-      description: Configuration group for organizing devices and applying shared configuration templates, firmware policies, and settings.
+      required:
+      - group
+      - group_attributes
       properties:
         group:
           type: string
-          description: Name of the group.
-          examples:
-          - default
-        group_properties:
+          description: Name for the new group.
+          example: example_value
+        group_attributes:
           type: object
-          description: Group-level configuration properties.
+          description: Configuration attributes for the group.
+          properties:
+            group_password:
+              type: string
+              description: Password for the group.
+            template_info:
+              type: object
+              properties:
+                Wired:
+                  type: boolean
+                Wireless:
+                  type: boolean
           example: example_value
     ErrorResponse:
       type: object
@@ -331,6 +286,51 @@ components:
           type: string
           description: The API service that generated the error.
           example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication failed. The access token is missing, expired, or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request. The request body or parameters are malformed or contain invalid values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    offsetParam:
+      name: offset
+      in: query
+      description: Pagination offset (starting index for results).
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per request.
+      required: false
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 1000
   securitySchemes:
     bearerAuth:
       type: http

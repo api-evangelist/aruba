@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Aruba Central Access Points Devices API
+  title: Aruba Central Devices API
   description: RESTful API for managing the HPE Aruba Networking Central cloud platform. Provides unified network management, AI-based analytics, device monitoring, and configuration for wired, wireless, and SD-WAN networks. Aruba Central serves as a single pane of glass for managing access points, switches, gateways, and SD-WAN appliances across distributed enterprise environments.
   version: 2.5.8
   contact:
@@ -179,43 +179,23 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    RateLimited:
-      description: Rate limit exceeded. The API Gateway enforces rate limits per client ID. Retry after the interval specified in the Retry-After header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-      headers:
-        Retry-After:
-          description: Number of seconds to wait before retrying.
-          schema:
-            type: integer
-    Forbidden:
-      description: Authorization failed. The authenticated user does not have permission to perform this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication failed. The access token is missing, expired, or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request. The request body or parameters are malformed or contain invalid values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    DeviceListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of devices matching the query.
+          example: 10
+        count:
+          type: integer
+          description: Number of devices returned in this response.
+          example: 10
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
+          example: []
     SiteDeviceAssociation:
       type: object
       required:
@@ -237,22 +217,6 @@ components:
           - CONTROLLER
           - GATEWAY
           example: IAP
-    DeviceListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of devices matching the query.
-          example: 10
-        count:
-          type: integer
-          description: Number of devices returned in this response.
-          example: 10
-        devices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Device'
-          example: []
     Device:
       type: object
       description: Represents a device in the Aruba Central inventory including access points, switches, gateways, and SD-WAN appliances.
@@ -341,7 +305,52 @@ components:
           type: string
           description: The API service that generated the error.
           example: example_value
+  responses:
+    RateLimited:
+      description: Rate limit exceeded. The API Gateway enforces rate limits per client ID. Retry after the interval specified in the Retry-After header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      headers:
+        Retry-After:
+          description: Number of seconds to wait before retrying.
+          schema:
+            type: integer
+    Unauthorized:
+      description: Authentication failed. The access token is missing, expired, or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request. The request body or parameters are malformed or contain invalid values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
+    offsetParam:
+      name: offset
+      in: query
+      description: Pagination offset (starting index for results).
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
     limitParam:
       name: limit
       in: query
@@ -352,15 +361,6 @@ components:
         default: 20
         minimum: 1
         maximum: 1000
-    offsetParam:
-      name: offset
-      in: query
-      description: Pagination offset (starting index for results).
-      required: false
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
   securitySchemes:
     bearerAuth:
       type: http

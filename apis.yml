@@ -107,7 +107,7 @@ apis:
     across rack-scale compute and storage infrastructure.
   humanURL: https://developer.arubanetworks.com/afc/
   tags:
-  - Data-Center
+  - Data Center
   - Fabric
   - Leaf-Spine
   - Orchestration
@@ -116,6 +116,7 @@ apis:
   - Fabric
   - Leaf-Spine
   - Orchestration
+  - Data-Center
   properties:
   - type: Documentation
     url: https://developer.arubanetworks.com/afc/docs/about

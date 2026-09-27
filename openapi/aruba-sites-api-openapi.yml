@@ -218,6 +218,72 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    SiteUpdate:
+      type: object
+      properties:
+        site_name:
+          type: string
+          example: example_value
+        address:
+          type: string
+          example: example_value
+        city:
+          type: string
+          example: example_value
+        state:
+          type: string
+          example: example_value
+        country:
+          type: string
+          example: example_value
+        zipcode:
+          type: string
+          example: example_value
+        longitude:
+          type: number
+          format: double
+          example: 42.5
+        latitude:
+          type: number
+          format: double
+          example: 42.5
+    SiteDeviceAssociation:
+      type: object
+      required:
+      - device_id
+      - device_type
+      properties:
+        device_id:
+          type: array
+          description: List of device serial numbers to associate.
+          items:
+            type: string
+          example: '500123'
+        device_type:
+          type: string
+          description: Type of devices being associated.
+          enum:
+          - IAP
+          - SWITCH
+          - CONTROLLER
+          - GATEWAY
+          example: IAP
+    SiteListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of sites.
+          example: 10
+        count:
+          type: integer
+          description: Number of sites returned.
+          example: 10
+        sites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Site'
+          example: []
     Site:
       type: object
       description: Physical site or location used to geographically organize network devices within Aruba Central.
@@ -272,27 +338,6 @@ components:
           type: integer
           description: Number of devices associated with the site.
           example: 10
-    SiteDeviceAssociation:
-      type: object
-      required:
-      - device_id
-      - device_type
-      properties:
-        device_id:
-          type: array
-          description: List of device serial numbers to associate.
-          items:
-            type: string
-          example: '500123'
-        device_type:
-          type: string
-          description: Type of devices being associated.
-          enum:
-          - IAP
-          - SWITCH
-          - CONTROLLER
-          - GATEWAY
-          example: IAP
     SiteCreate:
       type: object
       required:
@@ -332,35 +377,6 @@ components:
           format: double
           description: Geographic latitude.
           example: 42.5
-    SiteUpdate:
-      type: object
-      properties:
-        site_name:
-          type: string
-          example: example_value
-        address:
-          type: string
-          example: example_value
-        city:
-          type: string
-          example: example_value
-        state:
-          type: string
-          example: example_value
-        country:
-          type: string
-          example: example_value
-        zipcode:
-          type: string
-          example: example_value
-        longitude:
-          type: number
-          format: double
-          example: 42.5
-        latitude:
-          type: number
-          format: double
-          example: 42.5
     SiteDetail:
       allOf:
       - $ref: '#/components/schemas/Site'
@@ -378,22 +394,6 @@ components:
                   type: string
                 macaddr:
                   type: string
-    SiteListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of sites.
-          example: 10
-        count:
-          type: integer
-          description: Number of sites returned.
-          example: 10
-        sites:
-          type: array
-          items:
-            $ref: '#/components/schemas/Site'
-          example: []
     ErrorResponse:
       type: object
       properties:
@@ -410,20 +410,8 @@ components:
           description: The API service that generated the error.
           example: example_value
   responses:
-    Unauthorized:
-      description: Authentication failed. The access token is missing, expired, or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Forbidden:
       description: Authorization failed. The authenticated user does not have permission to perform this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -434,16 +422,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed. The access token is missing, expired, or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    offsetParam:
-      name: offset
-      in: query
-      description: Pagination offset (starting index for results).
-      required: false
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
     limitParam:
       name: limit
       in: query
@@ -454,6 +445,15 @@ components:
         default: 20
         minimum: 1
         maximum: 1000
+    offsetParam:
+      name: offset
+      in: query
+      description: Pagination offset (starting index for results).
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
   securitySchemes:
     bearerAuth:
       type: http

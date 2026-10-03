@@ -141,6 +141,17 @@ paths:
         dispatcher: FALLBACK
 components:
   responses:
+    RateLimited:
+      description: Rate limit exceeded. The API Gateway enforces rate limits per client ID. Retry after the interval specified in the Retry-After header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      headers:
+        Retry-After:
+          description: Number of seconds to wait before retrying.
+          schema:
+            type: integer
     Forbidden:
       description: Authorization failed. The authenticated user does not have permission to perform this operation.
       content:
@@ -153,134 +164,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    RateLimited:
-      description: Rate limit exceeded. The API Gateway enforces rate limits per client ID. Retry after the interval specified in the Retry-After header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-      headers:
-        Retry-After:
-          description: Number of seconds to wait before retrying.
-          schema:
-            type: integer
     Unauthorized:
       description: Authentication failed. The access token is missing, expired, or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return per request.
-      required: false
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 1000
-    offsetParam:
-      name: offset
-      in: query
-      description: Pagination offset (starting index for results).
-      required: false
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
   schemas:
-    AccessPointListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of access points matching the query.
-          example: 10
-        count:
-          type: integer
-          description: Number of access points returned.
-          example: 10
-        aps:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccessPoint'
-          example: []
-    Radio:
-      type: object
-      description: Radio interface on an access point.
-      properties:
-        index:
-          type: integer
-          description: Radio index (0 or 1).
-          example: 10
-        macaddr:
-          type: string
-          description: MAC address of the radio interface.
-          example: example_value
-        band:
-          type: number
-          description: Operating frequency band in GHz.
-          enum:
-          - 2.4
-          - 5
-          - 6
-          example: 2.4
-        channel:
-          type: string
-          description: Operating channel number.
-          example: example_value
-        power:
-          type: integer
-          description: Transmit power in dBm.
-          example: 10
-        tx_power:
-          type: integer
-          description: Effective transmit power in dBm.
-          example: 10
-        utilization:
-          type: integer
-          description: Channel utilization percentage.
-          minimum: 0
-          maximum: 100
-          example: 10
-        noise_floor:
-          type: integer
-          description: Noise floor in dBm.
-          example: 10
-        status:
-          type: string
-          description: Radio operational status.
-          enum:
-          - Up
-          - Down
-          example: Up
-    AccessPointDetail:
-      allOf:
-      - $ref: '#/components/schemas/AccessPoint'
-      - type: object
-        properties:
-          uplink:
-            type: object
-            description: Uplink connection details.
-            properties:
-              ethernet:
-                type: object
-                properties:
-                  port:
-                    type: string
-                  speed:
-                    type: string
-                  duplex:
-                    type: string
-                  poe_power:
-                    type: number
-                    description: PoE power draw in watts.
-          last_modified:
-            type: string
-            format: date-time
-            description: Timestamp of last configuration change.
     AccessPoint:
       type: object
       description: Represents an Aruba wireless access point with monitoring data including radio information, client counts, and operational status.
@@ -392,6 +282,47 @@ components:
           items:
             $ref: '#/components/schemas/Radio'
           example: []
+    AccessPointDetail:
+      allOf:
+      - $ref: '#/components/schemas/AccessPoint'
+      - type: object
+        properties:
+          uplink:
+            type: object
+            description: Uplink connection details.
+            properties:
+              ethernet:
+                type: object
+                properties:
+                  port:
+                    type: string
+                  speed:
+                    type: string
+                  duplex:
+                    type: string
+                  poe_power:
+                    type: number
+                    description: PoE power draw in watts.
+          last_modified:
+            type: string
+            format: date-time
+            description: Timestamp of last configuration change.
+    AccessPointListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of access points matching the query.
+          example: 10
+        count:
+          type: integer
+          description: Number of access points returned.
+          example: 10
+        aps:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessPoint'
+          example: []
     ErrorResponse:
       type: object
       properties:
@@ -407,6 +338,75 @@ components:
           type: string
           description: The API service that generated the error.
           example: example_value
+    Radio:
+      type: object
+      description: Radio interface on an access point.
+      properties:
+        index:
+          type: integer
+          description: Radio index (0 or 1).
+          example: 10
+        macaddr:
+          type: string
+          description: MAC address of the radio interface.
+          example: example_value
+        band:
+          type: number
+          description: Operating frequency band in GHz.
+          enum:
+          - 2.4
+          - 5
+          - 6
+          example: 2.4
+        channel:
+          type: string
+          description: Operating channel number.
+          example: example_value
+        power:
+          type: integer
+          description: Transmit power in dBm.
+          example: 10
+        tx_power:
+          type: integer
+          description: Effective transmit power in dBm.
+          example: 10
+        utilization:
+          type: integer
+          description: Channel utilization percentage.
+          minimum: 0
+          maximum: 100
+          example: 10
+        noise_floor:
+          type: integer
+          description: Noise floor in dBm.
+          example: 10
+        status:
+          type: string
+          description: Radio operational status.
+          enum:
+          - Up
+          - Down
+          example: Up
+  parameters:
+    offsetParam:
+      name: offset
+      in: query
+      description: Pagination offset (starting index for results).
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per request.
+      required: false
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 1000
   securitySchemes:
     bearerAuth:
       type: http

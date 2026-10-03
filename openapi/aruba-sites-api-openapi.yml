@@ -247,43 +247,23 @@ components:
           type: number
           format: double
           example: 42.5
-    SiteDeviceAssociation:
-      type: object
-      required:
-      - device_id
-      - device_type
-      properties:
-        device_id:
-          type: array
-          description: List of device serial numbers to associate.
-          items:
-            type: string
-          example: '500123'
-        device_type:
-          type: string
-          description: Type of devices being associated.
-          enum:
-          - IAP
-          - SWITCH
-          - CONTROLLER
-          - GATEWAY
-          example: IAP
-    SiteListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of sites.
-          example: 10
-        count:
-          type: integer
-          description: Number of sites returned.
-          example: 10
-        sites:
-          type: array
-          items:
-            $ref: '#/components/schemas/Site'
-          example: []
+    SiteDetail:
+      allOf:
+      - $ref: '#/components/schemas/Site'
+      - type: object
+        properties:
+          associated_devices:
+            type: array
+            description: Devices associated with this site.
+            items:
+              type: object
+              properties:
+                serial:
+                  type: string
+                device_type:
+                  type: string
+                macaddr:
+                  type: string
     Site:
       type: object
       description: Physical site or location used to geographically organize network devices within Aruba Central.
@@ -338,6 +318,22 @@ components:
           type: integer
           description: Number of devices associated with the site.
           example: 10
+    SiteListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of sites.
+          example: 10
+        count:
+          type: integer
+          description: Number of sites returned.
+          example: 10
+        sites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Site'
+          example: []
     SiteCreate:
       type: object
       required:
@@ -377,23 +373,6 @@ components:
           format: double
           description: Geographic latitude.
           example: 42.5
-    SiteDetail:
-      allOf:
-      - $ref: '#/components/schemas/Site'
-      - type: object
-        properties:
-          associated_devices:
-            type: array
-            description: Devices associated with this site.
-            items:
-              type: object
-              properties:
-                serial:
-                  type: string
-                device_type:
-                  type: string
-                macaddr:
-                  type: string
     ErrorResponse:
       type: object
       properties:
@@ -409,6 +388,27 @@ components:
           type: string
           description: The API service that generated the error.
           example: example_value
+    SiteDeviceAssociation:
+      type: object
+      required:
+      - device_id
+      - device_type
+      properties:
+        device_id:
+          type: array
+          description: List of device serial numbers to associate.
+          items:
+            type: string
+          example: '500123'
+        device_type:
+          type: string
+          description: Type of devices being associated.
+          enum:
+          - IAP
+          - SWITCH
+          - CONTROLLER
+          - GATEWAY
+          example: IAP
   responses:
     Forbidden:
       description: Authorization failed. The authenticated user does not have permission to perform this operation.
@@ -416,14 +416,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request. The request body or parameters are malformed or contain invalid values.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
+    BadRequest:
+      description: Invalid request. The request body or parameters are malformed or contain invalid values.
       content:
         application/json:
           schema:
@@ -435,6 +435,15 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   parameters:
+    offsetParam:
+      name: offset
+      in: query
+      description: Pagination offset (starting index for results).
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
     limitParam:
       name: limit
       in: query
@@ -445,15 +454,6 @@ components:
         default: 20
         minimum: 1
         maximum: 1000
-    offsetParam:
-      name: offset
-      in: query
-      description: Pagination offset (starting index for results).
-      required: false
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
   securitySchemes:
     bearerAuth:
       type: http

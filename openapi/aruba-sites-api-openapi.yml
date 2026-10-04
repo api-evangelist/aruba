@@ -218,35 +218,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    SiteUpdate:
-      type: object
-      properties:
-        site_name:
-          type: string
-          example: example_value
-        address:
-          type: string
-          example: example_value
-        city:
-          type: string
-          example: example_value
-        state:
-          type: string
-          example: example_value
-        country:
-          type: string
-          example: example_value
-        zipcode:
-          type: string
-          example: example_value
-        longitude:
-          type: number
-          format: double
-          example: 42.5
-        latitude:
-          type: number
-          format: double
-          example: 42.5
     SiteDetail:
       allOf:
       - $ref: '#/components/schemas/Site'
@@ -264,60 +235,6 @@ components:
                   type: string
                 macaddr:
                   type: string
-    Site:
-      type: object
-      description: Physical site or location used to geographically organize network devices within Aruba Central.
-      properties:
-        site_id:
-          type: integer
-          format: int64
-          description: Unique identifier for the site.
-          example: '500123'
-        site_name:
-          type: string
-          description: Name of the site.
-          examples:
-          - Headquarters
-        address:
-          type: string
-          description: Street address of the site.
-          example: example_value
-        city:
-          type: string
-          description: City where the site is located.
-          example: example_value
-        state:
-          type: string
-          description: State or province where the site is located.
-          example: example_value
-        country:
-          type: string
-          description: Country where the site is located.
-          example: example_value
-        zipcode:
-          type: string
-          description: Postal code for the site location.
-          example: example_value
-        longitude:
-          type: number
-          format: double
-          description: Geographic longitude coordinate.
-          example: 42.5
-        latitude:
-          type: number
-          format: double
-          description: Geographic latitude coordinate.
-          example: 42.5
-        tags:
-          type: array
-          description: Tags applied to the site.
-          items:
-            type: string
-          example: []
-        associated_device_count:
-          type: integer
-          description: Number of devices associated with the site.
-          example: 10
     SiteListResponse:
       type: object
       properties:
@@ -373,6 +290,35 @@ components:
           format: double
           description: Geographic latitude.
           example: 42.5
+    SiteUpdate:
+      type: object
+      properties:
+        site_name:
+          type: string
+          example: example_value
+        address:
+          type: string
+          example: example_value
+        city:
+          type: string
+          example: example_value
+        state:
+          type: string
+          example: example_value
+        country:
+          type: string
+          example: example_value
+        zipcode:
+          type: string
+          example: example_value
+        longitude:
+          type: number
+          format: double
+          example: 42.5
+        latitude:
+          type: number
+          format: double
+          example: 42.5
     ErrorResponse:
       type: object
       properties:
@@ -409,31 +355,60 @@ components:
           - CONTROLLER
           - GATEWAY
           example: IAP
-  responses:
-    Forbidden:
-      description: Authorization failed. The authenticated user does not have permission to perform this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request. The request body or parameters are malformed or contain invalid values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication failed. The access token is missing, expired, or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    Site:
+      type: object
+      description: Physical site or location used to geographically organize network devices within Aruba Central.
+      properties:
+        site_id:
+          type: integer
+          format: int64
+          description: Unique identifier for the site.
+          example: '500123'
+        site_name:
+          type: string
+          description: Name of the site.
+          examples:
+          - Headquarters
+        address:
+          type: string
+          description: Street address of the site.
+          example: example_value
+        city:
+          type: string
+          description: City where the site is located.
+          example: example_value
+        state:
+          type: string
+          description: State or province where the site is located.
+          example: example_value
+        country:
+          type: string
+          description: Country where the site is located.
+          example: example_value
+        zipcode:
+          type: string
+          description: Postal code for the site location.
+          example: example_value
+        longitude:
+          type: number
+          format: double
+          description: Geographic longitude coordinate.
+          example: 42.5
+        latitude:
+          type: number
+          format: double
+          description: Geographic latitude coordinate.
+          example: 42.5
+        tags:
+          type: array
+          description: Tags applied to the site.
+          items:
+            type: string
+          example: []
+        associated_device_count:
+          type: integer
+          description: Number of devices associated with the site.
+          example: 10
   parameters:
     offsetParam:
       name: offset
@@ -454,6 +429,31 @@ components:
         default: 20
         minimum: 1
         maximum: 1000
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request. The request body or parameters are malformed or contain invalid values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed. The access token is missing, expired, or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

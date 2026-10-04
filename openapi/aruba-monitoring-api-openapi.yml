@@ -276,59 +276,83 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Gateway:
+    Client:
       type: object
-      description: A gateway device managed by Aruba Central providing routing, VPN, and SD-WAN functionality.
+      description: A client device connected to the network.
       properties:
-        serial:
+        macaddr:
           type: string
-          description: Serial number of the gateway.
+          description: MAC address of the client.
           example: example_value
         name:
           type: string
-          description: Name of the gateway.
+          description: Hostname or display name of the client.
           example: Example Title
-        macaddr:
-          type: string
-          description: MAC address of the gateway.
-          example: example_value
-        model:
-          type: string
-          description: Hardware model.
-          example: example_value
-        status:
-          type: string
-          description: Operational status.
-          enum:
-          - Up
-          - Down
-          example: Up
         ip_address:
           type: string
           format: ipv4
-          description: IP address of the gateway.
+          description: IP address assigned to the client.
           example: example_value
-        firmware_version:
+        os_type:
           type: string
-          description: Firmware version.
+          description: Operating system type detected.
+          example: example_value
+        connection:
+          type: string
+          description: Connection type.
+          enum:
+          - Wireless
+          - Wired
+          example: Wireless
+        network:
+          type: string
+          description: SSID or network name the client is connected to.
+          example: example_value
+        band:
+          type: number
+          description: Radio band of the wireless connection.
+          example: 42.5
+        channel:
+          type: string
+          description: Channel number of the wireless connection.
+          example: example_value
+        signal_strength:
+          type: integer
+          description: Signal strength in dBm.
+          example: 10
+        signal_db:
+          type: integer
+          description: Signal-to-noise ratio in dB.
+          example: 10
+        speed:
+          type: integer
+          description: Connection speed in Mbps.
+          example: 10
+        associated_device:
+          type: string
+          description: Serial number of the device the client is connected to.
           example: example_value
         group_name:
           type: string
-          description: Configuration group.
+          description: Group name of the associated device.
           example: example_value
         site:
           type: string
-          description: Site assignment.
+          description: Site name of the associated device.
           example: example_value
-        uptime:
-          type: integer
-          format: int64
-          description: Uptime in seconds.
-          example: 10
-        client_count:
-          type: integer
-          description: Number of connected clients.
-          example: 10
+        usage:
+          type: object
+          description: Data usage statistics.
+          properties:
+            tx_bytes:
+              type: integer
+              format: int64
+              description: Total bytes transmitted to the client.
+            rx_bytes:
+              type: integer
+              format: int64
+              description: Total bytes received from the client.
+          example: example_value
     AccessPoint:
       type: object
       description: Represents an Aruba wireless access point with monitoring data including radio information, client counts, and operational status.
@@ -440,91 +464,6 @@ components:
           items:
             $ref: '#/components/schemas/Radio'
           example: []
-    NetworkListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of networks.
-          example: 10
-        count:
-          type: integer
-          description: Number of networks returned.
-          example: 10
-        networks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Network'
-          example: []
-    AccessPointDetail:
-      allOf:
-      - $ref: '#/components/schemas/AccessPoint'
-      - type: object
-        properties:
-          uplink:
-            type: object
-            description: Uplink connection details.
-            properties:
-              ethernet:
-                type: object
-                properties:
-                  port:
-                    type: string
-                  speed:
-                    type: string
-                  duplex:
-                    type: string
-                  poe_power:
-                    type: number
-                    description: PoE power draw in watts.
-          last_modified:
-            type: string
-            format: date-time
-            description: Timestamp of last configuration change.
-    Network:
-      type: object
-      description: A wireless SSID or wired network managed by Central.
-      properties:
-        essid:
-          type: string
-          description: Extended Service Set Identifier (network name).
-          example: '500123'
-        type:
-          type: string
-          description: Network type.
-          enum:
-          - Employee
-          - Guest
-          - Wired
-          example: Employee
-        client_count:
-          type: integer
-          description: Number of connected clients.
-          example: 10
-        group_name:
-          type: string
-          description: Configuration group the network belongs to.
-          example: example_value
-        site:
-          type: string
-          description: Site assignment.
-          example: example_value
-    GatewayListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of gateways.
-          example: 10
-        count:
-          type: integer
-          description: Number of gateways returned.
-          example: 10
-        gateways:
-          type: array
-          items:
-            $ref: '#/components/schemas/Gateway'
-          example: []
     ClientListResponse:
       type: object
       properties:
@@ -541,114 +480,6 @@ components:
           items:
             $ref: '#/components/schemas/Client'
           example: []
-    Client:
-      type: object
-      description: A client device connected to the network.
-      properties:
-        macaddr:
-          type: string
-          description: MAC address of the client.
-          example: example_value
-        name:
-          type: string
-          description: Hostname or display name of the client.
-          example: Example Title
-        ip_address:
-          type: string
-          format: ipv4
-          description: IP address assigned to the client.
-          example: example_value
-        os_type:
-          type: string
-          description: Operating system type detected.
-          example: example_value
-        connection:
-          type: string
-          description: Connection type.
-          enum:
-          - Wireless
-          - Wired
-          example: Wireless
-        network:
-          type: string
-          description: SSID or network name the client is connected to.
-          example: example_value
-        band:
-          type: number
-          description: Radio band of the wireless connection.
-          example: 42.5
-        channel:
-          type: string
-          description: Channel number of the wireless connection.
-          example: example_value
-        signal_strength:
-          type: integer
-          description: Signal strength in dBm.
-          example: 10
-        signal_db:
-          type: integer
-          description: Signal-to-noise ratio in dB.
-          example: 10
-        speed:
-          type: integer
-          description: Connection speed in Mbps.
-          example: 10
-        associated_device:
-          type: string
-          description: Serial number of the device the client is connected to.
-          example: example_value
-        group_name:
-          type: string
-          description: Group name of the associated device.
-          example: example_value
-        site:
-          type: string
-          description: Site name of the associated device.
-          example: example_value
-        usage:
-          type: object
-          description: Data usage statistics.
-          properties:
-            tx_bytes:
-              type: integer
-              format: int64
-              description: Total bytes transmitted to the client.
-            rx_bytes:
-              type: integer
-              format: int64
-              description: Total bytes received from the client.
-          example: example_value
-    AccessPointListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of access points matching the query.
-          example: 10
-        count:
-          type: integer
-          description: Number of access points returned.
-          example: 10
-        aps:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccessPoint'
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Human-readable error message.
-          example: A sample description.
-        error_code:
-          type: string
-          description: Machine-readable error code.
-          example: example_value
-        service_name:
-          type: string
-          description: The API service that generated the error.
-          example: example_value
     Radio:
       type: object
       description: Radio interface on an access point.
@@ -698,6 +529,175 @@ components:
           - Up
           - Down
           example: Up
+    AccessPointListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of access points matching the query.
+          example: 10
+        count:
+          type: integer
+          description: Number of access points returned.
+          example: 10
+        aps:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessPoint'
+          example: []
+    Network:
+      type: object
+      description: A wireless SSID or wired network managed by Central.
+      properties:
+        essid:
+          type: string
+          description: Extended Service Set Identifier (network name).
+          example: '500123'
+        type:
+          type: string
+          description: Network type.
+          enum:
+          - Employee
+          - Guest
+          - Wired
+          example: Employee
+        client_count:
+          type: integer
+          description: Number of connected clients.
+          example: 10
+        group_name:
+          type: string
+          description: Configuration group the network belongs to.
+          example: example_value
+        site:
+          type: string
+          description: Site assignment.
+          example: example_value
+    GatewayListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of gateways.
+          example: 10
+        count:
+          type: integer
+          description: Number of gateways returned.
+          example: 10
+        gateways:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gateway'
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Human-readable error message.
+          example: A sample description.
+        error_code:
+          type: string
+          description: Machine-readable error code.
+          example: example_value
+        service_name:
+          type: string
+          description: The API service that generated the error.
+          example: example_value
+    NetworkListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of networks.
+          example: 10
+        count:
+          type: integer
+          description: Number of networks returned.
+          example: 10
+        networks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Network'
+          example: []
+    AccessPointDetail:
+      allOf:
+      - $ref: '#/components/schemas/AccessPoint'
+      - type: object
+        properties:
+          uplink:
+            type: object
+            description: Uplink connection details.
+            properties:
+              ethernet:
+                type: object
+                properties:
+                  port:
+                    type: string
+                  speed:
+                    type: string
+                  duplex:
+                    type: string
+                  poe_power:
+                    type: number
+                    description: PoE power draw in watts.
+          last_modified:
+            type: string
+            format: date-time
+            description: Timestamp of last configuration change.
+    Gateway:
+      type: object
+      description: A gateway device managed by Aruba Central providing routing, VPN, and SD-WAN functionality.
+      properties:
+        serial:
+          type: string
+          description: Serial number of the gateway.
+          example: example_value
+        name:
+          type: string
+          description: Name of the gateway.
+          example: Example Title
+        macaddr:
+          type: string
+          description: MAC address of the gateway.
+          example: example_value
+        model:
+          type: string
+          description: Hardware model.
+          example: example_value
+        status:
+          type: string
+          description: Operational status.
+          enum:
+          - Up
+          - Down
+          example: Up
+        ip_address:
+          type: string
+          format: ipv4
+          description: IP address of the gateway.
+          example: example_value
+        firmware_version:
+          type: string
+          description: Firmware version.
+          example: example_value
+        group_name:
+          type: string
+          description: Configuration group.
+          example: example_value
+        site:
+          type: string
+          description: Site assignment.
+          example: example_value
+        uptime:
+          type: integer
+          format: int64
+          description: Uptime in seconds.
+          example: 10
+        client_count:
+          type: integer
+          description: Number of connected clients.
+          example: 10
   responses:
     RateLimited:
       description: Rate limit exceeded. The API Gateway enforces rate limits per client ID. Retry after the interval specified in the Retry-After header.
@@ -710,14 +710,14 @@ components:
           description: Number of seconds to wait before retrying.
           schema:
             type: integer
-    Forbidden:
-      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
       content:
         application/json:
           schema:

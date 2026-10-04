@@ -172,6 +172,26 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    offsetParam:
+      name: offset
+      in: query
+      description: Pagination offset (starting index for results).
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    limitParam:
+      name: limit
+      in: query
+      description: Maximum number of results to return per request.
+      required: false
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 1000
   schemas:
     GroupDetail:
       type: object
@@ -210,19 +230,6 @@ components:
                 - AOS_S
                 - AOS_CX
           example: example_value
-    Group:
-      type: object
-      description: Configuration group for organizing devices and applying shared configuration templates, firmware policies, and settings.
-      properties:
-        group:
-          type: string
-          description: Name of the group.
-          examples:
-          - default
-        group_properties:
-          type: object
-          description: Group-level configuration properties.
-          example: example_value
     GroupListResponse:
       type: object
       properties:
@@ -239,12 +246,20 @@ components:
           items:
             $ref: '#/components/schemas/GroupDetail'
           example: []
-    GroupUpdate:
+    ErrorResponse:
       type: object
       properties:
-        group_attributes:
-          type: object
-          description: Configuration attributes to update.
+        description:
+          type: string
+          description: Human-readable error message.
+          example: A sample description.
+        error_code:
+          type: string
+          description: Machine-readable error code.
+          example: example_value
+        service_name:
+          type: string
+          description: The API service that generated the error.
           example: example_value
     GroupCreate:
       type: object
@@ -271,30 +286,29 @@ components:
                 Wireless:
                   type: boolean
           example: example_value
-    ErrorResponse:
+    GroupUpdate:
       type: object
       properties:
-        description:
-          type: string
-          description: Human-readable error message.
-          example: A sample description.
-        error_code:
-          type: string
-          description: Machine-readable error code.
+        group_attributes:
+          type: object
+          description: Configuration attributes to update.
           example: example_value
-        service_name:
+    Group:
+      type: object
+      description: Configuration group for organizing devices and applying shared configuration templates, firmware policies, and settings.
+      properties:
+        group:
           type: string
-          description: The API service that generated the error.
+          description: Name of the group.
+          examples:
+          - default
+        group_properties:
+          type: object
+          description: Group-level configuration properties.
           example: example_value
   responses:
     NotFound:
       description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: Authorization failed. The authenticated user does not have permission to perform this operation.
       content:
         application/json:
           schema:
@@ -305,32 +319,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication failed. The access token is missing, expired, or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    offsetParam:
-      name: offset
-      in: query
-      description: Pagination offset (starting index for results).
-      required: false
-      schema:
-        type: integer
-        default: 0
-        minimum: 0
-    limitParam:
-      name: limit
-      in: query
-      description: Maximum number of results to return per request.
-      required: false
-      schema:
-        type: integer
-        default: 20
-        minimum: 1
-        maximum: 1000
   securitySchemes:
     bearerAuth:
       type: http

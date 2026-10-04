@@ -152,14 +152,14 @@ components:
           description: Number of seconds to wait before retrying.
           schema:
             type: integer
-    Forbidden:
-      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
       content:
         application/json:
           schema:
@@ -282,62 +282,6 @@ components:
           items:
             $ref: '#/components/schemas/Radio'
           example: []
-    AccessPointDetail:
-      allOf:
-      - $ref: '#/components/schemas/AccessPoint'
-      - type: object
-        properties:
-          uplink:
-            type: object
-            description: Uplink connection details.
-            properties:
-              ethernet:
-                type: object
-                properties:
-                  port:
-                    type: string
-                  speed:
-                    type: string
-                  duplex:
-                    type: string
-                  poe_power:
-                    type: number
-                    description: PoE power draw in watts.
-          last_modified:
-            type: string
-            format: date-time
-            description: Timestamp of last configuration change.
-    AccessPointListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of access points matching the query.
-          example: 10
-        count:
-          type: integer
-          description: Number of access points returned.
-          example: 10
-        aps:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccessPoint'
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Human-readable error message.
-          example: A sample description.
-        error_code:
-          type: string
-          description: Machine-readable error code.
-          example: example_value
-        service_name:
-          type: string
-          description: The API service that generated the error.
-          example: example_value
     Radio:
       type: object
       description: Radio interface on an access point.
@@ -387,6 +331,62 @@ components:
           - Up
           - Down
           example: Up
+    AccessPointListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of access points matching the query.
+          example: 10
+        count:
+          type: integer
+          description: Number of access points returned.
+          example: 10
+        aps:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessPoint'
+          example: []
+    ErrorResponse:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Human-readable error message.
+          example: A sample description.
+        error_code:
+          type: string
+          description: Machine-readable error code.
+          example: example_value
+        service_name:
+          type: string
+          description: The API service that generated the error.
+          example: example_value
+    AccessPointDetail:
+      allOf:
+      - $ref: '#/components/schemas/AccessPoint'
+      - type: object
+        properties:
+          uplink:
+            type: object
+            description: Uplink connection details.
+            properties:
+              ethernet:
+                type: object
+                properties:
+                  port:
+                    type: string
+                  speed:
+                    type: string
+                  duplex:
+                    type: string
+                  poe_power:
+                    type: number
+                    description: PoE power draw in watts.
+          last_modified:
+            type: string
+            format: date-time
+            description: Timestamp of last configuration change.
   parameters:
     offsetParam:
       name: offset

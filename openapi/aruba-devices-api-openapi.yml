@@ -179,42 +179,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    RateLimited:
-      description: Rate limit exceeded. The API Gateway enforces rate limits per client ID. Retry after the interval specified in the Retry-After header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-      headers:
-        Retry-After:
-          description: Number of seconds to wait before retrying.
-          schema:
-            type: integer
-    Forbidden:
-      description: Authorization failed. The authenticated user does not have permission to perform this operation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request. The request body or parameters are malformed or contain invalid values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication failed. The access token is missing, expired, or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     Device:
       type: object
@@ -289,6 +253,22 @@ components:
           type: string
           description: Customer name associated with the device.
           example: example_value
+    DeviceListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of devices matching the query.
+          example: 10
+        count:
+          type: integer
+          description: Number of devices returned in this response.
+          example: 10
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
+          example: []
     ErrorResponse:
       type: object
       properties:
@@ -325,22 +305,42 @@ components:
           - CONTROLLER
           - GATEWAY
           example: IAP
-    DeviceListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of devices matching the query.
-          example: 10
-        count:
-          type: integer
-          description: Number of devices returned in this response.
-          example: 10
-        devices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Device'
-          example: []
+  responses:
+    RateLimited:
+      description: Rate limit exceeded. The API Gateway enforces rate limits per client ID. Retry after the interval specified in the Retry-After header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      headers:
+        Retry-After:
+          description: Number of seconds to wait before retrying.
+          schema:
+            type: integer
+    BadRequest:
+      description: Invalid request. The request body or parameters are malformed or contain invalid values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Authorization failed. The authenticated user does not have permission to perform this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed. The access token is missing, expired, or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     offsetParam:
       name: offset

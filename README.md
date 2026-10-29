@@ -1,4 +1,4 @@
-# Aruba (aruba)
+# Aruba
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,194 +66,244 @@
 
 APIs for HPE Aruba Networking cloud networking, security, and infrastructure solutions including Central, AOS-CX, ClearPass, EdgeConnect SD-WAN, Fabric Composer, and User Experience Insight.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/aruba/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/aruba/refs/heads/main/apis.yml)
+**Areas:** Cloud · Infrastructure · Network Management · Networking · SD-WAN · Security · Switches · Wireless
 
-## Tags
+## Aruba on APIs.io
 
-- Cloud
-- Infrastructure
-- Network Management
-- Networking
-- SD-WAN
-- Security
-- Switches
-- Wireless
+Everything profiled for Aruba is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/aruba/](https://apis.io/providers/aruba/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (11)
 
-- **Created:** 2024-01-01
-- **Modified:** 2026-05-19
+- [Aruba ClearPass API](https://apis.io/apis/aruba/aruba-clearpass-api/) — REST API for ClearPass Policy Manager providing role- and device-based secure network access control for IoT, BYOD, corporate devices, as well as employees,…
+- [Aruba AOS-CX REST API](https://apis.io/apis/aruba/aruba-aos-cx-rest-api/) — REST API for AOS-CX switches providing full programmability of switches running the AOS-CX operating system. Supports HTTPS POST, GET, PUT, PATCH, and…
+- [Aruba EdgeConnect SD-WAN API](https://apis.io/apis/aruba/aruba-edgeconnect-sd-wan-api/) — REST API for HPE Aruba Networking EdgeConnect SD-WAN providing programmatic access to Orchestrator and EdgeConnect appliance management, monitoring, and…
+- [Aruba Fabric Composer API](https://apis.io/apis/aruba/aruba-fabric-composer-api/) — REST API for HPE Aruba Networking Fabric Composer, an intelligent software-defined orchestration solution that simplifies and accelerates leaf-spine network…
+- [Aruba User Experience Insight API](https://apis.io/apis/aruba/aruba-user-experience-insight-api/) — API for HPE Aruba Networking User Experience Insight (UXI) providing programmatic access to onboarding tasks such as creating, modifying, or removing groups…
+- [Aruba AirWave API](https://apis.io/apis/aruba/aruba-airwave-api/) — API for AirWave network management platform.
+- [Aruba Access Points API](https://apis.io/apis/aruba/aruba-access-points-api/) — Access point monitoring and management including status, statistics, RF information, and client connectivity.
+- [Aruba Devices API](https://apis.io/apis/aruba/aruba-devices-api/) — Device inventory management including listing, searching, and managing devices across the Aruba Central platform.
+- [Aruba Groups API](https://apis.io/apis/aruba/aruba-groups-api/) — Configuration group management for organizing devices, applying templates, and managing group-level settings.
+- [Aruba Monitoring API](https://apis.io/apis/aruba/aruba-monitoring-api/) — Network-wide monitoring for clients, networks, gateways, and overall network health metrics.
+- [Aruba Sites API](https://apis.io/apis/aruba/aruba-sites-api/) — Site and location management for organizing network infrastructure by physical location.
 
-## APIs
+### Published properties
 
-### Aruba Central API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-RESTful API for managing Aruba Central cloud networking platform, providing unified network management, AI-based analytics, and IoT device security for wired, wireless, and SD-WAN networks. APIs follow the Swagger 2.0 (OpenAPI 2.0) specification.
+#### Agentic access (1)
 
-- **Human URL:** [https://developer.arubanetworks.com/central/](https://developer.arubanetworks.com/central/)
-- **Base URL:** `https://apigw-prod2.central.arubanetworks.com`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Aruba Agentic Access](https://apis.io/agentic-access/aruba/aruba-agentic-access/)
 
-- Analytics
-- Cloud Management
-- Monitoring
-- Network Automation
+#### JSON Schema (48)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://developer.arubanetworks.com/central/docs)
-- [OpenAPI](openapi/aruba-central-api.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/aruba-central-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/aruba-central-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [OpenAPI](https://developer.arubanetworks.com/central/reference) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Authentication](https://developer.arubanetworks.com/central/docs/api-oauth-access-token)
-- [Getting Started](https://developer.arubanetworks.com/central/docs/rest-api-getting-started)
-- [SDK](https://github.com/aruba/pycentral)
+- [AccessPoint](https://apis.io/schemas/aruba/aruba-accesspoint/)
+- [AccessPointDetail](https://apis.io/schemas/aruba/aruba-accesspointdetail/)
+- [AccessPointListResponse](https://apis.io/schemas/aruba/aruba-accesspointlistresponse/)
+- [AccessPoint](https://apis.io/schemas/aruba/aruba-central-access-point/)
+- [AccessPointDetail](https://apis.io/schemas/aruba/aruba-central-access-point-detail/)
+- [AccessPointListResponse](https://apis.io/schemas/aruba/aruba-central-access-point-list-response/)
+- [Client](https://apis.io/schemas/aruba/aruba-central-client/)
+- [ClientListResponse](https://apis.io/schemas/aruba/aruba-central-client-list-response/)
+- [Device](https://apis.io/schemas/aruba/aruba-central-device/)
+- [DeviceListResponse](https://apis.io/schemas/aruba/aruba-central-device-list-response/)
+- [ErrorResponse](https://apis.io/schemas/aruba/aruba-central-error-response/)
+- [Gateway](https://apis.io/schemas/aruba/aruba-central-gateway/)
+- [GatewayListResponse](https://apis.io/schemas/aruba/aruba-central-gateway-list-response/)
+- [Group](https://apis.io/schemas/aruba/aruba-central-group/)
+- [GroupCreate](https://apis.io/schemas/aruba/aruba-central-group-create/)
+- [GroupDetail](https://apis.io/schemas/aruba/aruba-central-group-detail/)
+- [GroupListResponse](https://apis.io/schemas/aruba/aruba-central-group-list-response/)
+- [GroupUpdate](https://apis.io/schemas/aruba/aruba-central-group-update/)
+- [Network](https://apis.io/schemas/aruba/aruba-central-network/)
+- [NetworkListResponse](https://apis.io/schemas/aruba/aruba-central-network-list-response/)
+- [Radio](https://apis.io/schemas/aruba/aruba-central-radio/)
+- [Site](https://apis.io/schemas/aruba/aruba-central-site/)
+- [SiteCreate](https://apis.io/schemas/aruba/aruba-central-site-create/)
+- [SiteDetail](https://apis.io/schemas/aruba/aruba-central-site-detail/)
+- [SiteDeviceAssociation](https://apis.io/schemas/aruba/aruba-central-site-device-association/)
+- …and 23 more published on APIs.io
 
-### Aruba ClearPass API
+#### JSON Structure (25)
 
-REST API for ClearPass Policy Manager providing role- and device-based secure network access control for IoT, BYOD, corporate devices, as well as employees, contractors, and guests across any multivendor wired, wireless, and VPN infrastructure.
+Data models expressed in JSON Structure.
 
-- **Human URL:** [https://developer.arubanetworks.com/cppm/](https://developer.arubanetworks.com/cppm/)
-- **Base URL:** `https://clearpass.example.com/api`
+- [Aruba Central Access Point Detail Structure](https://apis.io/json-structure/aruba/aruba-central-access-point-detail-structure/)
+- [Aruba Central Access Point List Response Structure](https://apis.io/json-structure/aruba/aruba-central-access-point-list-response-structure/)
+- [Aruba Central Access Point Structure](https://apis.io/json-structure/aruba/aruba-central-access-point-structure/)
+- [Aruba Central Client List Response Structure](https://apis.io/json-structure/aruba/aruba-central-client-list-response-structure/)
+- [Aruba Central Client Structure](https://apis.io/json-structure/aruba/aruba-central-client-structure/)
+- [Aruba Central Device List Response Structure](https://apis.io/json-structure/aruba/aruba-central-device-list-response-structure/)
+- [Aruba Central Device Structure](https://apis.io/json-structure/aruba/aruba-central-device-structure/)
+- [Aruba Central Error Response Structure](https://apis.io/json-structure/aruba/aruba-central-error-response-structure/)
+- [Aruba Central Gateway List Response Structure](https://apis.io/json-structure/aruba/aruba-central-gateway-list-response-structure/)
+- [Aruba Central Gateway Structure](https://apis.io/json-structure/aruba/aruba-central-gateway-structure/)
+- [Aruba Central Group Create Structure](https://apis.io/json-structure/aruba/aruba-central-group-create-structure/)
+- [Aruba Central Group Detail Structure](https://apis.io/json-structure/aruba/aruba-central-group-detail-structure/)
+- [Aruba Central Group List Response Structure](https://apis.io/json-structure/aruba/aruba-central-group-list-response-structure/)
+- [Aruba Central Group Structure](https://apis.io/json-structure/aruba/aruba-central-group-structure/)
+- [Aruba Central Group Update Structure](https://apis.io/json-structure/aruba/aruba-central-group-update-structure/)
+- [Aruba Central Network List Response Structure](https://apis.io/json-structure/aruba/aruba-central-network-list-response-structure/)
+- [Aruba Central Network Structure](https://apis.io/json-structure/aruba/aruba-central-network-structure/)
+- [Aruba Central Radio Structure](https://apis.io/json-structure/aruba/aruba-central-radio-structure/)
+- [Aruba Central Site Create Structure](https://apis.io/json-structure/aruba/aruba-central-site-create-structure/)
+- [Aruba Central Site Detail Structure](https://apis.io/json-structure/aruba/aruba-central-site-detail-structure/)
+- [Aruba Central Site Device Association Structure](https://apis.io/json-structure/aruba/aruba-central-site-device-association-structure/)
+- [Aruba Central Site List Response Structure](https://apis.io/json-structure/aruba/aruba-central-site-list-response-structure/)
+- [Aruba Central Site Structure](https://apis.io/json-structure/aruba/aruba-central-site-structure/)
+- [Aruba Central Site Update Structure](https://apis.io/json-structure/aruba/aruba-central-site-update-structure/)
+- [Aruba Structure](https://apis.io/json-structure/aruba/aruba-structure/)
 
-#### Tags
+#### JSON-LD (2)
 
-- Authentication
-- Authorization
-- Network Access Control
-- Policy Management
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Aruba Central Context](https://apis.io/jsonld/aruba/aruba-central-context/)
+- [Aruba Context](https://apis.io/jsonld/aruba/aruba-context/)
 
-- [Documentation](https://developer.arubanetworks.com/cppm/docs)
-- [API Reference](https://developer.arubanetworks.com/cppm/reference)
-- [Getting Started](https://developer.arubanetworks.com/cppm/docs/getting-started-with-the-clearpass-policy-manager-api)
-- [SDK](https://github.com/aruba/pyclearpass)
-- [Postman Collection](collections/aruba-central-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/aruba-central-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Vocabulary (1)
 
-### Aruba AOS-CX REST API
+The provider's domain terms, defined.
 
-REST API for AOS-CX switches providing full programmability of switches running the AOS-CX operating system. Supports HTTPS POST, GET, PUT, PATCH, and DELETE methods and includes a built-in Swagger UI for API reference and testing.
+- [Aruba Domain Vocabulary](https://apis.io/vocabularies/aruba/aruba-vocabulary/)
 
-- **Human URL:** [https://developer.arubanetworks.com/aoscx/](https://developer.arubanetworks.com/aoscx/)
+#### Examples (24)
 
-#### Tags
+Example requests and responses.
 
-- Infrastructure
-- Network Automation
-- Programmability
-- Switches
+- [Aruba Central Access Point Detail Example](https://apis.io/examples/aruba/aruba-central-access-point-detail-example/)
+- [Aruba Central Access Point Example](https://apis.io/examples/aruba/aruba-central-access-point-example/)
+- [Aruba Central Access Point List Response Example](https://apis.io/examples/aruba/aruba-central-access-point-list-response-example/)
+- [Aruba Central Client Example](https://apis.io/examples/aruba/aruba-central-client-example/)
+- [Aruba Central Client List Response Example](https://apis.io/examples/aruba/aruba-central-client-list-response-example/)
+- [Aruba Central Device Example](https://apis.io/examples/aruba/aruba-central-device-example/)
+- [Aruba Central Device List Response Example](https://apis.io/examples/aruba/aruba-central-device-list-response-example/)
+- [Aruba Central Error Response Example](https://apis.io/examples/aruba/aruba-central-error-response-example/)
+- [Aruba Central Gateway Example](https://apis.io/examples/aruba/aruba-central-gateway-example/)
+- [Aruba Central Gateway List Response Example](https://apis.io/examples/aruba/aruba-central-gateway-list-response-example/)
+- [Aruba Central Group Create Example](https://apis.io/examples/aruba/aruba-central-group-create-example/)
+- [Aruba Central Group Detail Example](https://apis.io/examples/aruba/aruba-central-group-detail-example/)
+- [Aruba Central Group Example](https://apis.io/examples/aruba/aruba-central-group-example/)
+- [Aruba Central Group List Response Example](https://apis.io/examples/aruba/aruba-central-group-list-response-example/)
+- [Aruba Central Group Update Example](https://apis.io/examples/aruba/aruba-central-group-update-example/)
+- [Aruba Central Network Example](https://apis.io/examples/aruba/aruba-central-network-example/)
+- [Aruba Central Network List Response Example](https://apis.io/examples/aruba/aruba-central-network-list-response-example/)
+- [Aruba Central Radio Example](https://apis.io/examples/aruba/aruba-central-radio-example/)
+- [Aruba Central Site Create Example](https://apis.io/examples/aruba/aruba-central-site-create-example/)
+- [Aruba Central Site Detail Example](https://apis.io/examples/aruba/aruba-central-site-detail-example/)
+- [Aruba Central Site Device Association Example](https://apis.io/examples/aruba/aruba-central-site-device-association-example/)
+- [Aruba Central Site Example](https://apis.io/examples/aruba/aruba-central-site-example/)
+- [Aruba Central Site List Response Example](https://apis.io/examples/aruba/aruba-central-site-list-response-example/)
+- [Aruba Central Site Update Example](https://apis.io/examples/aruba/aruba-central-site-update-example/)
 
-#### Properties
+#### Collections (6)
 
-- [Documentation](https://developer.arubanetworks.com/aoscx/docs/introduction)
-- [API Reference](https://developer.arubanetworks.com/aoscx/docs/additional-resources-1)
-- [SDK](https://github.com/aruba/pyaoscx)
-- [Postman Collection](collections/aruba-central-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/aruba-central-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Aruba EdgeConnect SD-WAN API
+- [Aruba Central Access Points API](https://apis.io/collections/aruba/open-aruba-access-points-api/)
+- [Aruba Central API](https://apis.io/collections/aruba/open-aruba-central-api/)
+- [Aruba Central Access Points Devices API](https://apis.io/collections/aruba/open-aruba-devices-api/)
+- [Aruba Central Access Points Groups API](https://apis.io/collections/aruba/open-aruba-groups-api/)
+- [Aruba Central Access Points Monitoring API](https://apis.io/collections/aruba/open-aruba-monitoring-api/)
+- [Aruba Central Access Points Sites API](https://apis.io/collections/aruba/open-aruba-sites-api/)
 
-REST API for HPE Aruba Networking EdgeConnect SD-WAN providing programmatic access to Orchestrator and EdgeConnect appliance management, monitoring, and configuration. APIs are available at both the Orchestrator level and the Appliance level.
+#### Governance rules (2)
 
-- **Human URL:** [https://developer.arubanetworks.com/edgeconnect/](https://developer.arubanetworks.com/edgeconnect/)
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [Aruba — jsonschema rules](https://apis.io/rules/aruba/aruba-jsonschema-spectral-rules/)
+- [Aruba API Rules](https://apis.io/rules/aruba/aruba-spectral-rules/)
 
-- Edge Networking
-- Orchestrator
-- SD-WAN
-- WAN Optimization
+#### Security (2)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://developer.arubanetworks.com/edgeconnect/docs/intro)
-- [Getting Started](https://developer.arubanetworks.com/edgeconnect/docs/whats-new)
-- [Postman Collection](collections/aruba-central-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/aruba-central-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Aruba Authentication](https://apis.io/security/aruba/aruba-authentication/)
+- [Aruba Domain Security](https://apis.io/security/aruba/aruba-domain-security/)
 
-### Aruba Fabric Composer API
+#### Plans and pricing (1)
 
-REST API for HPE Aruba Networking Fabric Composer, an intelligent software-defined orchestration solution that simplifies and accelerates leaf-spine network provisioning and day-to-day operations across rack-scale compute and storage infrastructure.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://developer.arubanetworks.com/afc/](https://developer.arubanetworks.com/afc/)
+- [Aruba Plans Pricing](https://apis.io/plans/aruba/aruba-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- Data Center
-- Fabric
-- Leaf-Spine
-- Orchestration
+Published request limits.
 
-#### Properties
+- [Aruba Rate Limits](https://apis.io/rate-limits/aruba/aruba-rate-limits/)
 
-- [Documentation](https://developer.arubanetworks.com/afc/docs/about)
-- [Getting Started](https://developer.arubanetworks.com/afc/docs/getting-started-with-the-afc-api)
-- [API Reference](https://developer.arubanetworks.com/aruba-fabric-composer/reference/getping)
-- [Postman Collection](collections/aruba-central-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/aruba-central-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### FinOps (1)
 
-### Aruba User Experience Insight API
+What the API costs to run, by operation.
 
-API for HPE Aruba Networking User Experience Insight (UXI) providing programmatic access to onboarding tasks such as creating, modifying, or removing groups and assigning sensors, agents, networks, and service tests to groups.
+- [Aruba Finops](https://apis.io/finops/aruba/aruba-finops/)
 
-- **Human URL:** [https://developer.arubanetworks.com/uxi/](https://developer.arubanetworks.com/uxi/)
+## Where to find this API
 
-#### Tags
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- Monitoring
-- Network Testing
-- Sensors
-- User Experience
-
-#### Properties
-
-- [Documentation](https://developer.arubanetworks.com/uxi/docs/user-experience-insight-overview)
-- [Getting Started](https://developer.arubanetworks.com/uxi/docs/getting-started-with-onboarding-api)
-- [Authentication](https://developer.arubanetworks.com/uxi/docs/generating-managing-access-token)
-- [SDK](https://developer.arubanetworks.com/uxi/docs/installing-python-package)
-- [Postman Collection](collections/aruba-central-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/aruba-central-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Aruba AirWave API
-
-API for AirWave network management platform.
-
-- **Human URL:** [https://www.arubanetworks.com/products/network-management-operations/airwave/](https://www.arubanetworks.com/products/network-management-operations/airwave/)
-- **Base URL:** `https://airwave.example.com/api`
-
-#### Tags
-
-- Monitoring
-- Network Management
-- Reporting
-
-#### Properties
-
-- [Documentation](https://support.hpe.com/techhub/eginfolib/airwave/)
-- [Postman Collection](collections/aruba-central-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/aruba-central-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/aruba-a-hewlett-packard-enterprise-company)
-- [Developer Portal](https://developer.arubanetworks.com)
-- [Hub](https://devhub.arubanetworks.com)
-- [GitHub Organization](https://github.com/aruba)
-- [Blog](https://blogs.arubanetworks.com/)
+- [Website](https://arubanetworks.com)
 - [Support](https://www.arubanetworks.com/support-services/)
-- [Terms of Service](https://www.arubanetworks.com/company/legal/)
-- [Privacy Policy](https://www.arubanetworks.com/company/legal/privacy-policy/)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [L L Ms Txt](https://developer.arubanetworks.com/llms.txt)
+- [Blog](https://blogs.arubanetworks.com/)
+- [Terms of service](https://www.arubanetworks.com/company/legal/)
+- [Privacy policy](https://www.arubanetworks.com/company/legal/privacy-policy/)
+- [GitHub](https://github.com/aruba)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 42.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 55.4 |
+| Contract quality | 59.7 |
+| Contract governance | 13.6 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 65.5 |
+| Access clarity | 26.3 |
+
+**Agent readiness 26.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/aruba/](https://apis.io/providers/aruba/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Aruba: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/aruba/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
